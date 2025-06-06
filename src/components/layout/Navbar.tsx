@@ -8,6 +8,7 @@ import { useCartStore } from '@/store/cartStore';
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
   const { user, logout } = useAuthStore();
   const { items } = useCartStore();
@@ -16,29 +17,38 @@ export function Navbar() {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      // Navigate to catalog with search query
+      console.log('Searching for:', searchQuery);
+      // TODO: Implement search functionality
+    }
+  };
+
   return (
     <nav className="bg-white/95 backdrop-blur-sm border-b border-orange-100 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-warm rounded-xl flex items-center justify-center shadow-md">
-              <span className="text-white font-bold text-lg">P</span>
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-warm rounded-xl flex items-center justify-center shadow-md">
+              <span className="text-white font-bold text-sm sm:text-lg">P</span>
             </div>
             <div className="hidden sm:block">
-              <span className="text-xl font-bold text-gradient">Pallette n' Drapes</span>
+              <span className="text-lg sm:text-xl font-bold text-gradient">Pallette n' Drapes</span>
               <div className="flex items-center text-xs text-gray-500 mt-0.5">
                 <MapPin className="w-3 h-3 mr-1" />
                 <span>Lagos, Nigeria</span>
               </div>
             </div>
             <div className="sm:hidden">
-              <span className="text-lg font-bold text-gradient">P&D</span>
+              <span className="text-base font-bold text-gradient">P&D</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
             <Link 
               to="/catalog" 
               className={`text-sm font-medium transition-colors hover:text-primary px-3 py-2 rounded-lg ${
@@ -47,23 +57,25 @@ export function Navbar() {
             >
               Menu
             </Link>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <form onSubmit={handleSearch} className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
               <input
                 type="text"
                 placeholder="Search foods..."
-                className="pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary w-64 text-sm bg-white/80 backdrop-blur-sm"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary w-48 lg:w-64 text-sm bg-white/80 backdrop-blur-sm transition-all duration-200"
               />
-            </div>
+            </form>
           </div>
 
           {/* Right Side */}
-          <div className="flex items-center space-x-2 sm:space-x-4">
+          <div className="flex items-center space-x-1 sm:space-x-2">
             {/* Cart */}
-            <Link to="/cart" className="relative p-2.5 hover:bg-orange-50 rounded-xl transition-colors">
+            <Link to="/cart" className="relative p-2 sm:p-2.5 hover:bg-orange-50 rounded-xl transition-colors touch-target">
               <ShoppingCart className="w-5 h-5 text-gray-600" />
               {cartItemsCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold shadow-md">
+                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold shadow-md animate-pulse">
                   {cartItemsCount}
                 </span>
               )}
@@ -71,24 +83,24 @@ export function Navbar() {
 
             {/* User Menu */}
             {user ? (
-              <div className="hidden md:flex items-center space-x-3">
+              <div className="hidden md:flex items-center space-x-2 lg:space-x-3">
                 <Link to="/dashboard">
-                  <Button variant="ghost" size="sm" className="flex items-center space-x-2 h-10 px-4 rounded-xl">
+                  <Button variant="ghost" size="sm" className="flex items-center space-x-2 h-10 px-3 lg:px-4 rounded-xl touch-target">
                     <User className="w-4 h-4" />
-                    <span className="font-medium">{user.firstName}</span>
+                    <span className="font-medium hidden lg:inline">{user.firstName}</span>
                   </Button>
                 </Link>
-                <Button variant="outline" size="sm" onClick={logout} className="h-10 px-4 rounded-xl border-2">
+                <Button variant="outline" size="sm" onClick={logout} className="h-10 px-3 lg:px-4 rounded-xl border-2 touch-target">
                   Logout
                 </Button>
               </div>
             ) : (
               <div className="hidden md:flex items-center space-x-2">
                 <Link to="/login">
-                  <Button variant="ghost" size="sm" className="h-10 px-4 rounded-xl">Login</Button>
+                  <Button variant="ghost" size="sm" className="h-10 px-3 lg:px-4 rounded-xl touch-target text-sm">Login</Button>
                 </Link>
                 <Link to="/signup">
-                  <Button size="sm" className="h-10 px-4 rounded-xl bg-gradient-warm shadow-md">Sign Up</Button>
+                  <Button size="sm" className="h-10 px-3 lg:px-4 rounded-xl bg-gradient-warm shadow-md touch-target text-sm">Sign Up</Button>
                 </Link>
               </div>
             )}
@@ -97,7 +109,7 @@ export function Navbar() {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="md:hidden h-10 w-10 rounded-xl"
+              className="md:hidden h-10 w-10 rounded-xl touch-target"
               onClick={toggleMenu}
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -107,21 +119,23 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100 bg-white/95 backdrop-blur-sm">
+          <div className="md:hidden py-4 border-t border-gray-100 bg-white/95 backdrop-blur-sm animate-slide-down">
             <div className="flex flex-col space-y-4">
               {/* Mobile Search */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <form onSubmit={handleSearch} className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
                 <input
                   type="text"
                   placeholder="Search foods..."
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-base bg-white/80 backdrop-blur-sm"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-base bg-white/80 backdrop-blur-sm touch-target"
                 />
-              </div>
+              </form>
               
               <Link 
                 to="/catalog" 
-                className="text-base font-medium text-gray-600 hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-orange-50"
+                className="text-base font-medium text-gray-600 hover:text-primary transition-colors py-3 px-3 rounded-lg hover:bg-orange-50 touch-target"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Browse Menu
@@ -130,22 +144,22 @@ export function Navbar() {
               {user ? (
                 <div className="flex flex-col space-y-3 pt-2 border-t border-gray-100">
                   <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
-                    <Button variant="ghost" size="sm" className="w-full justify-start h-12 text-base rounded-xl">
+                    <Button variant="ghost" size="sm" className="w-full justify-start h-12 text-base rounded-xl touch-target">
                       <User className="w-4 h-4 mr-3" />
                       Dashboard
                     </Button>
                   </Link>
-                  <Button variant="outline" size="sm" onClick={logout} className="w-full h-12 text-base rounded-xl border-2">
+                  <Button variant="outline" size="sm" onClick={() => { logout(); setIsMenuOpen(false); }} className="w-full h-12 text-base rounded-xl border-2 touch-target">
                     Logout
                   </Button>
                 </div>
               ) : (
-                <div className="flex space-x-3 pt-2 border-t border-gray-100">
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 pt-2 border-t border-gray-100">
                   <Link to="/login" className="flex-1" onClick={() => setIsMenuOpen(false)}>
-                    <Button variant="ghost" size="sm" className="w-full h-12 text-base rounded-xl">Login</Button>
+                    <Button variant="ghost" size="sm" className="w-full h-12 text-base rounded-xl touch-target">Login</Button>
                   </Link>
                   <Link to="/signup" className="flex-1" onClick={() => setIsMenuOpen(false)}>
-                    <Button size="sm" className="w-full h-12 text-base rounded-xl bg-gradient-warm shadow-md">Sign Up</Button>
+                    <Button size="sm" className="w-full h-12 text-base rounded-xl bg-gradient-warm shadow-md touch-target">Sign Up</Button>
                   </Link>
                 </div>
               )}
