@@ -24,11 +24,15 @@ export const useAuthStore = create<AuthState>()(
           // Simulate API call
           await new Promise(resolve => setTimeout(resolve, 1000));
           
+          // Check if it's admin login (you can modify this logic as needed)
+          const isAdmin = data.email === 'admin@pallettendrapes.com';
+          
           const user: User = {
             id: '1',
             email: data.email,
-            firstName: 'John',
-            lastName: 'Doe',
+            firstName: isAdmin ? 'Admin' : 'John',
+            lastName: isAdmin ? 'User' : 'Doe',
+            role: isAdmin ? 'admin' : 'user',
             createdAt: new Date().toISOString(),
           };
           
@@ -53,6 +57,7 @@ export const useAuthStore = create<AuthState>()(
             firstName: data.firstName || '',
             lastName: data.lastName || '',
             phone: data.phone,
+            role: 'user',
             createdAt: new Date().toISOString(),
           };
           

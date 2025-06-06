@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, User, Search, Menu, X, MapPin } from 'lucide-react';
+import { ShoppingCart, User, Search, Menu, X, MapPin, ShieldCheck } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { useCartStore } from '@/store/cartStore';
 
@@ -84,6 +84,14 @@ export function Navbar() {
             {/* User Menu */}
             {user ? (
               <div className="hidden md:flex items-center space-x-2 lg:space-x-3">
+                {user.role === 'admin' && (
+                  <Link to="/admin">
+                    <Button variant="ghost" size="sm" className="flex items-center space-x-2 h-10 px-3 lg:px-4 rounded-xl touch-target text-orange-600">
+                      <ShieldCheck className="w-4 h-4" />
+                      <span className="font-medium hidden lg:inline">Admin</span>
+                    </Button>
+                  </Link>
+                )}
                 <Link to="/dashboard">
                   <Button variant="ghost" size="sm" className="flex items-center space-x-2 h-10 px-3 lg:px-4 rounded-xl touch-target">
                     <User className="w-4 h-4" />
@@ -143,6 +151,14 @@ export function Navbar() {
               
               {user ? (
                 <div className="flex flex-col space-y-3 pt-2 border-t border-gray-100">
+                  {user.role === 'admin' && (
+                    <Link to="/admin" onClick={() => setIsMenuOpen(false)}>
+                      <Button variant="ghost" size="sm" className="w-full justify-start h-12 text-base rounded-xl touch-target text-orange-600">
+                        <ShieldCheck className="w-4 h-4 mr-3" />
+                        Admin Dashboard
+                      </Button>
+                    </Link>
+                  )}
                   <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
                     <Button variant="ghost" size="sm" className="w-full justify-start h-12 text-base rounded-xl touch-target">
                       <User className="w-4 h-4 mr-3" />

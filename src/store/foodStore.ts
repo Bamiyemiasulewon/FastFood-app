@@ -1,0 +1,100 @@
+
+import { create } from 'zustand';
+import { Food } from '@/types';
+import { toast } from 'sonner';
+
+interface FoodState {
+  foods: Food[];
+  isLoading: boolean;
+  addFood: (food: Omit<Food, 'id'>) => void;
+  updateFood: (id: string, updates: Partial<Food>) => void;
+  deleteFood: (id: string) => void;
+  setFoods: (foods: Food[]) => void;
+}
+
+const initialFoods: Food[] = [
+  {
+    id: '1',
+    name: 'Jollof Rice & Chicken',
+    description: 'Aromatic jollof rice with tender grilled chicken',
+    price: 2500,
+    image: '/lovable-uploads/65d14216-f2ea-4ef3-b985-911443e4b1df.png',
+    category: 'Rice Dishes',
+    rating: 4.8,
+    preparationTime: 25,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['popular', 'chicken', 'rice']
+  },
+  {
+    id: '2',
+    name: 'Jollof Rice & Turkey',
+    description: 'Rich jollof rice with succulent turkey pieces',
+    price: 3200,
+    image: '/lovable-uploads/bda71da5-6763-48c0-8724-34990552d3a6.png',
+    category: 'Rice Dishes',
+    rating: 4.9,
+    preparationTime: 30,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['premium', 'turkey', 'rice']
+  },
+  {
+    id: '3',
+    name: 'Jollof Spaghetti & Chicken',
+    description: 'Spicy jollof spaghetti with grilled chicken',
+    price: 2200,
+    image: '/lovable-uploads/eeb22afc-b937-41da-a72c-e61c256806b5.png',
+    category: 'Pasta',
+    rating: 4.7,
+    preparationTime: 20,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['spaghetti', 'chicken', 'spicy']
+  },
+  {
+    id: '4',
+    name: 'Chicken Peppersoup',
+    description: 'Spicy chicken peppersoup with local spices',
+    price: 1800,
+    image: '/lovable-uploads/193ddcee-7c74-4d44-915f-1ca31e4cfe04.png',
+    category: 'Soups',
+    rating: 4.6,
+    preparationTime: 15,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['soup', 'chicken', 'traditional']
+  }
+];
+
+export const useFoodStore = create<FoodState>((set, get) => ({
+  foods: initialFoods,
+  isLoading: false,
+
+  addFood: (foodData) => {
+    const newFood: Food = {
+      ...foodData,
+      id: Date.now().toString(),
+    };
+    set({ foods: [...get().foods, newFood] });
+    toast.success('Food item added successfully!');
+  },
+
+  updateFood: (id, updates) => {
+    set({
+      foods: get().foods.map(food =>
+        food.id === id ? { ...food, ...updates } : food
+      )
+    });
+    toast.success('Food item updated successfully!');
+  },
+
+  deleteFood: (id) => {
+    set({
+      foods: get().foods.filter(food => food.id !== id)
+    });
+    toast.success('Food item deleted successfully!');
+  },
+
+  setFoods: (foods) => set({ foods }),
+}));

@@ -37,7 +37,7 @@ export default function Landing() {
       id: '4',
       name: 'Chicken Peppersoup',
       price: 1800,
-      image: '/lovable-uploads/bf6e29a5-e1c7-4579-b5a6-65094d831a22.png',
+      image: '/lovable-uploads/193ddcee-7c74-4d44-915f-1ca31e4cfe04.png',
       rating: 4.6,
       preparationTime: 15,
       description: 'Spicy chicken peppersoup with local spices'
