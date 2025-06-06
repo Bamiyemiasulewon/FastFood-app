@@ -24,11 +24,11 @@ export const useAuthStore = create<AuthState>()(
           // Simulate API call
           await new Promise(resolve => setTimeout(resolve, 1000));
           
-          // Check if it's admin login (you can modify this logic as needed)
+          // Check if it's admin login
           const isAdmin = data.email === 'admin@pallettendrapes.com';
           
           const user: User = {
-            id: '1',
+            id: isAdmin ? 'admin-1' : Date.now().toString(),
             email: data.email,
             firstName: isAdmin ? 'Admin' : 'John',
             lastName: isAdmin ? 'User' : 'Doe',
@@ -52,7 +52,7 @@ export const useAuthStore = create<AuthState>()(
           await new Promise(resolve => setTimeout(resolve, 1000));
           
           const user: User = {
-            id: '1',
+            id: Date.now().toString(),
             email: data.email,
             firstName: data.firstName || '',
             lastName: data.lastName || '',

@@ -1,3 +1,4 @@
+
 export interface User {
   id: string;
   email: string;
@@ -39,6 +40,7 @@ export interface Food {
   isVegetarian: boolean;
   isSpicy: boolean;
   tags: string[];
+  isAvailable?: boolean;
 }
 
 export interface CartItem {
@@ -56,6 +58,32 @@ export interface Order {
   orderDate: string;
   estimatedDeliveryTime?: string;
   paymentMethod: 'wallet' | 'card' | 'cash';
+  customerName: string;
+  customerPhone?: string;
+  deliveryAddress?: string;
+}
+
+export interface Review {
+  id: string;
+  userId: string;
+  foodId: string;
+  orderId: string;
+  rating: number;
+  comment: string;
+  userName: string;
+  createdAt: string;
+  isApproved: boolean;
+}
+
+export interface Notification {
+  id: string;
+  userId?: string;
+  type: 'order_status' | 'new_order' | 'review' | 'general';
+  title: string;
+  message: string;
+  isRead: boolean;
+  createdAt: string;
+  orderId?: string;
 }
 
 export interface AuthFormData {

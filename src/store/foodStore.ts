@@ -9,6 +9,7 @@ interface FoodState {
   addFood: (food: Omit<Food, 'id'>) => void;
   updateFood: (id: string, updates: Partial<Food>) => void;
   deleteFood: (id: string) => void;
+  toggleAvailability: (id: string) => void;
   setFoods: (foods: Food[]) => void;
 }
 
@@ -24,7 +25,8 @@ const initialFoods: Food[] = [
     preparationTime: 25,
     isVegetarian: false,
     isSpicy: true,
-    tags: ['popular', 'chicken', 'rice']
+    tags: ['popular', 'chicken', 'rice'],
+    isAvailable: true
   },
   {
     id: '2',
@@ -37,7 +39,8 @@ const initialFoods: Food[] = [
     preparationTime: 30,
     isVegetarian: false,
     isSpicy: true,
-    tags: ['premium', 'turkey', 'rice']
+    tags: ['premium', 'turkey', 'rice'],
+    isAvailable: true
   },
   {
     id: '3',
@@ -50,7 +53,8 @@ const initialFoods: Food[] = [
     preparationTime: 20,
     isVegetarian: false,
     isSpicy: true,
-    tags: ['spaghetti', 'chicken', 'spicy']
+    tags: ['spaghetti', 'chicken', 'spicy'],
+    isAvailable: true
   },
   {
     id: '4',
@@ -63,7 +67,8 @@ const initialFoods: Food[] = [
     preparationTime: 15,
     isVegetarian: false,
     isSpicy: true,
-    tags: ['soup', 'chicken', 'traditional']
+    tags: ['soup', 'chicken', 'traditional'],
+    isAvailable: true
   }
 ];
 
@@ -75,6 +80,7 @@ export const useFoodStore = create<FoodState>((set, get) => ({
     const newFood: Food = {
       ...foodData,
       id: Date.now().toString(),
+      isAvailable: true,
     };
     set({ foods: [...get().foods, newFood] });
     toast.success('Food item added successfully!');
@@ -94,6 +100,16 @@ export const useFoodStore = create<FoodState>((set, get) => ({
       foods: get().foods.filter(food => food.id !== id)
     });
     toast.success('Food item deleted successfully!');
+  },
+
+  toggleAvailability: (id) => {
+    set({
+      foods: get().foods.map(food =>
+        food.id === id ? { ...food, isAvailable: !food.isAvailable } : food
+      )
+    });
+    const food = get().foods.find(f => f.id === id);
+    toast.success(`${food?.name} is now ${food?.isAvailable ? 'unavailable' : 'available'}`);
   },
 
   setFoods: (foods) => set({ foods }),

@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -180,23 +179,6 @@ export default function Landing() {
               </Button>
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 bg-gradient-warm text-white">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">
-            Ready to Taste Lagos?
-          </h2>
-          <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 text-orange-100">
-            Join thousands of food lovers enjoying authentic Nigerian cuisine delivered fast
-          </p>
-          <Link to="/signup">
-            <Button size="lg" variant="secondary" className="touch-target px-6 sm:px-8 text-sm sm:text-lg font-semibold bg-white text-primary hover:bg-gray-50 shadow-lg hover:shadow-xl transition-all duration-300">
-              Get Started Today
-            </Button>
-          </Link>
         </div>
       </section>
     </div>
