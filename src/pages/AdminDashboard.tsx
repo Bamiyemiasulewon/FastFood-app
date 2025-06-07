@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useAuthStore } from '@/store/authStore';
 import { useFoodStore } from '@/store/foodStore';
-import { Food } from '@/types';
+import { Food, Order } from '@/types';
 import { Edit, Trash2, Plus, LogOut, ShieldCheck, Package, Clock, Star, Bell } from 'lucide-react';
 import { toast } from 'sonner';
 import { useOrderStore } from '@/store/orderStore';

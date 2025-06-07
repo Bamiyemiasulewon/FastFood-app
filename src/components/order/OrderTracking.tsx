@@ -12,7 +12,8 @@ import {
   Circle,
   Truck,
   ChefHat,
-  Package
+  Package,
+  Star
 } from 'lucide-react';
 
 interface OrderTrackingProps {

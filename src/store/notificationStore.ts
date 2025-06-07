@@ -8,6 +8,7 @@ interface NotificationState {
   notifications: Notification[];
   addNotification: (notification: Omit<Notification, 'id'>) => void;
   markAsRead: (id: string) => void;
+  markAllAsRead: () => void;
   deleteNotification: (id: string) => void;
   getUnreadCount: (userId?: string) => number;
   getUserNotifications: (userId: string) => Notification[];
@@ -37,6 +38,15 @@ export const useNotificationStore = create<NotificationState>()(
           notifications: get().notifications.map(notification =>
             notification.id === id ? { ...notification, isRead: true } : notification
           )
+        });
+      },
+
+      markAllAsRead: () => {
+        set({
+          notifications: get().notifications.map(notification => ({
+            ...notification,
+            isRead: true
+          }))
         });
       },
 
