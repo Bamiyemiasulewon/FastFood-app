@@ -25,6 +25,11 @@ export default function Dashboard() {
     navigate('/');
   };
 
+  const getUserDisplayName = () => {
+    if (!user) return '';
+    return `${user.firstName} ${user.lastName}`.trim() || user.email;
+  };
+
   if (!user) {
     return null;
   }
@@ -49,7 +54,7 @@ export default function Dashboard() {
             </div>
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-                Welcome, {user.firstName}!
+                Welcome, {user.firstName || 'User'}!
               </h1>
               <p className="text-gray-600">Here's your order summary</p>
             </div>

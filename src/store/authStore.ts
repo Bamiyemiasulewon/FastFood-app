@@ -10,11 +10,28 @@ interface AuthState {
   login: (data: AuthFormData) => Promise<void>;
   signup: (data: AuthFormData) => Promise<void>;
   logout: () => void;
+  updateUser: (userData: Partial<User>) => void;
 }
+
+// Simulated user database
+const mockUsers: Record<string, { user: User; password: string }> = {
+  'admin@pallettendrapes.com': {
+    user: {
+      id: 'admin-1',
+      email: 'admin@pallettendrapes.com',
+      firstName: 'Admin',
+      lastName: 'User',
+      role: 'admin',
+      createdAt: new Date().toISOString(),
+      walletBalance: 0,
+    },
+    password: 'admin123'
+  }
+};
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
       isLoading: false,
 
@@ -24,23 +41,18 @@ export const useAuthStore = create<AuthState>()(
           // Simulate API call
           await new Promise(resolve => setTimeout(resolve, 1000));
           
-          // Check if it's admin login
-          const isAdmin = data.email === 'admin@pallettendrapes.com';
+          // Check if user exists in mock database
+          const userRecord = mockUsers[data.email];
           
-          const user: User = {
-            id: isAdmin ? 'admin-1' : Date.now().toString(),
-            email: data.email,
-            firstName: isAdmin ? 'Admin' : 'John',
-            lastName: isAdmin ? 'User' : 'Doe',
-            role: isAdmin ? 'admin' : 'user',
-            createdAt: new Date().toISOString(),
-          };
+          if (!userRecord || userRecord.password !== data.password) {
+            throw new Error('Invalid credentials');
+          }
           
-          set({ user, isLoading: false });
-          toast.success('Successfully logged in!');
+          set({ user: userRecord.user, isLoading: false });
+          toast.success(`Welcome back, ${userRecord.user.firstName}!`);
         } catch (error) {
           set({ isLoading: false });
-          toast.error('Login failed. Please try again.');
+          toast.error(error instanceof Error ? error.message : 'Login failed. Please try again.');
           throw error;
         }
       },
@@ -51,7 +63,12 @@ export const useAuthStore = create<AuthState>()(
           // Simulate API call
           await new Promise(resolve => setTimeout(resolve, 1000));
           
-          const user: User = {
+          // Check if user already exists
+          if (mockUsers[data.email]) {
+            throw new Error('User already exists');
+          }
+          
+          const newUser: User = {
             id: Date.now().toString(),
             email: data.email,
             firstName: data.firstName || '',
@@ -59,13 +76,20 @@ export const useAuthStore = create<AuthState>()(
             phone: data.phone,
             role: 'user',
             createdAt: new Date().toISOString(),
+            walletBalance: 0,
           };
           
-          set({ user, isLoading: false });
-          toast.success('Account created successfully!');
+          // Add to mock database
+          mockUsers[data.email] = {
+            user: newUser,
+            password: data.password
+          };
+          
+          set({ user: newUser, isLoading: false });
+          toast.success(`Welcome to Pallette n' Drapes, ${newUser.firstName}!`);
         } catch (error) {
           set({ isLoading: false });
-          toast.error('Signup failed. Please try again.');
+          toast.error(error instanceof Error ? error.message : 'Signup failed. Please try again.');
           throw error;
         }
       },
@@ -73,6 +97,19 @@ export const useAuthStore = create<AuthState>()(
       logout: () => {
         set({ user: null });
         toast.success('Logged out successfully');
+      },
+
+      updateUser: (userData: Partial<User>) => {
+        const currentUser = get().user;
+        if (currentUser) {
+          const updatedUser = { ...currentUser, ...userData };
+          set({ user: updatedUser });
+          
+          // Update mock database
+          if (mockUsers[currentUser.email]) {
+            mockUsers[currentUser.email].user = updatedUser;
+          }
+        }
       },
     }),
     {

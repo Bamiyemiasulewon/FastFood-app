@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Checkbox } from '@/components/ui/checkbox';
 import { useAuthStore } from '@/store/authStore';
 import { toast } from 'sonner';
-import { Eye, EyeOff, Mail, Lock, ArrowRight, Chrome, Facebook } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, ArrowRight } from 'lucide-react';
 import { Logo } from '@/components/ui/logo';
 
 const loginSchema = z.object({
@@ -52,10 +52,6 @@ export default function Login() {
     }
   };
 
-  const handleSocialLogin = (provider: 'google' | 'facebook') => {
-    toast.info(`${provider} login would be implemented with backend`);
-  };
-
   const handleForgotPassword = (email: string) => {
     toast.success('Password reset link sent to your email');
     setShowForgotPassword(false);
@@ -83,11 +79,11 @@ export default function Login() {
         <div className="w-full max-w-md">
           {/* Logo Section */}
           <div className="text-center mb-8 animate-fade-in">
-            <Logo size="lg" className="mx-auto mb-4" />
-            <h1 className="text-2xl font-display font-semibold text-cream mb-2">
+            <Logo size="lg" className="mx-auto mb-6" />
+            <h1 className="text-3xl font-display font-bold text-cream mb-3 drop-shadow-lg">
               Welcome Back
             </h1>
-            <p className="text-cream/80 text-sm">
+            <p className="text-cream/90 text-base font-medium">
               Sign in to your culinary journey
             </p>
           </div>
@@ -95,60 +91,29 @@ export default function Login() {
           {/* Login Card */}
           <Card className="card-premium backdrop-blur-lg bg-white/95 border-0 shadow-2xl animate-scale-in">
             <CardHeader className="space-y-1 text-center pb-4">
-              <CardTitle className="text-xl font-display text-charcoal">
+              <CardTitle className="text-2xl font-display font-bold text-charcoal">
                 Sign In
               </CardTitle>
-              <CardDescription className="text-muted-foreground">
+              <CardDescription className="text-muted-foreground text-base">
                 Enter your credentials to access your account
               </CardDescription>
             </CardHeader>
             
             <CardContent className="space-y-6">
-              {/* Social Login */}
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  variant="outline"
-                  onClick={() => handleSocialLogin('google')}
-                  className="w-full border-gold/20 hover:bg-gold/5 hover:border-gold/40"
-                  disabled={isLoading}
-                >
-                  <Chrome className="w-4 h-4 mr-2" />
-                  Google
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => handleSocialLogin('facebook')}
-                  className="w-full border-gold/20 hover:bg-gold/5 hover:border-gold/40"
-                  disabled={isLoading}
-                >
-                  <Facebook className="w-4 h-4 mr-2" />
-                  Facebook
-                </Button>
-              </div>
-
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-muted" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
-                </div>
-              </div>
-
               {/* Login Form */}
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-charcoal font-medium">
+                  <Label htmlFor="email" className="text-charcoal font-semibold text-base">
                     Email Address
                   </Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                     <Input
                       id="email"
                       type="email"
                       placeholder="Enter your email"
                       {...register('email')}
-                      className="pl-10 h-12 text-base border-gold/20 focus:border-gold focus:ring-gold/20"
+                      className="pl-11 h-12 text-base border-gold/20 focus:border-gold focus:ring-gold/20"
                       disabled={isLoading}
                     />
                   </div>
@@ -160,17 +125,17 @@ export default function Login() {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-charcoal font-medium">
+                  <Label htmlFor="password" className="text-charcoal font-semibold text-base">
                     Password
                   </Label>
                   <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                     <Input
                       id="password"
                       type={showPassword ? 'text' : 'password'}
                       placeholder="Enter your password"
                       {...register('password')}
-                      className="pl-10 pr-10 h-12 text-base border-gold/20 focus:border-gold focus:ring-gold/20"
+                      className="pl-11 pr-11 h-12 text-base border-gold/20 focus:border-gold focus:ring-gold/20"
                       disabled={isLoading}
                     />
                     <Button
@@ -182,9 +147,9 @@ export default function Login() {
                       disabled={isLoading}
                     >
                       {showPassword ? (
-                        <EyeOff className="w-4 h-4 text-muted-foreground" />
+                        <EyeOff className="w-5 h-5 text-muted-foreground" />
                       ) : (
-                        <Eye className="w-4 h-4 text-muted-foreground" />
+                        <Eye className="w-5 h-5 text-muted-foreground" />
                       )}
                     </Button>
                   </div>
@@ -206,7 +171,7 @@ export default function Login() {
                     />
                     <Label
                       htmlFor="rememberMe"
-                      className="text-sm text-muted-foreground cursor-pointer"
+                      className="text-sm text-muted-foreground cursor-pointer font-medium"
                     >
                       Remember me
                     </Label>
@@ -215,7 +180,7 @@ export default function Login() {
                     type="button"
                     variant="link"
                     onClick={() => setShowForgotPassword(true)}
-                    className="px-0 text-sm text-burgundy hover:text-burgundy/80"
+                    className="px-0 text-sm text-burgundy hover:text-burgundy/80 font-medium"
                     disabled={isLoading}
                   >
                     Forgot password?
@@ -246,7 +211,7 @@ export default function Login() {
                   Don't have an account?{' '}
                   <Link 
                     to="/signup" 
-                    className="text-burgundy font-medium hover:text-burgundy/80 transition-colors"
+                    className="text-burgundy font-semibold hover:text-burgundy/80 transition-colors"
                   >
                     Create account
                   </Link>
@@ -257,7 +222,7 @@ export default function Login() {
 
           {/* Additional Links */}
           <div className="text-center mt-6 space-y-2">
-            <p className="text-cream/60 text-xs">
+            <p className="text-cream/70 text-xs">
               By signing in, you agree to our{' '}
               <Link to="#" className="text-gold hover:text-gold/80 transition-colors">
                 Terms of Service

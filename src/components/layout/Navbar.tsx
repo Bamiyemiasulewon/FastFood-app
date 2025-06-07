@@ -25,6 +25,11 @@ export function Navbar() {
     navigate('/');
   };
 
+  const getUserDisplayName = () => {
+    if (!user) return '';
+    return `${user.firstName} ${user.lastName}`.trim() || user.email;
+  };
+
   return (
     <nav className="bg-white/95 backdrop-blur-sm border-b border-muted sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,7 +102,7 @@ export function Navbar() {
                   <DropdownMenuContent align="end" className="w-56 bg-white border shadow-lg">
                     <div className="px-3 py-2">
                       <p className="font-medium text-charcoal">
-                        {user.firstName} {user.lastName}
+                        {getUserDisplayName()}
                       </p>
                       <p className="text-sm text-muted-foreground">{user.email}</p>
                     </div>

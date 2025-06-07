@@ -8,6 +8,7 @@ export interface User {
   avatar?: string;
   role?: 'user' | 'admin';
   createdAt: string;
+  walletBalance?: number;
 }
 
 export interface WalletBalance {
@@ -41,6 +42,8 @@ export interface Food {
   isSpicy: boolean;
   tags: string[];
   isAvailable?: boolean;
+  inStock?: boolean;
+  stockCount?: number;
 }
 
 export interface CartItem {
@@ -92,4 +95,21 @@ export interface AuthFormData {
   firstName?: string;
   lastName?: string;
   phone?: string;
+}
+
+export interface FoodItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  category: string;
+  inStock: boolean;
+  stockCount: number;
+  rating?: number;
+  preparationTime?: number;
+  isVegetarian?: boolean;
+  isSpicy?: boolean;
+  tags?: string[];
+  isAvailable?: boolean;
 }
