@@ -1,7 +1,9 @@
+
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Star, Clock, MapPin, Truck } from 'lucide-react';
+import { Star, Clock, MapPin, Truck, ChefHat, Award } from 'lucide-react';
+import { Logo } from '@/components/ui/logo';
 
 export default function Landing() {
   const featuredFoods = [
@@ -46,77 +48,96 @@ export default function Landing() {
   const formatPrice = (price: number) => `₦${price.toLocaleString()}`;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 via-white to-amber-50">
-      {/* Hero Section */}
-      <section className="relative pt-6 pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <h1 className="text-responsive-xl font-bold mb-4 sm:mb-6">
-              <span className="text-gradient">Delicious Nigerian Food</span>
+    <div className="min-h-screen bg-texture">
+      {/* Premium Hero Section */}
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0">
+          <img 
+            src="/lovable-uploads/65d14216-f2ea-4ef3-b985-911443e4b1df.png"
+            alt="Elegant Nigerian Jollof Rice"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-burgundy/60 via-burgundy/40 to-transparent" />
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="max-w-2xl">
+            <div className="mb-6 animate-fade-in">
+              <Logo size="lg" />
+            </div>
+            
+            <h1 className="font-display text-responsive-xl font-bold mb-6 text-cream animate-slide-up">
+              Delicious Nigerian Food
               <br />
-              <span className="text-gray-800">Delivered to You</span>
+              <span className="text-gold">Delivered to You</span>
             </h1>
-            <p className="text-responsive-base text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-4">
+            
+            <p className="text-responsive-base text-cream/90 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
               Experience the authentic taste of Lagos with our carefully prepared local dishes. 
               Fresh ingredients, traditional recipes, and fast delivery across Lagos.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-12 px-4">
-              <Link to="/catalog" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto touch-target text-base sm:text-lg font-semibold bg-gradient-warm shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+              <Link to="/catalog" className="flex-1 sm:flex-none">
+                <Button size="lg" className="w-full sm:w-auto btn-premium text-lg px-8 py-4">
                   Order Now
                 </Button>
               </Link>
-              <Link to="/signup" className="w-full sm:w-auto">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto touch-target text-base sm:text-lg font-semibold border-2 hover:bg-orange-50 transition-all duration-300">
+              <Link to="/signup" className="flex-1 sm:flex-none">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto text-lg px-8 py-4 border-2 border-gold text-gold hover:bg-gold hover:text-charcoal transition-all duration-300">
                   Sign Up
                 </Button>
               </Link>
             </div>
 
             {/* Location Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-white rounded-full shadow-md border border-orange-100 mx-4">
-              <MapPin className="w-4 h-4 text-orange-600 mr-2" />
-              <span className="text-sm font-medium text-gray-700">Serving Lagos, Nigeria</span>
+            <div className="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-gold/30 animate-scale-in" style={{ animationDelay: '0.6s' }}>
+              <MapPin className="w-5 h-5 text-gold mr-2" />
+              <span className="text-cream font-medium">Serving Lagos, Nigeria</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-12 sm:py-16 bg-white">
+      <section className="py-16 sm:py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-gray-800">
-            Why Choose Pallette n' Drapes?
-          </h2>
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 text-charcoal">
+              Why Choose <span className="text-gradient-premium">Pallette n' Drapes?</span>
+            </h2>
+            <p className="text-lg text-muted-foreground">Culinary artistry meets exceptional service</p>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            <div className="text-center p-4 sm:p-6">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-warm rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <Truck className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-8 card-premium rounded-2xl group">
+              <div className="w-20 h-20 bg-gradient-burgundy rounded-full flex items-center justify-center mx-auto mb-6 group-hover:glow-gold transition-all duration-300">
+                <Truck className="w-10 h-10 text-cream" />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800">Fast Delivery</h3>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              <h3 className="font-display text-2xl font-semibold mb-4 text-charcoal">Fast Delivery</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Quick delivery across Lagos Island, Victoria Island, Lekki, and Mainland areas
               </p>
             </div>
             
-            <div className="text-center p-4 sm:p-6">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-warm rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <Star className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+            <div className="text-center p-8 card-premium rounded-2xl group">
+              <div className="w-20 h-20 bg-gradient-gold rounded-full flex items-center justify-center mx-auto mb-6 group-hover:glow-gold transition-all duration-300">
+                <ChefHat className="w-10 h-10 text-charcoal" />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800">Quality Food</h3>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              <h3 className="font-display text-2xl font-semibold mb-4 text-charcoal">Quality Food</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Authentic Nigerian dishes prepared with fresh, local ingredients
               </p>
             </div>
             
-            <div className="text-center p-4 sm:p-6">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-warm rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <Clock className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+            <div className="text-center p-8 card-premium rounded-2xl group">
+              <div className="w-20 h-20 bg-gradient-to-br from-sage to-accent rounded-full flex items-center justify-center mx-auto mb-6 group-hover:glow-gold transition-all duration-300">
+                <Award className="w-10 h-10 text-charcoal" />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-gray-800">Always Fresh</h3>
-              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+              <h3 className="font-display text-2xl font-semibold mb-4 text-charcoal">Always Fresh</h3>
+              <p className="text-muted-foreground leading-relaxed">
                 Prepared to order and delivered hot to your doorstep
               </p>
             </div>
@@ -125,46 +146,46 @@ export default function Landing() {
       </section>
 
       {/* Featured Foods */}
-      <section className="py-12 sm:py-16 bg-gradient-to-b from-orange-50 to-amber-50">
+      <section className="py-16 sm:py-20 bg-texture">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-gray-800">
-              Popular Nigerian Dishes
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 text-charcoal">
+              Popular <span className="text-gradient-premium">Nigerian Dishes</span>
             </h2>
-            <p className="text-base sm:text-lg text-gray-600">
+            <p className="text-lg text-muted-foreground">
               Discover our most loved local delicacies
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {featuredFoods.map((food) => (
-              <Card key={food.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white/80 backdrop-blur-sm border-0 animate-fade-in">
-                <div className="aspect-square bg-gradient-to-br from-orange-100 to-amber-100 relative overflow-hidden">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredFoods.map((food, index) => (
+              <Card key={food.id} className="overflow-hidden card-premium rounded-2xl group" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="aspect-square bg-gradient-to-br from-cream to-muted relative overflow-hidden">
                   <img 
                     src={food.image} 
                     alt={food.name}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
                   />
-                  <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center">
-                    <Star className="w-3 h-3 text-yellow-500 mr-1" fill="currentColor" />
-                    <span className="text-xs font-semibold">{food.rating}</span>
+                  <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-2 flex items-center shadow-lg">
+                    <Star className="w-4 h-4 text-gold mr-1" fill="currentColor" />
+                    <span className="text-sm font-semibold text-charcoal">{food.rating}</span>
                   </div>
                 </div>
                 
-                <CardContent className="p-3 sm:p-4">
-                  <h3 className="font-bold text-base sm:text-lg mb-2 text-gray-800 line-clamp-2">{food.name}</h3>
-                  <p className="text-xs sm:text-sm text-gray-600 mb-3 line-clamp-2">{food.description}</p>
+                <CardContent className="p-6">
+                  <h3 className="font-display font-bold text-xl mb-3 text-charcoal line-clamp-2">{food.name}</h3>
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{food.description}</p>
                   
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-lg sm:text-xl font-bold text-primary">{formatPrice(food.price)}</span>
-                    <div className="flex items-center text-xs sm:text-sm text-gray-500">
-                      <Clock className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-display text-2xl font-bold text-burgundy">{formatPrice(food.price)}</span>
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <Clock className="w-4 h-4 mr-1" />
                       {food.preparationTime}min
                     </div>
                   </div>
                   
-                  <Button className="w-full h-10 sm:h-11 text-sm sm:text-base bg-gradient-warm hover:shadow-md transition-all duration-300 touch-target">
+                  <Button className="w-full btn-premium rounded-xl py-3 text-base font-semibold">
                     Add to Cart
                   </Button>
                 </CardContent>
@@ -172,9 +193,9 @@ export default function Landing() {
             ))}
           </div>
           
-          <div className="text-center mt-8 sm:mt-12">
+          <div className="text-center mt-12">
             <Link to="/catalog">
-              <Button variant="outline" size="lg" className="touch-target px-6 sm:px-8 text-sm sm:text-base font-semibold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300">
+              <Button variant="outline" size="lg" className="px-8 py-4 text-lg font-semibold border-2 border-burgundy text-burgundy hover:bg-burgundy hover:text-cream transition-all duration-300 rounded-xl">
                 View Full Menu
               </Button>
             </Link>
