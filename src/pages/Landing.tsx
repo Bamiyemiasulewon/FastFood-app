@@ -1,9 +1,7 @@
-
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Star, Clock, MapPin, Truck, ChefHat, Award } from 'lucide-react';
-import { Logo } from '@/components/ui/logo';
 
 export default function Landing() {
   const featuredFoods = [
@@ -64,10 +62,6 @@ export default function Landing() {
         {/* Hero Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="max-w-2xl">
-            <div className="mb-6 animate-fade-in">
-              <Logo size="lg" />
-            </div>
-            
             <h1 className="font-display text-responsive-xl font-bold mb-6 text-cream animate-slide-up">
               Delicious Nigerian Food
               <br />
