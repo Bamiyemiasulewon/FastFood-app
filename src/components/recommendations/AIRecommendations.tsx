@@ -14,7 +14,7 @@ export const AIRecommendations: React.FC = () => {
   const { foods } = useFoodStore();
   const { getOrdersByUser } = useOrderStore();
   const { user } = useAuthStore();
-  const { addToCart } = useCartStore();
+  const { addItem } = useCartStore();
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -37,7 +37,8 @@ export const AIRecommendations: React.FC = () => {
         .map(food => ({
           ...food,
           reason: 'Highly rated by customers',
-          confidence: 0.85
+          confidence: 0.85,
+          score: food.rating * 0.85
         }));
       
       setRecommendations(popularItems);
@@ -128,7 +129,8 @@ export const AIRecommendations: React.FC = () => {
         .map(food => ({
           ...food,
           reason: 'Trending now',
-          confidence: 0.75
+          confidence: 0.75,
+          score: food.rating * 0.75
         }));
       
       recommended = [...recommended, ...additionalItems];
@@ -144,12 +146,7 @@ export const AIRecommendations: React.FC = () => {
       return;
     }
 
-    addToCart({
-      food,
-      quantity: 1,
-      specialInstructions: ''
-    });
-    
+    addItem(food, 1);
     toast.success(`${food.name} added to cart!`);
   };
 

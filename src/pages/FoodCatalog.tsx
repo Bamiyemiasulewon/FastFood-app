@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 
 export default function FoodCatalog() {
   const { foods } = useFoodStore();
-  const { addToCart } = useCartStore();
+  const { addItem } = useCartStore();
   const { user } = useAuthStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -65,11 +65,7 @@ export default function FoodCatalog() {
     }
 
     const quantity = quantities[food.id] || 1;
-    addToCart({
-      food,
-      quantity,
-      specialInstructions: ''
-    });
+    addItem(food, quantity);
     
     setQuantities(prev => ({ ...prev, [food.id]: 0 }));
     toast.success(`${food.name} added to cart!`);
