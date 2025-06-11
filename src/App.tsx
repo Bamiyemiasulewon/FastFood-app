@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,6 +11,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import FoodCatalog from "./pages/FoodCatalog";
 import NotFound from "./pages/NotFound";
 import OrderTrackingDemo from "./pages/OrderTrackingDemo";
 
@@ -34,7 +36,7 @@ const App = () => (
                   <AdminDashboard />
                 </AdminRoute>
               } />
-              <Route path="/catalog" element={<div className="p-8 text-center">Food Catalog - Coming Soon!</div>} />
+              <Route path="/catalog" element={<FoodCatalog />} />
               <Route path="/cart" element={<div className="p-8 text-center">Shopping Cart - Coming Soon!</div>} />
               <Route path="/wallet" element={<div className="p-8 text-center">Wallet Management - Coming Soon!</div>} />
               <Route path="/orders" element={<div className="p-8 text-center">Order History - Coming Soon!</div>} />

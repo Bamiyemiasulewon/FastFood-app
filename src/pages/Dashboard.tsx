@@ -1,195 +1,169 @@
 
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/authStore';
-import { useOrderStore } from '@/store/orderStore';
-import { useNotificationStore } from '@/store/notificationStore';
-import { Package, Clock, Star, Bell, LogOut, User } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { 
+  ShoppingCart, 
+  Clock, 
+  Star, 
+  Gift,
+  MapPin,
+  Sparkles,
+  Users
+} from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { LoyaltyProgram } from '@/components/loyalty/LoyaltyProgram';
+import { ReservationSystem } from '@/components/reservations/ReservationSystem';
+import { AIRecommendations } from '@/components/recommendations/AIRecommendations';
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const { user, logout } = useAuthStore();
-  const { getOrdersByUser } = useOrderStore();
-  const { getUserNotifications, getUnreadCount } = useNotificationStore();
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/login');
-    }
-  }, [user, navigate]);
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
-
-  const getUserDisplayName = () => {
-    if (!user) return '';
-    return `${user.firstName} ${user.lastName}`.trim() || user.email;
-  };
+  const { user } = useAuthStore();
 
   if (!user) {
-    return null;
-  }
-
-  const userOrders = getOrdersByUser(user.id);
-  const userNotifications = getUserNotifications(user.id);
-  const unreadCount = getUnreadCount(user.id);
-
-  // Calculate stats from actual user data
-  const totalOrders = userOrders.length;
-  const pendingOrders = userOrders.filter(order => order.status === 'pending').length;
-  const completedOrders = userOrders.filter(order => order.status === 'delivered').length;
-
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50 to-amber-50 p-4 sm:p-6">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 space-y-4 sm:space-y-0">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-warm rounded-xl flex items-center justify-center">
-              <User className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-                Welcome, {user.firstName || 'User'}!
-              </h1>
-              <p className="text-gray-600">Here's your order summary</p>
-            </div>
-          </div>
-          <Button 
-            onClick={handleLogout}
-            variant="outline"
-            className="flex items-center space-x-2 border-2 border-red-200 text-red-600 hover:bg-red-50"
-          >
-            <LogOut className="w-4 h-4" />
-            <span>Logout</span>
-          </Button>
-        </div>
-
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
-          <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Total Orders</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-gray-900">{totalOrders}</p>
-                </div>
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Package className="w-6 h-6 text-blue-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Pending Orders</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-yellow-600">{pendingOrders}</p>
-                </div>
-                <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                  <Clock className="w-6 h-6 text-yellow-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Completed</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-green-600">{completedOrders}</p>
-                </div>
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <Star className="w-6 h-6 text-green-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Notifications</p>
-                  <p className="text-2xl sm:text-3xl font-bold text-purple-600">{unreadCount}</p>
-                </div>
-                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Bell className="w-6 h-6 text-purple-600" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Recent Orders */}
-        <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm mb-6">
-          <CardHeader>
-            <CardTitle>Recent Orders</CardTitle>
-            <CardDescription>Your latest food orders</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {userOrders.length === 0 ? (
-              <div className="text-center py-8">
-                <Package className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500">No orders yet. Start by browsing our menu!</p>
-                <Button 
-                  onClick={() => navigate('/catalog')}
-                  className="mt-4 bg-gradient-warm"
-                >
-                  Browse Menu
-                </Button>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {userOrders.slice(0, 3).map((order) => (
-                  <div key={order.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                    <div>
-                      <p className="font-medium">Order #{order.id}</p>
-                      <p className="text-sm text-gray-600">
-                        {order.items.length} items • ₦{order.totalAmount.toLocaleString()}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        order.status === 'delivered' ? 'bg-green-100 text-green-800' :
-                        order.status === 'preparing' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-gray-100 text-gray-800'
-                      }`}>
-                        {order.status}
-                      </span>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {new Date(order.orderDate).toLocaleDateString()}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+    return (
+      <div className="min-h-screen bg-texture flex items-center justify-center">
+        <Card className="card-premium w-full max-w-md">
+          <CardContent className="text-center py-8">
+            <h2 className="text-2xl font-bold mb-4">Please Login</h2>
+            <p className="text-muted-foreground mb-6">
+              You need to be logged in to access your dashboard
+            </p>
+            <Link to="/login">
+              <Button className="btn-premium">Login Now</Button>
+            </Link>
           </CardContent>
         </Card>
+      </div>
+    );
+  }
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Button 
-            onClick={() => navigate('/catalog')}
-            className="h-16 text-lg bg-gradient-warm"
-          >
-            Order Food
-          </Button>
-          <Button 
-            onClick={() => navigate('/orders')}
-            variant="outline"
-            className="h-16 text-lg border-2"
-          >
-            View All Orders
-          </Button>
+  const quickActions = [
+    {
+      title: 'Browse Menu',
+      description: 'Explore our delicious Nigerian dishes',
+      icon: <ShoppingCart className="w-6 h-6" />,
+      link: '/catalog',
+      color: 'bg-burgundy'
+    },
+    {
+      title: 'Order History',
+      description: 'View your past orders and reorder favorites',
+      icon: <Clock className="w-6 h-6" />,
+      link: '/orders',
+      color: 'bg-gold'
+    },
+    {
+      title: 'Make Reservation',
+      description: 'Book a table for dining in',
+      icon: <Users className="w-6 h-6" />,
+      link: '#reservations',
+      color: 'bg-sage'
+    },
+    {
+      title: 'Track Order',
+      description: 'Follow your order in real-time',
+      icon: <MapPin className="w-6 h-6" />,
+      link: '/tracking-demo',
+      color: 'bg-accent'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-texture py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Welcome Header */}
+        <div className="text-center mb-8">
+          <h1 className="font-display text-4xl font-bold text-charcoal mb-4">
+            Welcome back, <span className="text-gradient-premium">{user.firstName}!</span>
+          </h1>
+          <p className="text-lg text-muted-foreground">
+            Ready for your next culinary adventure?
+          </p>
+        </div>
+
+        {/* Quick Actions Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {quickActions.map((action, index) => (
+            <Link key={index} to={action.link}>
+              <Card className="card-premium group hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
+                <CardContent className="p-6 text-center">
+                  <div className={`w-16 h-16 ${action.color} rounded-full flex items-center justify-center mx-auto mb-4 text-white group-hover:scale-110 transition-transform`}>
+                    {action.icon}
+                  </div>
+                  <h3 className="font-display text-xl font-semibold mb-2 text-charcoal">
+                    {action.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {action.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Column - AI Recommendations */}
+          <div className="lg:col-span-2 space-y-8">
+            <AIRecommendations />
+            
+            {/* Recent Activity */}
+            <Card className="card-premium">
+              <CardHeader>
+                <CardTitle className="font-display text-charcoal">Recent Activity</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8 text-muted-foreground">
+                  <Clock className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>No recent activity to show</p>
+                  <p className="text-sm">Start by placing your first order!</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Right Column - Loyalty Program */}
+          <div className="space-y-8">
+            <LoyaltyProgram />
+            
+            {/* Quick Stats */}
+            <Card className="card-premium">
+              <CardHeader>
+                <CardTitle className="font-display text-charcoal">Quick Stats</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Total Orders</span>
+                  <Badge variant="secondary">0</Badge>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Favorite Dish</span>
+                  <span className="text-sm text-charcoal">Not set</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Member Since</span>
+                  <span className="text-sm text-charcoal">
+                    {new Date(user.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Reservation Section */}
+        <div id="reservations" className="mt-12">
+          <div className="text-center mb-8">
+            <h2 className="font-display text-3xl font-bold text-charcoal mb-4">
+              Make a <span className="text-gradient-premium">Reservation</span>
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Reserve your table for an unforgettable dining experience
+            </p>
+          </div>
+          <ReservationSystem />
         </div>
       </div>
     </div>
