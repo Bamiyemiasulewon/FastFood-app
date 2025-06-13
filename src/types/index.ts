@@ -11,12 +11,65 @@ export interface User {
   walletBalance?: number;
 }
 
+export interface UserProfile {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone?: string;
+  profilePicture?: string;
+  addresses: Address[];
+  walletBalance: number;
+  totalOrders: number;
+  joinDate: Date;
+  dietaryRestrictions?: string[];
+  preferences?: UserPreferences;
+}
+
+export interface Address {
+  id: string;
+  label: string;
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  isDefault: boolean;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
+}
+
+export interface UserPreferences {
+  notifications: {
+    email: boolean;
+    sms: boolean;
+    push: boolean;
+  };
+  delivery: {
+    preferredTime: string;
+    specialInstructions: string;
+  };
+}
+
 export interface WalletBalance {
   id: string;
   userId: string;
   balance: number;
   currency: string;
   updatedAt: string;
+}
+
+export interface WalletTransaction {
+  id: string;
+  userId: string;
+  type: 'deposit' | 'purchase' | 'refund' | 'credit' | 'debit';
+  amount: number;
+  description: string;
+  timestamp: Date;
+  balanceAfter: number;
+  reference?: string;
+  status: 'pending' | 'completed' | 'failed';
 }
 
 export interface Transaction {
@@ -52,18 +105,32 @@ export interface CartItem {
   specialInstructions?: string;
 }
 
+export interface OrderItem {
+  id: string;
+  foodId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  specialInstructions?: string;
+  image?: string;
+}
+
 export interface Order {
   id: string;
   userId: string;
-  items: CartItem[];
+  orderNumber: string;
+  items: OrderItem[];
   status: 'pending' | 'confirmed' | 'preparing' | 'ready' | 'delivered' | 'cancelled';
   totalAmount: number;
   orderDate: string;
   estimatedDeliveryTime?: string;
+  deliveryAddress: Address;
   paymentMethod: 'wallet' | 'card' | 'cash';
   customerName: string;
   customerPhone?: string;
-  deliveryAddress?: string;
+  specialInstructions?: string;
+  deliveryFee?: number;
+  taxAmount?: number;
 }
 
 export interface Review {
@@ -81,12 +148,13 @@ export interface Review {
 export interface Notification {
   id: string;
   userId?: string;
-  type: 'order_status' | 'new_order' | 'review' | 'general';
+  type: 'order_status' | 'new_order' | 'review' | 'general' | 'wallet';
   title: string;
   message: string;
   isRead: boolean;
   createdAt: string;
   orderId?: string;
+  data?: any;
 }
 
 export interface AuthFormData {
