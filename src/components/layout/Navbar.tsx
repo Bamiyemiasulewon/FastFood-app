@@ -1,155 +1,203 @@
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { useAuthStore } from '@/store/authStore';
-import { Logo } from '@/components/ui/logo';
-import { NotificationBell } from '@/components/notifications/NotificationBell';
-import { 
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, ShoppingCart, User, LogOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { User, LogOut, Settings, ShoppingCart, Wallet } from 'lucide-react';
+} from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/hooks/useAuth";
+import { useCart } from "@/hooks/useSupabaseData";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
 
-export function Navbar() {
-  const location = useLocation();
+export const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const { getTotalItems } = useCart();
   const navigate = useNavigate();
-  const { user, logout } = useAuthStore();
 
-  const isActive = (path: string) => location.pathname === path;
-
-  const handleLogout = () => {
-    logout();
+  const handleSignOut = async () => {
+    await signOut();
     navigate('/');
   };
 
-  const getUserDisplayName = () => {
-    if (!user) return '';
-    return `${user.firstName} ${user.lastName}`.trim() || user.email;
-  };
+  const cartItemsCount = user ? getTotalItems() : 0;
 
   return (
-    <nav className="bg-white/95 backdrop-blur-sm border-b border-muted sticky top-0 z-50 shadow-sm">
+    <nav className="bg-white shadow-md relative z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <Logo size="sm" />
-          </Link>
+        <div className="flex justify-between h-16">
+          <div className="flex items-center">
+            <Link to="/" className="flex-shrink-0 flex items-center">
+              <span className="text-2xl font-bold text-primary">
+                Pallette n' Drapes
+              </span>
+            </Link>
+          </div>
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-4">
             <Link
               to="/catalog"
-              className={`font-medium transition-colors hover:text-burgundy ${
-                isActive('/catalog') ? 'text-burgundy' : 'text-muted-foreground'
-              }`}
+              className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
             >
               Menu
             </Link>
-            {user && (
+            
+            {user ? (
               <>
                 <Link
                   to="/orders"
-                  className={`font-medium transition-colors hover:text-burgundy ${
-                    isActive('/orders') ? 'text-burgundy' : 'text-muted-foreground'
-                  }`}
+                  className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Orders
                 </Link>
                 <Link
                   to="/wallet"
-                  className={`font-medium transition-colors hover:text-burgundy ${
-                    isActive('/wallet') ? 'text-burgundy' : 'text-muted-foreground'
-                  }`}
+                  className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Wallet
                 </Link>
-                {user.role === 'admin' && (
-                  <Link
-                    to="/admin"
-                    className={`font-medium transition-colors hover:text-gold ${
-                      isActive('/admin') ? 'text-gold' : 'text-muted-foreground'
-                    }`}
-                  >
-                    Admin
-                  </Link>
-                )}
-              </>
-            )}
-          </div>
-
-          {/* Right Side Actions */}
-          <div className="flex items-center space-x-4">
-            {user ? (
-              <>
-                <Link to="/cart">
-                  <Button variant="ghost" size="icon" className="hover:bg-muted/50">
-                    <ShoppingCart className="w-5 h-5" />
-                  </Button>
-                </Link>
                 
                 <NotificationBell />
+                
+                <Link to="/cart" className="relative p-2">
+                  <ShoppingCart className="h-6 w-6 text-gray-700 hover:text-primary" />
+                  {cartItemsCount > 0 && (
+                    <Badge className="absolute -top-1 -right-1 px-2 py-1 text-xs">
+                      {cartItemsCount}
+                    </Badge>
+                  )}
+                </Link>
 
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="hover:bg-muted/50">
-                      <User className="w-5 h-5" />
+                    <Button variant="ghost" size="icon">
+                      <User className="h-5 w-5" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 bg-white border shadow-lg">
-                    <div className="px-3 py-2">
-                      <p className="font-medium text-charcoal">
-                        {getUserDisplayName()}
-                      </p>
-                      <p className="text-sm text-muted-foreground">{user.email}</p>
-                    </div>
-                    <DropdownMenuSeparator />
+                  <DropdownMenuContent align="end">
                     <DropdownMenuItem asChild>
-                      <Link to="/dashboard" className="flex items-center">
-                        <User className="w-4 h-4 mr-2" />
-                        Dashboard
-                      </Link>
+                      <Link to="/dashboard">Dashboard</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link to="/profile" className="flex items-center">
-                        <Settings className="w-4 h-4 mr-2" />
-                        Profile Settings
-                      </Link>
+                      <Link to="/profile">Profile</Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link to="/wallet" className="flex items-center">
-                        <Wallet className="w-4 h-4 mr-2" />
-                        Wallet
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleLogout} className="text-red-600">
-                      <LogOut className="w-4 h-4 mr-2" />
-                      Logout
+                    <DropdownMenuItem onClick={handleSignOut}>
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Sign Out
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </>
             ) : (
-              <div className="flex items-center space-x-3">
-                <Link to="/login">
-                  <Button variant="ghost" className="font-medium">
+              <div className="flex items-center space-x-2">
+                <Button variant="ghost" asChild>
+                  <Link to="/auth">Sign In</Link>
+                </Button>
+                <Button asChild>
+                  <Link to="/auth">Get Started</Link>
+                </Button>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-700 hover:text-primary focus:outline-none focus:text-primary"
+            >
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Navigation Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-white border-t shadow-lg">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <Link
+              to="/catalog"
+              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+              onClick={() => setIsOpen(false)}
+            >
+              Menu
+            </Link>
+            
+            {user ? (
+              <>
+                <Link
+                  to="/orders"
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Orders
+                </Link>
+                <Link
+                  to="/wallet"
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Wallet
+                </Link>
+                <Link
+                  to="/cart"
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Cart ({cartItemsCount})
+                </Link>
+                <Link
+                  to="/dashboard"
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  to="/profile"
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    handleSignOut();
+                    setIsOpen(false);
+                  }}
+                  className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <div className="space-y-2 px-3">
+                <Button variant="ghost" className="w-full justify-start" asChild>
+                  <Link to="/auth" onClick={() => setIsOpen(false)}>
                     Sign In
-                  </Button>
-                </Link>
-                <Link to="/signup">
-                  <Button className="btn-premium px-6">
-                    Sign Up
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
+                <Button className="w-full" asChild>
+                  <Link to="/auth" onClick={() => setIsOpen(false)}>
+                    Get Started
+                  </Link>
+                </Button>
               </div>
             )}
           </div>
         </div>
-      </div>
+      )}
     </nav>
   );
-}
+};

@@ -1,201 +1,193 @@
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Star, Clock, MapPin, Truck, ChefHat, Award } from 'lucide-react';
 
-export default function Landing() {
-  const featuredFoods = [
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Star, Clock, MapPin, Smartphone } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+
+const Landing = () => {
+  const { user } = useAuth();
+
+  const features = [
     {
-      id: '1',
-      name: 'Jollof Rice & Chicken',
-      price: 2500,
-      image: '/lovable-uploads/65d14216-f2ea-4ef3-b985-911443e4b1df.png',
-      rating: 4.8,
-      preparationTime: 25,
-      description: 'Aromatic jollof rice with tender grilled chicken'
+      icon: <Smartphone className="h-6 w-6" />,
+      title: "Easy Ordering",
+      description: "Order your favorite Nigerian dishes with just a few taps"
     },
     {
-      id: '2',
-      name: 'Jollof Rice & Turkey',
-      price: 3200,
-      image: '/lovable-uploads/bda71da5-6763-48c0-8724-34990552d3a6.png',
-      rating: 4.9,
-      preparationTime: 30,
-      description: 'Rich jollof rice with succulent turkey pieces'
+      icon: <Clock className="h-6 w-6" />,
+      title: "Quick Delivery",
+      description: "Fast delivery to your doorstep in 30 minutes or less"
     },
     {
-      id: '3',
-      name: 'Jollof Spaghetti & Chicken',
-      price: 2200,
-      image: '/lovable-uploads/eeb22afc-b937-41da-a72c-e61c256806b5.png',
-      rating: 4.7,
-      preparationTime: 20,
-      description: 'Spicy jollof spaghetti with grilled chicken'
+      icon: <MapPin className="h-6 w-6" />,
+      title: "Real-time Tracking",
+      description: "Track your order from kitchen to your door"
     },
     {
-      id: '4',
-      name: 'Chicken Peppersoup',
-      price: 1800,
-      image: '/lovable-uploads/193ddcee-7c74-4d44-915f-1ca31e4cfe04.png',
-      rating: 4.6,
-      preparationTime: 15,
-      description: 'Spicy chicken peppersoup with local spices'
+      icon: <Star className="h-6 w-6" />,
+      title: "Quality Food",
+      description: "Authentic Nigerian cuisine made with fresh ingredients"
     }
   ];
 
-  const formatPrice = (price: number) => `₦${price.toLocaleString()}`;
-
   return (
-    <div className="min-h-screen bg-texture">
-      {/* Premium Hero Section */}
-      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0">
-          <img 
-            src="/lovable-uploads/65d14216-f2ea-4ef3-b985-911443e4b1df.png"
-            alt="Elegant Nigerian Jollof Rice"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-burgundy/60 via-burgundy/40 to-transparent" />
-        </div>
-
-        {/* Hero Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="max-w-2xl">
-            <h1 className="font-display text-responsive-xl font-bold mb-6 text-cream animate-slide-up">
-              Delicious Nigerian Food
-              <br />
-              <span className="text-gold">Delivered to You</span>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              Authentic Nigerian Cuisine
             </h1>
-            
-            <p className="text-responsive-base text-cream/90 mb-8 leading-relaxed animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              Experience the authentic taste of Lagos with our carefully prepared local dishes. 
-              Fresh ingredients, traditional recipes, and fast delivery across Lagos.
+            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+              Experience the rich flavors of Nigeria delivered fresh to your doorstep. 
+              From jollof rice to pepper soup, we bring you the taste of home.
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-              <Link to="/catalog" className="flex-1 sm:flex-none">
-                <Button size="lg" className="w-full sm:w-auto btn-premium text-lg px-8 py-4">
-                  Order Now
-                </Button>
-              </Link>
-              <Link to="/signup" className="flex-1 sm:flex-none">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto text-lg px-8 py-4 border-2 border-gold text-gold hover:bg-gold hover:text-charcoal transition-all duration-300">
-                  Sign Up
-                </Button>
-              </Link>
-            </div>
-
-            {/* Location Badge */}
-            <div className="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border border-gold/30 animate-scale-in" style={{ animationDelay: '0.6s' }}>
-              <MapPin className="w-5 h-5 text-gold mr-2" />
-              <span className="text-cream font-medium">Serving Lagos, Nigeria</span>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              {user ? (
+                <>
+                  <Button size="lg" variant="secondary" asChild>
+                    <Link to="/catalog">Order Now</Link>
+                  </Button>
+                  <Button size="lg" variant="outline" asChild>
+                    <Link to="/dashboard">Go to Dashboard</Link>
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button size="lg" variant="secondary" asChild>
+                    <Link to="/auth">Get Started</Link>
+                  </Button>
+                  <Button size="lg" variant="outline" asChild>
+                    <Link to="/catalog">View Menu</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 sm:py-20 bg-cream">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 text-charcoal">
-              Why Choose <span className="text-gradient-premium">Pallette n' Drapes?</span>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Why Choose Pallette n' Drapes?
             </h2>
-            <p className="text-lg text-muted-foreground">Culinary artistry meets exceptional service</p>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              We're more than just a food delivery service. We're your gateway to authentic Nigerian flavors.
+            </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-8 card-premium rounded-2xl group">
-              <div className="w-20 h-20 bg-gradient-burgundy rounded-full flex items-center justify-center mx-auto mb-6 group-hover:glow-gold transition-all duration-300">
-                <Truck className="w-10 h-10 text-cream" />
-              </div>
-              <h3 className="font-display text-2xl font-semibold mb-4 text-charcoal">Fast Delivery</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Quick delivery across Lagos Island, Victoria Island, Lekki, and Mainland areas
-              </p>
-            </div>
-            
-            <div className="text-center p-8 card-premium rounded-2xl group">
-              <div className="w-20 h-20 bg-gradient-gold rounded-full flex items-center justify-center mx-auto mb-6 group-hover:glow-gold transition-all duration-300">
-                <ChefHat className="w-10 h-10 text-charcoal" />
-              </div>
-              <h3 className="font-display text-2xl font-semibold mb-4 text-charcoal">Quality Food</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Authentic Nigerian dishes prepared with fresh, local ingredients
-              </p>
-            </div>
-            
-            <div className="text-center p-8 card-premium rounded-2xl group">
-              <div className="w-20 h-20 bg-gradient-to-br from-sage to-accent rounded-full flex items-center justify-center mx-auto mb-6 group-hover:glow-gold transition-all duration-300">
-                <Award className="w-10 h-10 text-charcoal" />
-              </div>
-              <h3 className="font-display text-2xl font-semibold mb-4 text-charcoal">Always Fresh</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Prepared to order and delivered hot to your doorstep
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit">
+                    {feature.icon}
+                  </div>
+                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base">
+                    {feature.description}
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Foods */}
-      <section className="py-16 sm:py-20 bg-texture">
+      {/* Popular Dishes Section */}
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 text-charcoal">
-              Popular <span className="text-gradient-premium">Nigerian Dishes</span>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Popular Dishes
             </h2>
-            <p className="text-lg text-muted-foreground">
-              Discover our most loved local delicacies
+            <p className="text-xl text-gray-600">
+              Taste the favorites that keep our customers coming back
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredFoods.map((food, index) => (
-              <Card key={food.id} className="overflow-hidden card-premium rounded-2xl group" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="aspect-square bg-gradient-to-br from-cream to-muted relative overflow-hidden">
-                  <img 
-                    src={food.image} 
-                    alt={food.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              {
+                name: "Jollof Rice & Chicken",
+                image: "/lovable-uploads/65d14216-f2ea-4ef3-b985-911443e4b1df.png",
+                price: "₦2,500",
+                rating: 4.8
+              },
+              {
+                name: "Jollof Rice & Turkey",
+                image: "/lovable-uploads/bda71da5-6763-48c0-8724-34990552d3a6.png",
+                price: "₦3,200",
+                rating: 4.9
+              },
+              {
+                name: "Jollof Spaghetti & Chicken",
+                image: "/lovable-uploads/eeb22afc-b937-41da-a72c-e61c256806b5.png",
+                price: "₦2,200",
+                rating: 4.7
+              },
+              {
+                name: "Chicken Peppersoup",
+                image: "/lovable-uploads/193ddcee-7c74-4d44-915f-1ca31e4cfe04.png",
+                price: "₦1,800",
+                rating: 4.6
+              }
+            ].map((dish, index) => (
+              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="aspect-square overflow-hidden">
+                  <img
+                    src={dish.image}
+                    alt={dish.name}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform"
                   />
-                  <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-2 flex items-center shadow-lg">
-                    <Star className="w-4 h-4 text-gold mr-1" fill="currentColor" />
-                    <span className="text-sm font-semibold text-charcoal">{food.rating}</span>
-                  </div>
                 </div>
-                
-                <CardContent className="p-6">
-                  <h3 className="font-display font-bold text-xl mb-3 text-charcoal line-clamp-2">{food.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{food.description}</p>
-                  
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-display text-2xl font-bold text-burgundy">{formatPrice(food.price)}</span>
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Clock className="w-4 h-4 mr-1" />
-                      {food.preparationTime}min
+                <CardContent className="p-4">
+                  <h3 className="font-semibold text-lg mb-2">{dish.name}</h3>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xl font-bold text-primary">{dish.price}</span>
+                    <div className="flex items-center gap-1">
+                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      <span className="text-sm text-gray-600">{dish.rating}</span>
                     </div>
                   </div>
-                  
-                  <Button className="w-full btn-premium rounded-xl py-3 text-base font-semibold">
-                    Add to Cart
-                  </Button>
                 </CardContent>
               </Card>
             ))}
           </div>
           
           <div className="text-center mt-12">
-            <Link to="/catalog">
-              <Button variant="outline" size="lg" className="px-8 py-4 text-lg font-semibold border-2 border-burgundy text-burgundy hover:bg-burgundy hover:text-cream transition-all duration-300 rounded-xl">
-                View Full Menu
-              </Button>
-            </Link>
+            <Button size="lg" asChild>
+              <Link to="/catalog">View Full Menu</Link>
+            </Button>
           </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-primary text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Ready to taste authentic Nigerian cuisine?
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Join thousands of satisfied customers who trust us for their daily meals.
+          </p>
+          {!user && (
+            <Button size="lg" variant="secondary" asChild>
+              <Link to="/auth">Sign Up Now</Link>
+            </Button>
+          )}
         </div>
       </section>
     </div>
   );
-}
+};
+
+export default Landing;
