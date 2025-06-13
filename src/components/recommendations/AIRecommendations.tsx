@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -49,7 +48,7 @@ export const AIRecommendations: React.FC = () => {
     // For logged-in users, analyze order history
     const userOrders = getOrdersByUser(user.id);
     const orderedFoodIds = userOrders.flatMap(order => 
-      order.items.map(item => item.food.id)
+      order.items.map(item => item.foodId) // Use foodId instead of item.food.id
     );
     
     // Get user's preferred categories
@@ -58,9 +57,13 @@ export const AIRecommendations: React.FC = () => {
     
     userOrders.forEach(order => {
       order.items.forEach(item => {
-        categoryCount[item.food.category] = (categoryCount[item.food.category] || 0) + 1;
-        if (item.food.isSpicy) spicyPreference.spicy++;
-        else spicyPreference.mild++;
+        // Find the food item from the foods store to get category and spicy info
+        const foodItem = foods.find(f => f.id === item.foodId);
+        if (foodItem) {
+          categoryCount[foodItem.category] = (categoryCount[foodItem.category] || 0) + 1;
+          if (foodItem.isSpicy) spicyPreference.spicy++;
+          else spicyPreference.mild++;
+        }
       });
     });
 

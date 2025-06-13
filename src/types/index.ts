@@ -113,6 +113,7 @@ export interface OrderItem {
   quantity: number;
   specialInstructions?: string;
   image?: string;
+  food?: Food; // Add this for backward compatibility
 }
 
 export interface Order {
@@ -120,7 +121,7 @@ export interface Order {
   userId: string;
   orderNumber: string;
   items: OrderItem[];
-  status: 'pending' | 'confirmed' | 'preparing' | 'ready' | 'delivered' | 'cancelled';
+  status: 'pending' | 'confirmed' | 'preparing' | 'ready' | 'out_for_delivery' | 'delivered' | 'cancelled';
   totalAmount: number;
   orderDate: string;
   estimatedDeliveryTime?: string;
