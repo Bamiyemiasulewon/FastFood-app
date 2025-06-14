@@ -105,10 +105,10 @@ const Cart = () => {
             <Card key={item.food.id} className="overflow-hidden">
               <CardContent className="p-4">
                 <div className="flex items-center gap-4">
-                  {item.food.image_url && (
+                  {item.food.image && (
                     <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
                       <img
-                        src={item.food.image_url}
+                        src={item.food.image}
                         alt={item.food.name}
                         className="w-full h-full object-cover"
                       />
