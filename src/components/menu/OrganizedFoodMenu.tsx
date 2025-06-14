@@ -44,6 +44,14 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
     'Fried Rice': {
       icon: '🍛',
       description: 'Delicious fried rice varieties'
+    },
+    'Peppersoup': {
+      icon: '🍲',
+      description: 'Spicy traditional Nigerian peppersoup'
+    },
+    'Proteins': {
+      icon: '🥩',
+      description: 'Fresh protein options'
     }
   };
 

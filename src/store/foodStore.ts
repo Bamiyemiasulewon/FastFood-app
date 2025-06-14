@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 import { Food } from '@/types';
 import { toast } from 'sonner';
@@ -113,6 +112,92 @@ const initialFoods: Food[] = [
     isVegetarian: false,
     isSpicy: false,
     tags: ['fried rice', 'turkey'],
+    isAvailable: true
+  },
+  // Peppersoup category
+  {
+    id: '20',
+    name: 'Catfish peppersoup',
+    description: 'Spicy traditional catfish peppersoup with native spices',
+    price: 3500,
+    image: '',
+    category: 'Peppersoup',
+    rating: 4.8,
+    preparationTime: 35,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['catfish', 'peppersoup', 'traditional'],
+    isAvailable: true
+  },
+  {
+    id: '21',
+    name: 'Chicken peppersoup',
+    description: 'Aromatic chicken peppersoup with traditional herbs',
+    price: 2800,
+    image: '',
+    category: 'Peppersoup',
+    rating: 4.7,
+    preparationTime: 30,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['chicken', 'peppersoup', 'traditional'],
+    isAvailable: true
+  },
+  {
+    id: '22',
+    name: 'Goat meat peppersoup',
+    description: 'Rich and spicy goat meat peppersoup with traditional spices',
+    price: 4000,
+    image: '',
+    category: 'Peppersoup',
+    rating: 4.9,
+    preparationTime: 45,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['goat meat', 'peppersoup', 'traditional'],
+    isAvailable: true
+  },
+  // Proteins category
+  {
+    id: '23',
+    name: 'Egg',
+    description: 'Fresh boiled or fried eggs',
+    price: 300,
+    image: '',
+    category: 'Proteins',
+    rating: 4.3,
+    preparationTime: 5,
+    isVegetarian: true,
+    isSpicy: false,
+    tags: ['egg', 'protein', 'vegetarian'],
+    isAvailable: true
+  },
+  {
+    id: '24',
+    name: 'Chicken',
+    description: 'Grilled or fried chicken pieces',
+    price: 1500,
+    image: '',
+    category: 'Proteins',
+    rating: 4.6,
+    preparationTime: 15,
+    isVegetarian: false,
+    isSpicy: false,
+    tags: ['chicken', 'protein', 'grilled'],
+    isAvailable: true
+  },
+  {
+    id: '25',
+    name: 'Turkey',
+    description: 'Tender turkey pieces, grilled to perfection',
+    price: 1800,
+    image: '',
+    category: 'Proteins',
+    rating: 4.5,
+    preparationTime: 18,
+    isVegetarian: false,
+    isSpicy: false,
+    tags: ['turkey', 'protein', 'grilled'],
     isAvailable: true
   }
 ];
