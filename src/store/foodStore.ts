@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 import { Food } from '@/types';
 import { toast } from 'sonner';
@@ -57,6 +56,20 @@ const initialFoods: Food[] = [
     tags: ['beef', 'rice'],
     isAvailable: true
   },
+  {
+    id: '35',
+    name: 'Jollof rice and fried fish',
+    description: 'Aromatic jollof rice with crispy fried fish',
+    price: 2700,
+    image: '',
+    category: 'Jollof rice',
+    rating: 4.7,
+    preparationTime: 25,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['fish', 'rice', 'fried'],
+    isAvailable: true
+  },
   // Spaghetti category
   {
     id: '4',
@@ -86,6 +99,20 @@ const initialFoods: Food[] = [
     tags: ['spaghetti', 'turkey'],
     isAvailable: true
   },
+  {
+    id: '36',
+    name: 'Spaghetti and fried fish',
+    description: 'Nigerian-style spaghetti with crispy fried fish',
+    price: 2400,
+    image: '',
+    category: 'Spaghetti',
+    rating: 4.6,
+    preparationTime: 22,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['spaghetti', 'fish', 'fried'],
+    isAvailable: true
+  },
   // Fried Rice category
   {
     id: '18',
@@ -113,6 +140,105 @@ const initialFoods: Food[] = [
     isVegetarian: false,
     isSpicy: false,
     tags: ['fried rice', 'turkey'],
+    isAvailable: true
+  },
+  // White Rice & Native rice category
+  {
+    id: '37',
+    name: 'White rice and chicken',
+    description: 'Steamed white rice served with grilled chicken',
+    price: 2200,
+    image: '',
+    category: 'White Rice & Native rice',
+    rating: 4.5,
+    preparationTime: 20,
+    isVegetarian: false,
+    isSpicy: false,
+    tags: ['white rice', 'chicken'],
+    isAvailable: true
+  },
+  {
+    id: '38',
+    name: 'White rice and turkey',
+    description: 'Steamed white rice served with tender turkey pieces',
+    price: 2500,
+    image: '',
+    category: 'White Rice & Native rice',
+    rating: 4.4,
+    preparationTime: 22,
+    isVegetarian: false,
+    isSpicy: false,
+    tags: ['white rice', 'turkey'],
+    isAvailable: true
+  },
+  {
+    id: '39',
+    name: 'White rice and stewed fried fish',
+    description: 'Steamed white rice with delicious stewed fried fish',
+    price: 2800,
+    image: '',
+    category: 'White Rice & Native rice',
+    rating: 4.6,
+    preparationTime: 25,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['white rice', 'fish', 'stewed'],
+    isAvailable: true
+  },
+  {
+    id: '40',
+    name: 'Native rice and chicken',
+    description: 'Traditional native rice served with grilled chicken',
+    price: 2400,
+    image: '',
+    category: 'White Rice & Native rice',
+    rating: 4.5,
+    preparationTime: 25,
+    isVegetarian: false,
+    isSpicy: false,
+    tags: ['native rice', 'chicken'],
+    isAvailable: true
+  },
+  {
+    id: '41',
+    name: 'Native rice and turkey',
+    description: 'Traditional native rice served with tender turkey pieces',
+    price: 2700,
+    image: '',
+    category: 'White Rice & Native rice',
+    rating: 4.4,
+    preparationTime: 27,
+    isVegetarian: false,
+    isSpicy: false,
+    tags: ['native rice', 'turkey'],
+    isAvailable: true
+  },
+  {
+    id: '42',
+    name: 'Native rice and stewed fried fish',
+    description: 'Traditional native rice with delicious stewed fried fish',
+    price: 3000,
+    image: '',
+    category: 'White Rice & Native rice',
+    rating: 4.6,
+    preparationTime: 30,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['native rice', 'fish', 'stewed'],
+    isAvailable: true
+  },
+  {
+    id: '43',
+    name: 'White rice and egg',
+    description: 'Steamed white rice served with fried or boiled egg',
+    price: 1500,
+    image: '',
+    category: 'White Rice & Native rice',
+    rating: 4.2,
+    preparationTime: 15,
+    isVegetarian: true,
+    isSpicy: false,
+    tags: ['white rice', 'egg', 'vegetarian'],
     isAvailable: true
   },
   // Peppersoup category
