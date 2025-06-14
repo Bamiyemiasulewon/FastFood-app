@@ -1,7 +1,8 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Star, Clock, MapPin, Smartphone } from "lucide-react";
+import { Star, Clock, MapPin, Smartphone, LayoutDashboard } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 const Landing = () => {
@@ -57,8 +58,16 @@ const Landing = () => {
                   <Button size="lg" variant="secondary" asChild>
                     <Link to="/catalog">Order Now</Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild>
-                    <Link to="/dashboard">Go to Dashboard</Link>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white font-semibold shadow-lg"
+                    asChild
+                  >
+                    <Link to="/dashboard" className="flex items-center gap-2">
+                      <LayoutDashboard className="h-5 w-5" />
+                      My Dashboard
+                    </Link>
                   </Button>
                 </>
               ) : (
@@ -120,19 +129,13 @@ const Landing = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
                 name: "Jollof Rice & Chicken",
                 image: "/lovable-uploads/65d14216-f2ea-4ef3-b985-911443e4b1df.png",
                 price: "₦2,500",
                 rating: 4.8
-              },
-              {
-                name: "Native rice",
-                image: "/lovable-uploads/bda71da5-6763-48c0-8724-34990552d3a6.png",
-                price: "₦3,200",
-                rating: 4.9
               },
               {
                 name: "Jollof Spaghetti & Chicken",
@@ -142,7 +145,7 @@ const Landing = () => {
               },
               {
                 name: "Catfish Peppersoup",
-                image: "/lovable-uploads/33bf7c67-2963-49fe-aee1-1035f9f37e7e.png",
+                image: "/lovable-uploads/b7c49647-4983-4f22-9b04-4bf54eab1f7e.png",
                 price: "₦1,800",
                 rating: 4.6
               }

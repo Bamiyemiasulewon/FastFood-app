@@ -1,3 +1,4 @@
+
 import { create } from 'zustand';
 import { Food } from '@/types';
 import { toast } from 'sonner';
@@ -28,20 +29,6 @@ const initialFoods: Food[] = [
     isAvailable: true
   },
   {
-    id: '2',
-    name: 'Native rice',
-    description: 'Rich native rice with succulent turkey pieces',
-    price: 3200,
-    image: '/lovable-uploads/bda71da5-6763-48c0-8724-34990552d3a6.png',
-    category: 'Rice Dishes',
-    rating: 4.9,
-    preparationTime: 30,
-    isVegetarian: false,
-    isSpicy: true,
-    tags: ['premium', 'turkey', 'rice'],
-    isAvailable: true
-  },
-  {
     id: '3',
     name: 'Jollof Spaghetti & Chicken',
     description: 'Spicy jollof spaghetti with grilled chicken',
@@ -60,7 +47,7 @@ const initialFoods: Food[] = [
     name: 'Catfish Peppersoup',
     description: 'Spicy catfish peppersoup with local spices and fresh vegetables',
     price: 1800,
-    image: '/lovable-uploads/33bf7c67-2963-49fe-aee1-1035f9f37e7e.png',
+    image: '/lovable-uploads/b7c49647-4983-4f22-9b04-4bf54eab1f7e.png',
     category: 'Soups',
     rating: 4.6,
     preparationTime: 15,
