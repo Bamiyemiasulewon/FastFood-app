@@ -63,7 +63,20 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Premium palette
+				// Restaurant color palette
+				'cream-white': '#FEFCF3',
+				'soft-beige': '#F5F1E8',
+				'warm-orange': '#FF6B35',
+				'forest-green': '#2A5A3F',
+				'golden-yellow': '#F4A261',
+				'dark-gray': '#2C2C2C',
+				'medium-gray': '#666666',
+				// State colors
+				success: '#28A745',
+				warning: '#FFC107',
+				error: '#DC3545',
+				info: '#17A2B8',
+				// Legacy colors for compatibility
 				burgundy: 'hsl(var(--burgundy))',
 				gold: 'hsl(var(--gold))',
 				sage: 'hsl(var(--sage))',
@@ -103,8 +116,8 @@ export default {
 					'100%': { backgroundPosition: 'calc(200px + 100%) 0' }
 				},
 				'pulse-glow': {
-					'0%, 100%': { boxShadow: '0 0 20px rgba(212, 175, 55, 0.3)' },
-					'50%': { boxShadow: '0 0 30px rgba(212, 175, 55, 0.6)' }
+					'0%, 100%': { boxShadow: '0 0 20px rgba(255, 107, 53, 0.3)' },
+					'50%': { boxShadow: '0 0 30px rgba(255, 107, 53, 0.6)' }
 				}
 			},
 			animation: {
