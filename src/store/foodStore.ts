@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 import { Food } from '@/types';
 import { toast } from 'sonner';
@@ -138,76 +137,6 @@ const initialFoods: Food[] = [
     isVegetarian: true,
     isSpicy: false,
     tags: ['pasta', 'vegetarian'],
-    isAvailable: true
-  },
-  {
-    id: '18',
-    name: 'Puff Puff',
-    description: 'Sweet and fluffy Nigerian donuts',
-    price: 800,
-    image: '/lovable-uploads/e2fda2b1-8589-451c-917b-720b806a4600.png',
-    category: 'Desserts',
-    rating: 4.5,
-    preparationTime: 15,
-    isVegetarian: true,
-    isSpicy: false,
-    tags: ['dessert', 'sweet'],
-    isAvailable: true
-  },
-  {
-    id: '19',
-    name: 'Chin Chin',
-    description: 'Crunchy Nigerian snack perfect for any time',
-    price: 600,
-    image: '/lovable-uploads/e2fda2b1-8589-451c-917b-720b806a4600.png',
-    category: 'Desserts',
-    rating: 4.3,
-    preparationTime: 10,
-    isVegetarian: true,
-    isSpicy: false,
-    tags: ['snack', 'crunchy'],
-    isAvailable: true
-  },
-  {
-    id: '20',
-    name: 'Plantain Chips',
-    description: 'Crispy plantain chips seasoned to perfection',
-    price: 700,
-    image: '/lovable-uploads/e2fda2b1-8589-451c-917b-720b806a4600.png',
-    category: 'Appetizers & Sides',
-    rating: 4.4,
-    preparationTime: 12,
-    isVegetarian: true,
-    isSpicy: false,
-    tags: ['snack', 'plantain'],
-    isAvailable: true
-  },
-  {
-    id: '21',
-    name: 'Akara',
-    description: 'Deep-fried bean cakes, crispy outside and soft inside',
-    price: 500,
-    image: '/lovable-uploads/e2fda2b1-8589-451c-917b-720b806a4600.png',
-    category: 'Appetizers & Sides',
-    rating: 4.6,
-    preparationTime: 15,
-    isVegetarian: true,
-    isSpicy: false,
-    tags: ['beans', 'traditional'],
-    isAvailable: true
-  },
-  {
-    id: '22',
-    name: 'Moi Moi',
-    description: 'Steamed bean pudding with eggs and vegetables',
-    price: 1200,
-    image: '/lovable-uploads/e2fda2b1-8589-451c-917b-720b806a4600.png',
-    category: 'Appetizers & Sides',
-    rating: 4.5,
-    preparationTime: 30,
-    isVegetarian: false,
-    isSpicy: false,
-    tags: ['beans', 'steamed'],
     isAvailable: true
   }
 ];

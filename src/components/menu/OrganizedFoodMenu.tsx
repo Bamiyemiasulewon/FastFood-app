@@ -31,7 +31,7 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
-  // Define category structure with only the allowed categories
+  // Define category structure with only Rice Dishes and Pasta
   const categoryStructure = {
     'Rice Dishes': {
       icon: '🍚',
@@ -40,14 +40,6 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
     'Pasta': {
       icon: '🍝',
       description: 'Nigerian-style pasta dishes'
-    },
-    'Appetizers & Sides': {
-      icon: '🥘',
-      description: 'Start your meal right'
-    },
-    'Desserts': {
-      icon: '🍰',
-      description: 'Sweet endings to your meal'
     }
   };
 
