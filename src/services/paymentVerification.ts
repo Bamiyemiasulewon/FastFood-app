@@ -1,3 +1,4 @@
+
 import { supabase } from '@/integrations/supabase/client';
 
 export interface PaymentVerificationResult {
@@ -10,30 +11,35 @@ export interface PaymentVerificationResult {
 
 export const verifyPaystackPayment = async (reference: string): Promise<PaymentVerificationResult> => {
   try {
-    // In production, this should be done via a Supabase Edge Function
-    // to keep your secret key secure
-    const response = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
-      headers: {
-        'Authorization': `Bearer ${import.meta.env.VITE_PAYSTACK_SECRET_KEY}`,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    const data = await response.json();
+    // Frontend simulation - In production, this would call your backend API
+    console.log('Verifying Paystack payment:', reference);
     
-    if (data.status && data.data.status === 'success') {
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // For demo purposes, simulate successful verification
+    const success = Math.random() > 0.1; // 90% success rate
+    
+    if (success) {
+      // Extract amount from reference (demo logic)
+      const amount = Math.floor(Math.random() * 10000) + 500;
+      
       return {
         success: true,
-        amount: data.data.amount / 100, // Convert from kobo to naira
-        reference: data.data.reference,
-        gatewayResponse: data.data
+        amount: amount,
+        reference: reference,
+        gatewayResponse: {
+          status: 'success',
+          gateway_response: 'Successful',
+          amount: amount * 100 // Paystack returns in kobo
+        }
       };
     } else {
       return {
         success: false,
         amount: 0,
         reference,
-        error: data.message || 'Payment verification failed'
+        error: 'Payment verification failed'
       };
     }
   } catch (error) {
@@ -49,29 +55,35 @@ export const verifyPaystackPayment = async (reference: string): Promise<PaymentV
 
 export const verifyFlutterwavePayment = async (transactionId: string): Promise<PaymentVerificationResult> => {
   try {
-    // In production, this should be done via a Supabase Edge Function
-    const response = await fetch(`https://api.flutterwave.com/v3/transactions/${transactionId}/verify`, {
-      headers: {
-        'Authorization': `Bearer ${import.meta.env.VITE_FLUTTERWAVE_SECRET_KEY}`,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    const data = await response.json();
+    // Frontend simulation - In production, this would call your backend API
+    console.log('Verifying Flutterwave payment:', transactionId);
     
-    if (data.status === 'success' && data.data.status === 'successful') {
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // For demo purposes, simulate successful verification
+    const success = Math.random() > 0.1; // 90% success rate
+    
+    if (success) {
+      // Extract amount from transaction ID (demo logic)
+      const amount = Math.floor(Math.random() * 10000) + 500;
+      
       return {
         success: true,
-        amount: data.data.amount,
-        reference: data.data.tx_ref,
-        gatewayResponse: data.data
+        amount: amount,
+        reference: transactionId,
+        gatewayResponse: {
+          status: 'successful',
+          tx_ref: transactionId,
+          amount: amount
+        }
       };
     } else {
       return {
         success: false,
         amount: 0,
         reference: transactionId,
-        error: data.message || 'Payment verification failed'
+        error: 'Payment verification failed'
       };
     }
   } catch (error) {

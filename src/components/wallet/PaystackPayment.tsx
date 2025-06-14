@@ -1,8 +1,8 @@
 
 import React from 'react';
-import { usePaystackPayment } from 'react-paystack';
 import { Button } from '@/components/ui/button';
 import { CreditCard } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface PaystackPaymentProps {
   amount: number;
@@ -23,41 +23,26 @@ export const PaystackPayment = ({
   onError,
   disabled = false
 }: PaystackPaymentProps) => {
-  const config = {
-    reference,
-    email,
-    amount: amount * 100, // Paystack expects amount in kobo
-    publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || 'pk_test_your_key_here',
-    currency: 'NGN',
-    channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money', 'bank_transfer'],
-    metadata: {
-      custom_fields: [
-        {
-          display_name: "Payment Type",
-          variable_name: "payment_type",
-          value: "wallet_topup"
-        }
-      ]
-    }
-  };
-
-  const initializePayment = usePaystackPayment(config);
-
   const handlePayment = () => {
-    initializePayment({
-      onSuccess: (response) => {
-        console.log('Paystack payment successful:', response);
-        onSuccess(response.reference);
-      },
-      onClose: () => {
-        console.log('Paystack payment closed');
-        onClose();
-      },
-      onError: (error) => {
-        console.error('Paystack payment error:', error);
+    // For frontend demo purposes, simulate payment flow
+    console.log('Initiating Paystack payment:', { amount, email, reference });
+    
+    // Simulate payment processing
+    toast.info('Opening Paystack payment gateway...');
+    
+    // Simulate payment success after 2 seconds (for demo)
+    setTimeout(() => {
+      const success = Math.random() > 0.3; // 70% success rate for demo
+      
+      if (success) {
+        toast.success('Payment completed successfully!');
+        onSuccess(reference);
+      } else {
+        const error = new Error('Payment failed. Please try again.');
+        toast.error('Payment failed. Please try again.');
         onError(error);
       }
-    });
+    }, 2000);
   };
 
   return (
