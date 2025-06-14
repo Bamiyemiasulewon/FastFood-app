@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -32,35 +31,19 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
-  // Define category structure with proper Nigerian food categories
+  // Define category structure with only the allowed categories
   const categoryStructure = {
     'Rice Dishes': {
       icon: '🍚',
       description: 'Traditional Nigerian rice preparations'
     },
-    'Soups & Stews': {
-      icon: '🍲',
-      description: 'Hearty Nigerian soups and stews'
-    },
     'Pasta': {
       icon: '🍝',
       description: 'Nigerian-style pasta dishes'
     },
-    'Grilled Items': {
-      icon: '🔥',
-      description: 'Perfectly grilled meats and fish'
-    },
-    'Swallow Foods': {
-      icon: '🥣',
-      description: 'Traditional Nigerian swallow foods'
-    },
     'Appetizers & Sides': {
       icon: '🥘',
       description: 'Start your meal right'
-    },
-    'Beverages': {
-      icon: '🥤',
-      description: 'Refreshing drinks and traditional beverages'
     },
     'Desserts': {
       icon: '🍰',
