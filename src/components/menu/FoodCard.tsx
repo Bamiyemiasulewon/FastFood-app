@@ -102,7 +102,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
         </div>
         
         <Button 
-          className="w-full bg-warm-orange hover:bg-[#E55A2B] text-white rounded-lg py-2 text-sm font-semibold shadow-md transition-all duration-300"
+          className="w-full bg-warm-orange hover:bg-[#FF8A52] text-white rounded-lg py-2 text-sm font-semibold shadow-md transition-all duration-300"
           onClick={onAddToCart}
           disabled={!isUserLoggedIn || !quantity || !food.isAvailable}
         >

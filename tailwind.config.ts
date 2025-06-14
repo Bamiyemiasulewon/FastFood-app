@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -63,10 +62,10 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Restaurant color palette
+				// Restaurant color palette with lighter oranges
 				'cream-white': '#FEFCF3',
 				'soft-beige': '#F5F1E8',
-				'warm-orange': '#FF6B35',
+				'warm-orange': '#FF9B6B', // Lighter orange - was #FF6B35
 				'forest-green': '#2A5A3F',
 				'golden-yellow': '#F4A261',
 				'dark-gray': '#2C2C2C',
@@ -116,8 +115,8 @@ export default {
 					'100%': { backgroundPosition: 'calc(200px + 100%) 0' }
 				},
 				'pulse-glow': {
-					'0%, 100%': { boxShadow: '0 0 20px rgba(255, 107, 53, 0.3)' },
-					'50%': { boxShadow: '0 0 30px rgba(255, 107, 53, 0.6)' }
+					'0%, 100%': { boxShadow: '0 0 20px rgba(255, 155, 107, 0.3)' }, // Updated for lighter orange
+					'50%': { boxShadow: '0 0 30px rgba(255, 155, 107, 0.6)' }
 				}
 			},
 			animation: {
