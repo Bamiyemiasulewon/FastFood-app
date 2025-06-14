@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Star, Clock, MapPin, Smartphone, LayoutDashboard } from "lucide-react";
+import { Star, Clock, MapPin, Smartphone, LayoutDashboard, MessageCircle } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 const Landing = () => {
@@ -30,6 +30,13 @@ const Landing = () => {
     }
   ];
 
+  const handleWhatsAppContact = () => {
+    const phoneNumber = "2348104555490"; // Nigeria country code + number
+    const message = "Hello! I'm interested in ordering from Pallette n' Drapes.";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section with Food Background */}
@@ -46,10 +53,10 @@ const Landing = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Authentic Nigerian Cuisine
+              Order your favourite food here
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Experience the rich flavors of our restaurant delivered fresh to your doorstep.
+              Choose from a diverse menu featuring our array of dishes crafted with the finest ingredients and culinary expertise
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {user ? (
@@ -79,6 +86,15 @@ const Landing = () => {
                   </Button>
                 </>
               )}
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="bg-green-600/20 backdrop-blur-sm border-green-500/30 text-white hover:bg-green-600/30 hover:text-white font-semibold shadow-lg"
+                onClick={handleWhatsAppContact}
+              >
+                <MessageCircle className="h-5 w-5 mr-2" />
+                Contact Us
+              </Button>
             </div>
           </div>
         </div>
@@ -179,8 +195,8 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-primary text-white py-20">
+      {/* CTA Section - Made lighter */}
+      <section className="bg-primary/70 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to taste authentic Nigerian cuisine?

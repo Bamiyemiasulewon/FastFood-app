@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +18,7 @@ import OrderTrackingDemo from "./pages/OrderTrackingDemo";
 import Profile from "./pages/Profile";
 import OrderHistory from "./pages/OrderHistory";
 import Wallet from "./pages/Wallet";
+import Cart from "./pages/Cart";
 
 const queryClient = new QueryClient();
 
@@ -46,7 +48,7 @@ const App = () => (
                 } />
                 <Route path="/cart" element={
                   <ProtectedRoute>
-                    <div className="p-8 text-center">Shopping Cart - Coming Soon!</div>
+                    <Cart />
                   </ProtectedRoute>
                 } />
                 <Route path="/wallet" element={
