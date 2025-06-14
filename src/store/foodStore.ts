@@ -1,3 +1,4 @@
+
 import { create } from 'zustand';
 import { Food } from '@/types';
 import { toast } from 'sonner';
@@ -157,14 +158,14 @@ const initialFoods: Food[] = [
     tags: ['goat meat', 'peppersoup', 'traditional'],
     isAvailable: true
   },
-  // Proteins category
+  // Protein category (renamed from Proteins)
   {
     id: '23',
     name: 'Egg',
     description: 'Fresh boiled or fried eggs',
     price: 300,
     image: '',
-    category: 'Proteins',
+    category: 'Protein',
     rating: 4.3,
     preparationTime: 5,
     isVegetarian: true,
@@ -178,7 +179,7 @@ const initialFoods: Food[] = [
     description: 'Grilled or fried chicken pieces',
     price: 1500,
     image: '',
-    category: 'Proteins',
+    category: 'Protein',
     rating: 4.6,
     preparationTime: 15,
     isVegetarian: false,
@@ -192,12 +193,139 @@ const initialFoods: Food[] = [
     description: 'Tender turkey pieces, grilled to perfection',
     price: 1800,
     image: '',
-    category: 'Proteins',
+    category: 'Protein',
     rating: 4.5,
     preparationTime: 18,
     isVegetarian: false,
     isSpicy: false,
     tags: ['turkey', 'protein', 'grilled'],
+    isAvailable: true
+  },
+  {
+    id: '26',
+    name: 'Stewed fried fish',
+    description: 'Deliciously seasoned fried fish in rich tomato stew',
+    price: 2200,
+    image: '',
+    category: 'Protein',
+    rating: 4.7,
+    preparationTime: 25,
+    isVegetarian: false,
+    isSpicy: true,
+    tags: ['fish', 'protein', 'stewed'],
+    isAvailable: true
+  },
+  // Extras category
+  {
+    id: '27',
+    name: 'White rice',
+    description: 'Plain steamed white rice',
+    price: 800,
+    image: '',
+    category: 'Extras',
+    rating: 4.2,
+    preparationTime: 15,
+    isVegetarian: true,
+    isSpicy: false,
+    tags: ['rice', 'side', 'vegetarian'],
+    isAvailable: true
+  },
+  {
+    id: '28',
+    name: 'Jollof rice',
+    description: 'Traditional Nigerian jollof rice',
+    price: 1200,
+    image: '',
+    category: 'Extras',
+    rating: 4.6,
+    preparationTime: 20,
+    isVegetarian: true,
+    isSpicy: true,
+    tags: ['rice', 'jollof', 'side'],
+    isAvailable: true
+  },
+  {
+    id: '29',
+    name: 'Spaghetti',
+    description: 'Nigerian-style spicy spaghetti',
+    price: 1000,
+    image: '',
+    category: 'Extras',
+    rating: 4.4,
+    preparationTime: 18,
+    isVegetarian: true,
+    isSpicy: true,
+    tags: ['pasta', 'side', 'spicy'],
+    isAvailable: true
+  },
+  {
+    id: '30',
+    name: 'Turkey',
+    description: 'Grilled turkey pieces',
+    price: 1800,
+    image: '',
+    category: 'Extras',
+    rating: 4.5,
+    preparationTime: 18,
+    isVegetarian: false,
+    isSpicy: false,
+    tags: ['turkey', 'protein', 'extra'],
+    isAvailable: true
+  },
+  {
+    id: '31',
+    name: 'Chicken',
+    description: 'Grilled chicken pieces',
+    price: 1500,
+    image: '',
+    category: 'Extras',
+    rating: 4.6,
+    preparationTime: 15,
+    isVegetarian: false,
+    isSpicy: false,
+    tags: ['chicken', 'protein', 'extra'],
+    isAvailable: true
+  },
+  {
+    id: '32',
+    name: 'Egg',
+    description: 'Boiled or fried egg',
+    price: 300,
+    image: '',
+    category: 'Extras',
+    rating: 4.3,
+    preparationTime: 5,
+    isVegetarian: true,
+    isSpicy: false,
+    tags: ['egg', 'protein', 'extra'],
+    isAvailable: true
+  },
+  {
+    id: '33',
+    name: 'Plantain',
+    description: 'Sweet fried plantain slices',
+    price: 600,
+    image: '',
+    category: 'Extras',
+    rating: 4.7,
+    preparationTime: 10,
+    isVegetarian: true,
+    isSpicy: false,
+    tags: ['plantain', 'side', 'sweet'],
+    isAvailable: true
+  },
+  {
+    id: '34',
+    name: 'Fried Fish',
+    description: 'Crispy seasoned fried fish',
+    price: 2000,
+    image: '',
+    category: 'Extras',
+    rating: 4.6,
+    preparationTime: 20,
+    isVegetarian: false,
+    isSpicy: false,
+    tags: ['fish', 'fried', 'protein'],
     isAvailable: true
   }
 ];
