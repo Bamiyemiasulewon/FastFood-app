@@ -73,15 +73,6 @@ const Landing = () => {
                   </Button>
                 </>
               )}
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="bg-green-600/20 backdrop-blur-sm border-green-500/30 text-white hover:bg-green-600/30 hover:text-white font-semibold shadow-lg"
-                onClick={handleWhatsAppContact}
-              >
-                <MessageCircle className="h-5 w-5 mr-2" />
-                Contact Us
-              </Button>
             </div>
           </div>
         </div>
