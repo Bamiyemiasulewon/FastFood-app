@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, ShoppingCart, User, LogOut } from "lucide-react";
+import { Menu, X, ShoppingCart, User, LogOut, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -23,6 +23,13 @@ export const Navbar = () => {
   const handleSignOut = async () => {
     await signOut();
     navigate('/');
+  };
+
+  const handleWhatsAppContact = () => {
+    const phoneNumber = "2348104555490"; // Nigeria country code + number
+    const message = "Hello! I'm interested in ordering from Pallette n' Drapes.";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   const cartItemsCount = user ? getTotalItems() : 0;
@@ -56,6 +63,17 @@ export const Navbar = () => {
                 >
                   Orders
                 </Link>
+                
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  className="bg-green-600/10 border-green-500/30 text-green-700 hover:bg-green-600/20 hover:text-green-700"
+                  onClick={handleWhatsAppContact}
+                >
+                  <MessageCircle className="h-4 w-4 mr-2" />
+                  Contact Us
+                </Button>
+                
                 <Link
                   to="/wallet"
                   className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
@@ -81,9 +99,6 @@ export const Navbar = () => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem asChild>
-                      <Link to="/dashboard">Dashboard</Link>
-                    </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link to="/profile">Profile</Link>
                     </DropdownMenuItem>
@@ -143,6 +158,15 @@ export const Navbar = () => {
                 >
                   Orders
                 </Link>
+                <button
+                  onClick={() => {
+                    handleWhatsAppContact();
+                    setIsOpen(false);
+                  }}
+                  className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                >
+                  Contact Us
+                </button>
                 <Link
                   to="/wallet"
                   className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
@@ -156,13 +180,6 @@ export const Navbar = () => {
                   onClick={() => setIsOpen(false)}
                 >
                   Cart ({cartItemsCount})
-                </Link>
-                <Link
-                  to="/dashboard"
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Dashboard
                 </Link>
                 <Link
                   to="/profile"

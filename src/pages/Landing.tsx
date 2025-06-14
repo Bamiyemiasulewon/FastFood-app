@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -53,30 +52,17 @@ const Landing = () => {
         {/* Content overlay */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
               Order your favourite food here
             </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
               Choose from a diverse menu featuring our array of dishes crafted with the finest ingredients and culinary expertise
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {user ? (
-                <>
-                  <Button size="lg" variant="secondary" asChild>
-                    <Link to="/catalog">Order Now</Link>
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white font-semibold shadow-lg"
-                    asChild
-                  >
-                    <Link to="/dashboard" className="flex items-center gap-2">
-                      <LayoutDashboard className="h-5 w-5" />
-                      My Dashboard
-                    </Link>
-                  </Button>
-                </>
+                <Button size="lg" variant="secondary" asChild>
+                  <Link to="/catalog">Order Now</Link>
+                </Button>
               ) : (
                 <>
                   <Button size="lg" variant="secondary" asChild>
