@@ -19,7 +19,7 @@ const initialFoods: Food[] = [
     name: 'Jollof Rice & Chicken',
     description: 'Aromatic jollof rice with tender grilled chicken',
     price: 2500,
-    image: '/lovable-uploads/e4bf75af-1bc3-4b03-927b-c35f95968a5e.png',
+    image: '/lovable-uploads/6ee823c1-f902-483f-9454-7460a2feeaa3.png',
     category: 'Rice Dishes',
     rating: 4.8,
     preparationTime: 25,

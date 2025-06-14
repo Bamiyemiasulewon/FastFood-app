@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -133,7 +132,7 @@ const Landing = () => {
             {[
               {
                 name: "Jollof Rice & Chicken",
-                image: "/lovable-uploads/65d14216-f2ea-4ef3-b985-911443e4b1df.png",
+                image: "/lovable-uploads/6ee823c1-f902-483f-9454-7460a2feeaa3.png",
                 price: "₦2,500",
                 rating: 4.8
               },
