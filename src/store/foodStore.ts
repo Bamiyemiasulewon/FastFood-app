@@ -42,20 +42,6 @@ const initialFoods: Food[] = [
     isAvailable: true
   },
   {
-    id: '3',
-    name: 'Vegetarian Jollof Rice',
-    description: 'Flavorful jollof rice with mixed vegetables',
-    price: 2000,
-    image: '/lovable-uploads/6ee823c1-f902-483f-9454-7460a2feeaa3.png',
-    category: 'Rice Dishes',
-    rating: 4.5,
-    preparationTime: 20,
-    isVegetarian: true,
-    isSpicy: true,
-    tags: ['vegetarian', 'rice'],
-    isAvailable: true
-  },
-  {
     id: '4',
     name: 'Jollof Spaghetti & Chicken',
     description: 'Spicy jollof spaghetti with grilled chicken',
@@ -95,20 +81,6 @@ const initialFoods: Food[] = [
     isVegetarian: true,
     isSpicy: false,
     tags: ['rice', 'coconut', 'vegetarian'],
-    isAvailable: true
-  },
-  {
-    id: '15',
-    name: 'Ofada Rice',
-    description: 'Local Nigerian rice served with special ofada sauce',
-    price: 2400,
-    image: '/lovable-uploads/6ee823c1-f902-483f-9454-7460a2feeaa3.png',
-    category: 'Rice Dishes',
-    rating: 4.7,
-    preparationTime: 30,
-    isVegetarian: false,
-    isSpicy: true,
-    tags: ['rice', 'traditional', 'ofada'],
     isAvailable: true
   },
   {
