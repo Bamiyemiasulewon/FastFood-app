@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,6 +7,7 @@ import { Toggle } from '@/components/ui/toggle';
 import { Search, LayoutGrid, List } from 'lucide-react';
 import { useFoodStore } from '@/store/foodStore';
 import { useAuthStore } from '@/store/authStore';
+import { useCartStore } from '@/store/cartStore';
 import OrganizedFoodMenu from '@/components/menu/OrganizedFoodMenu';
 import { Card, CardContent } from '@/components/ui/card';
 import { Star, Clock, ShoppingCart, Plus, Minus, Filter } from 'lucide-react';
