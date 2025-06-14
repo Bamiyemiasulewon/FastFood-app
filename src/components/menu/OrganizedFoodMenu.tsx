@@ -31,15 +31,15 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
-  // Define category structure with Rice Dishes, Pasta, and Fried Rice
+  // Define category structure with updated categories
   const categoryStructure = {
-    'Rice Dishes': {
+    'Jollof rice': {
       icon: '🍚',
-      description: 'Traditional Nigerian rice preparations'
+      description: 'Traditional Nigerian jollof rice preparations'
     },
-    'Pasta': {
+    'Spaghetti': {
       icon: '🍝',
-      description: 'Nigerian-style pasta dishes'
+      description: 'Nigerian-style spaghetti dishes'
     },
     'Fried Rice': {
       icon: '🍛',
