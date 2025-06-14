@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { 
   Wallet as WalletIcon, 
   Plus, 
@@ -17,14 +18,26 @@ import {
   Calendar,
   RefreshCw,
   CreditCard,
-  Smartphone
+  Smartphone,
+  Building2,
+  Copy,
+  CheckCircle
 } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Wallet = () => {
   const { profile, walletTransactions, loading, addMoney, refreshTransactions } = useUserProfile();
   const [addMoneyOpen, setAddMoneyOpen] = useState(false);
   const [amount, setAmount] = useState('');
-  const [selectedMethod, setSelectedMethod] = useState('paystack');
+  const [selectedMethod, setSelectedMethod] = useState('bank_transfer');
+
+  // Bank details for transfer
+  const bankDetails = {
+    bankName: "First Bank of Nigeria",
+    accountNumber: "1234567890",
+    accountName: "Pallette n' Drapes Ltd",
+    reference: `WALLET_${Date.now()}`
+  };
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
@@ -62,13 +75,40 @@ const Wallet = () => {
     }
   };
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success('Copied to clipboard!');
+  };
+
   const handleAddMoney = async () => {
     const amountNum = parseFloat(amount);
     if (amountNum > 0) {
-      const reference = `wallet_topup_${Date.now()}`;
-      await addMoney(amountNum, reference);
-      setAddMoneyOpen(false);
-      setAmount('');
+      if (selectedMethod === 'bank_transfer') {
+        // For bank transfer, just show the bank details
+        toast.success('Bank details shown below. Transfer the amount and it will be credited to your wallet within 24 hours.');
+      } else if (selectedMethod === 'paystack') {
+        // Simulate Paystack integration (would need actual API keys in production)
+        try {
+          const reference = `paystack_${Date.now()}`;
+          await addMoney(amountNum, reference);
+          setAddMoneyOpen(false);
+          setAmount('');
+          toast.success('Payment successful! Money added to wallet.');
+        } catch (error) {
+          toast.error('Paystack payment failed. Please try bank transfer.');
+        }
+      } else if (selectedMethod === 'flutterwave') {
+        // Simulate Flutterwave integration (would need actual API keys in production)
+        try {
+          const reference = `flutterwave_${Date.now()}`;
+          await addMoney(amountNum, reference);
+          setAddMoneyOpen(false);
+          setAmount('');
+          toast.success('Payment successful! Money added to wallet.');
+        } catch (error) {
+          toast.error('Flutterwave payment failed. Please try bank transfer.');
+        }
+      }
     }
   };
 
@@ -122,7 +162,7 @@ const Wallet = () => {
                       Add Money
                     </Button>
                   </DialogTrigger>
-                  <DialogContent>
+                  <DialogContent className="max-w-md">
                     <DialogHeader>
                       <DialogTitle>Add Money to Wallet</DialogTitle>
                     </DialogHeader>
@@ -164,6 +204,18 @@ const Wallet = () => {
                         <div className="space-y-2">
                           <div 
                             className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${
+                              selectedMethod === 'bank_transfer' ? 'border-primary bg-primary/5' : 'border-gray-200'
+                            }`}
+                            onClick={() => setSelectedMethod('bank_transfer')}
+                          >
+                            <Building2 className="w-5 h-5 text-primary" />
+                            <div>
+                              <p className="font-medium">Bank Transfer</p>
+                              <p className="text-sm text-muted-foreground">Direct bank transfer (Recommended)</p>
+                            </div>
+                          </div>
+                          <div 
+                            className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${
                               selectedMethod === 'paystack' ? 'border-primary bg-primary/5' : 'border-gray-200'
                             }`}
                             onClick={() => setSelectedMethod('paystack')}
@@ -189,6 +241,57 @@ const Wallet = () => {
                         </div>
                       </div>
 
+                      {/* Bank Transfer Details */}
+                      {selectedMethod === 'bank_transfer' && amount && parseFloat(amount) > 0 && (
+                        <Alert>
+                          <Building2 className="h-4 w-4" />
+                          <AlertDescription>
+                            <div className="space-y-2 mt-2">
+                              <div className="flex justify-between">
+                                <span className="font-medium">Bank:</span>
+                                <span>{bankDetails.bankName}</span>
+                              </div>
+                              <div className="flex justify-between items-center">
+                                <span className="font-medium">Account:</span>
+                                <div className="flex items-center gap-2">
+                                  <span>{bankDetails.accountNumber}</span>
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    className="h-6 w-6 p-0"
+                                    onClick={() => copyToClipboard(bankDetails.accountNumber)}
+                                  >
+                                    <Copy className="h-3 w-3" />
+                                  </Button>
+                                </div>
+                              </div>
+                              <div className="flex justify-between">
+                                <span className="font-medium">Name:</span>
+                                <span>{bankDetails.accountName}</span>
+                              </div>
+                              <div className="flex justify-between items-center">
+                                <span className="font-medium">Reference:</span>
+                                <div className="flex items-center gap-2">
+                                  <span className="text-sm">{bankDetails.reference}</span>
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    className="h-6 w-6 p-0"
+                                    onClick={() => copyToClipboard(bankDetails.reference)}
+                                  >
+                                    <Copy className="h-3 w-3" />
+                                  </Button>
+                                </div>
+                              </div>
+                              <div className="flex justify-between font-bold text-primary">
+                                <span>Amount:</span>
+                                <span>₦{parseFloat(amount).toLocaleString()}</span>
+                              </div>
+                            </div>
+                          </AlertDescription>
+                        </Alert>
+                      )}
+
                       {/* Add Money Button */}
                       <Button 
                         onClick={handleAddMoney}
@@ -196,7 +299,7 @@ const Wallet = () => {
                         className="w-full btn-premium"
                         size="lg"
                       >
-                        Add ₦{amount ? parseFloat(amount).toLocaleString() : '0'} to Wallet
+                        {selectedMethod === 'bank_transfer' ? 'Show Bank Details' : `Pay ₦${amount ? parseFloat(amount).toLocaleString() : '0'}`}
                       </Button>
                     </div>
                   </DialogContent>

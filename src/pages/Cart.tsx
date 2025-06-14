@@ -6,12 +6,12 @@ import { Badge } from '@/components/ui/badge';
 import { Minus, Plus, Trash2, ShoppingBag, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { useCart } from '@/hooks/useSupabaseData';
+import { useCartStore } from '@/store/cartStore';
 import { toast } from 'sonner';
 
 const Cart = () => {
   const { user } = useAuth();
-  const { cartItems, loading, updateCartItem, removeFromCart, clearCart, getTotalPrice, getTotalItems } = useCart();
+  const { items, updateQuantity, removeItem, clearCart, getTotalPrice, getTotalItems } = useCartStore();
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-NG', {
@@ -21,15 +21,15 @@ const Cart = () => {
     }).format(price);
   };
 
-  const handleQuantityChange = (cartItemId: string, currentQuantity: number, delta: number) => {
+  const handleQuantityChange = (foodId: string, currentQuantity: number, delta: number) => {
     const newQuantity = currentQuantity + delta;
     if (newQuantity > 0) {
-      updateCartItem(cartItemId, newQuantity);
+      updateQuantity(foodId, newQuantity);
     }
   };
 
-  const handleRemoveItem = (cartItemId: string) => {
-    removeFromCart(cartItemId);
+  const handleRemoveItem = (foodId: string) => {
+    removeItem(foodId);
   };
 
   const handleCheckout = () => {
@@ -55,18 +55,7 @@ const Cart = () => {
     );
   }
 
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading your cart...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (cartItems.length === 0) {
+  if (items.length === 0) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
@@ -112,27 +101,27 @@ const Cart = () => {
             </Button>
           </div>
 
-          {cartItems.map((item: any) => (
-            <Card key={item.id} className="overflow-hidden">
+          {items.map((item) => (
+            <Card key={item.food.id} className="overflow-hidden">
               <CardContent className="p-4">
                 <div className="flex items-center gap-4">
-                  {item.food_items?.image_url && (
+                  {item.food.image_url && (
                     <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
                       <img
-                        src={item.food_items.image_url}
-                        alt={item.food_items.name}
+                        src={item.food.image_url}
+                        alt={item.food.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
                   )}
                   
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-lg mb-1">{item.food_items?.name}</h3>
+                    <h3 className="font-semibold text-lg mb-1">{item.food.name}</h3>
                     <p className="text-sm text-gray-600 line-clamp-2 mb-2">
-                      {item.food_items?.description}
+                      {item.food.description}
                     </p>
                     <p className="font-bold text-primary">
-                      {formatPrice(item.food_items?.price || 0)}
+                      {formatPrice(item.food.price)}
                     </p>
                   </div>
 
@@ -142,7 +131,7 @@ const Cart = () => {
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => handleQuantityChange(item.id, item.quantity, -1)}
+                        onClick={() => handleQuantityChange(item.food.id, item.quantity, -1)}
                         className="h-8 w-8 p-0"
                       >
                         <Minus className="w-3 h-3" />
@@ -153,7 +142,7 @@ const Cart = () => {
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => handleQuantityChange(item.id, item.quantity, 1)}
+                        onClick={() => handleQuantityChange(item.food.id, item.quantity, 1)}
                         className="h-8 w-8 p-0"
                       >
                         <Plus className="w-3 h-3" />
@@ -164,7 +153,7 @@ const Cart = () => {
                     <Button
                       size="sm"
                       variant="ghost"
-                      onClick={() => handleRemoveItem(item.id)}
+                      onClick={() => handleRemoveItem(item.food.id)}
                       className="text-red-600 hover:text-red-700 h-8 w-8 p-0"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -176,7 +165,7 @@ const Cart = () => {
                 <div className="mt-3 pt-3 border-t flex justify-between items-center">
                   <span className="text-sm text-gray-600">Subtotal:</span>
                   <span className="font-semibold">
-                    {formatPrice((item.food_items?.price || 0) * item.quantity)}
+                    {formatPrice(item.food.price * item.quantity)}
                   </span>
                 </div>
               </CardContent>

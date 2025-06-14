@@ -11,13 +11,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
-import { useCart } from "@/hooks/useSupabaseData";
+import { useCartStore } from "@/store/cartStore";
 import { NotificationBell } from "@/components/notifications/NotificationBell";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, signOut } = useAuth();
-  const { getTotalItems } = useCart();
+  const { getTotalItems } = useCartStore();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
