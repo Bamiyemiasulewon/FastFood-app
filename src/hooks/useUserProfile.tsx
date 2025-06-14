@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useAuth } from './useAuth';
 import { supabase } from '@/integrations/supabase/client';
@@ -171,10 +170,14 @@ export const useUserProfile = () => {
     }
   };
 
-  const addMoney = async (amount: number, reference: string) => {
+  const addMoney = async (amount: number, reference: string, method?: string) => {
     if (!user) return;
 
     try {
+      // Only credit wallet for verified payments (not pending bank transfers)
+      const shouldCreditWallet = method !== 'bank_transfer';
+      const newBalance = shouldCreditWallet ? (profile?.walletBalance || 0) + amount : (profile?.walletBalance || 0);
+
       // Create wallet transaction
       const { error: txError } = await supabase
         .from('wallet_transactions')
@@ -182,32 +185,37 @@ export const useUserProfile = () => {
           user_id: user.id,
           type: 'credit',
           amount: amount,
-          description: 'Wallet top-up',
+          description: method === 'bank_transfer' ? 'Bank transfer - Pending verification' : 'Wallet top-up',
           reference: reference,
           balance_before: profile?.walletBalance || 0,
-          balance_after: (profile?.walletBalance || 0) + amount,
+          balance_after: newBalance,
         });
 
       if (txError) throw txError;
 
-      // Update profile wallet balance
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .update({
-          wallet_balance: (profile?.walletBalance || 0) + amount,
-        })
-        .eq('id', user.id);
+      // Update profile wallet balance only for verified payments
+      if (shouldCreditWallet) {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .update({
+            wallet_balance: newBalance,
+          })
+          .eq('id', user.id);
 
-      if (profileError) throw profileError;
+        if (profileError) throw profileError;
+      }
 
       // Refresh data
       await fetchProfile();
       await fetchWalletTransactions();
 
-      toast.success(`₦${amount.toLocaleString()} added to wallet!`);
+      if (shouldCreditWallet) {
+        toast.success(`₦${amount.toLocaleString()} added to wallet!`);
+      }
     } catch (error: any) {
       console.error('Error adding money to wallet:', error);
-      toast.error('Failed to add money to wallet');
+      toast.error('Failed to process wallet transaction');
+      throw error;
     }
   };
 
