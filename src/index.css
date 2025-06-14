@@ -6,8 +6,8 @@
 
 @layer base {
   :root {
-    --background: 45 25% 97%;
-    --foreground: 0 0% 17%;
+    --background: 45 25% 99%; /* #FEFCF3 - Cream White */
+    --foreground: 0 0% 17%; /* #2C2C2C - Dark Gray */
 
     --card: 0 0% 100%;
     --card-foreground: 0 0% 17%;
@@ -15,38 +15,53 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 17%;
 
-    --primary: 340 78% 32%;
-    --primary-foreground: 45 25% 95%;
+    --primary: 14 100% 59%; /* #FF6B35 - Warm Orange */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 85% 55%;
-    --secondary-foreground: 0 0% 17%;
+    --secondary: 158 39% 21%; /* #2A5A3F - Forest Green */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 45 25% 92%;
-    --muted-foreground: 0 0% 45%;
+    --muted: 45 25% 92%; /* #F5F1E8 - Soft Beige */
+    --muted-foreground: 0 0% 40%; /* #666666 */
 
-    --accent: 85 25% 65%;
+    --accent: 35 82% 64%; /* #F4A261 - Golden Yellow */
     --accent-foreground: 0 0% 17%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 348 84% 47%; /* #DC3545 - Error Red */
+    --destructive-foreground: 0 0% 100%;
 
     --border: 45 25% 88%;
     --input: 45 25% 88%;
-    --ring: 340 78% 32%;
+    --ring: 14 100% 59%; /* Orange focus ring */
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 45 25% 97%;
+    --sidebar-foreground: 0 0% 17%;
+    --sidebar-primary: 14 100% 59%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 45 25% 92%;
+    --sidebar-accent-foreground: 0 0% 17%;
+    --sidebar-border: 45 25% 88%;
+    --sidebar-ring: 14 100% 59%;
 
-    /* Premium color palette */
-    --burgundy: 340 78% 32%;
+    /* Restaurant color palette */
+    --cream-white: 45 25% 99%; /* #FEFCF3 */
+    --soft-beige: 39 27% 93%; /* #F5F1E8 */
+    --warm-orange: 14 100% 59%; /* #FF6B35 */
+    --forest-green: 158 39% 21%; /* #2A5A3F */
+    --golden-yellow: 35 82% 64%; /* #F4A261 */
+    --dark-gray: 0 0% 17%; /* #2C2C2C */
+    --medium-gray: 0 0% 40%; /* #666666 */
+    
+    /* State colors */
+    --success: 142 71% 45%; /* #28A745 - Available */
+    --warning: 45 100% 51%; /* #FFC107 - Limited */
+    --error: 348 84% 47%; /* #DC3545 - Sold Out */
+    --info: 188 78% 41%; /* #17A2B8 - New */
+
+    /* Legacy colors for compatibility */
+    --burgundy: 348 78% 32%;
     --gold: 45 85% 55%;
     --sage: 85 25% 65%;
     --cream: 45 25% 95%;
@@ -63,33 +78,33 @@
     --popover: 0 0% 13%;
     --popover-foreground: 45 25% 95%;
 
-    --primary: 340 78% 45%;
-    --primary-foreground: 45 25% 95%;
+    --primary: 14 100% 59%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 85% 45%;
-    --secondary-foreground: 45 25% 95%;
+    --secondary: 158 39% 30%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 20%;
     --muted-foreground: 45 25% 65%;
 
-    --accent: 85 25% 35%;
-    --accent-foreground: 45 25% 95%;
+    --accent: 35 82% 54%;
+    --accent-foreground: 0 0% 17%;
 
-    --destructive: 0 72.2% 50.6%;
+    --destructive: 348 84% 47%;
     --destructive-foreground: 60 9.1% 97.8%;
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 340 78% 45%;
+    --ring: 14 100% 59%;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary: 14 100% 59%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 14 100% 59%;
   }
 }
 
@@ -108,12 +123,14 @@
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #FEFCF3; /* Cream white background */
   }
 
   /* Typography hierarchy */
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
     @apply font-semibold tracking-tight;
+    color: #2C2C2C; /* Dark gray text */
   }
 
   .font-display {
@@ -169,35 +186,109 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
   }
   50% {
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+    box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
   }
 }
 
 @layer utilities {
-  /* Premium gradients */
-  .bg-gradient-burgundy {
-    background: linear-gradient(135deg, hsl(var(--burgundy)) 0%, hsl(var(--burgundy) / 0.8) 100%);
+  /* Restaurant color utilities */
+  .bg-cream-white {
+    background-color: #FEFCF3;
   }
   
-  .bg-gradient-gold {
-    background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold) / 0.8) 100%);
+  .bg-soft-beige {
+    background-color: #F5F1E8;
+  }
+  
+  .bg-warm-orange {
+    background-color: #FF6B35;
+  }
+  
+  .bg-forest-green {
+    background-color: #2A5A3F;
+  }
+  
+  .bg-golden-yellow {
+    background-color: #F4A261;
+  }
+  
+  .text-warm-orange {
+    color: #FF6B35;
+  }
+  
+  .text-forest-green {
+    color: #2A5A3F;
+  }
+  
+  .text-golden-yellow {
+    color: #F4A261;
+  }
+  
+  .text-dark-gray {
+    color: #2C2C2C;
+  }
+  
+  .text-medium-gray {
+    color: #666666;
   }
 
-  .bg-gradient-premium {
-    background: linear-gradient(135deg, hsl(var(--burgundy)) 0%, hsl(var(--gold)) 100%);
+  /* State color utilities */
+  .bg-success {
+    background-color: #28A745;
+  }
+  
+  .bg-warning {
+    background-color: #FFC107;
+  }
+  
+  .bg-error {
+    background-color: #DC3545;
+  }
+  
+  .bg-info {
+    background-color: #17A2B8;
+  }
+  
+  .text-success {
+    color: #28A745;
+  }
+  
+  .text-warning {
+    color: #FFC107;
+  }
+  
+  .text-error {
+    color: #DC3545;
+  }
+  
+  .text-info {
+    color: #17A2B8;
+  }
+
+  /* Premium gradients with new colors */
+  .bg-gradient-warm {
+    background: linear-gradient(135deg, #FF6B35 0%, #F4A261 100%);
+  }
+  
+  .bg-gradient-natural {
+    background: linear-gradient(135deg, #2A5A3F 0%, #F4A261 100%);
+  }
+
+  .bg-gradient-appetite {
+    background: linear-gradient(135deg, #FF6B35 0%, #2A5A3F 100%);
   }
 
   .bg-texture {
     background-image: 
-      radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(139, 21, 56, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 25% 25%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(42, 90, 63, 0.1) 0%, transparent 50%);
   }
   
-  .text-gradient-premium {
-    background: linear-gradient(135deg, hsl(var(--burgundy)), hsl(var(--gold)));
+  .text-gradient-warm {
+    background: linear-gradient(135deg, #FF6B35, #F4A261);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -216,26 +307,31 @@
     @apply text-base sm:text-lg;
   }
 
-  /* Premium card styles */
+  /* Premium card styles with new colors */
   .card-premium {
-    @apply bg-white/90 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply bg-cream-white backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   .card-premium:hover {
     transform: translateY(-4px);
   }
 
-  /* Premium button styles */
+  /* Premium button styles with appetite-stimulating colors */
   .btn-premium {
-    @apply bg-gradient-burgundy text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply bg-warm-orange text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   .btn-premium:hover {
     transform: translateY(-1px);
+    background-color: #E55A2B; /* Darker orange on hover */
   }
 
-  .btn-gold {
-    @apply bg-gradient-gold text-charcoal font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
+  .btn-secondary {
+    @apply bg-forest-green text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+
+  .btn-accent {
+    @apply bg-golden-yellow text-dark-gray font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   /* Loading shimmer effect */
@@ -245,8 +341,8 @@
     animation: shimmer 1.5s infinite;
   }
 
-  /* Glow effects */
-  .glow-gold {
+  /* Glow effects with new primary color */
+  .glow-warm {
     animation: pulse-glow 2s infinite;
   }
 

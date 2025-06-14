@@ -140,9 +140,9 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
   return (
     <div className="space-y-6">
       {/* Summary */}
-      <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-4">
-        <h2 className="text-xl font-semibold text-charcoal mb-2">Menu Categories</h2>
-        <p className="text-muted-foreground">
+      <div className="bg-gradient-to-r from-warm-orange/10 to-forest-green/10 rounded-lg p-4 border border-soft-beige">
+        <h2 className="text-xl font-semibold text-dark-gray mb-2">Menu Categories</h2>
+        <p className="text-medium-gray">
           {totalItemsCount} dishes across {Object.keys(organizedFoods).length} categories
         </p>
       </div>
@@ -159,24 +159,24 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
             <AccordionItem 
               key={category} 
               value={category}
-              className="border border-border rounded-lg overflow-hidden"
+              className="border border-soft-beige rounded-lg overflow-hidden bg-cream-white shadow-sm"
             >
-              <AccordionTrigger className="px-6 py-4 hover:bg-muted/50 transition-colors">
+              <AccordionTrigger className="px-6 py-4 hover:bg-soft-beige transition-colors">
                 <div className="flex items-center justify-between w-full">
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{categoryInfo.icon}</span>
                     <div className="text-left">
-                      <h3 className="font-semibold text-lg text-charcoal">{category}</h3>
-                      <p className="text-sm text-muted-foreground">{categoryInfo.description}</p>
+                      <h3 className="font-semibold text-lg text-dark-gray">{category}</h3>
+                      <p className="text-sm text-medium-gray">{categoryInfo.description}</p>
                     </div>
                   </div>
-                  <Badge variant="secondary" className="ml-4">
+                  <Badge className="ml-4 bg-warm-orange text-white">
                     {categoryFoods.length} item{categoryFoods.length !== 1 ? 's' : ''}
                   </Badge>
                 </div>
               </AccordionTrigger>
               
-              <AccordionContent className="px-6 pb-6">
+              <AccordionContent className="px-6 pb-6 bg-cream-white">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                   {categoryFoods.map((food) => (
                     <FoodCard
@@ -199,8 +199,8 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
       {totalItemsCount === 0 && (
         <div className="text-center py-12">
           <div className="text-6xl mb-4">🔍</div>
-          <h3 className="text-xl font-semibold text-charcoal mb-2">No dishes found</h3>
-          <p className="text-muted-foreground">
+          <h3 className="text-xl font-semibold text-dark-gray mb-2">No dishes found</h3>
+          <p className="text-medium-gray">
             Try adjusting your filters or search terms
           </p>
         </div>
