@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,8 +49,7 @@ const Landing = () => {
               Authentic Nigerian Cuisine
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Experience the rich flavors of Nigeria delivered fresh to your doorstep. 
-              From jollof rice to pepper soup, we bring you the taste of home.
+              Experience the rich flavors of our restaurant delivered fresh to your doorstep.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {user ? (
