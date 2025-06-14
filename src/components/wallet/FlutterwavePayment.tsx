@@ -28,15 +28,14 @@ export const FlutterwavePayment = ({
   disabled = false
 }: FlutterwavePaymentProps) => {
   const handlePayment = () => {
-    // For frontend demo purposes, simulate payment flow
+    // Frontend simulation - will be replaced with real Flutterwave when you implement backend
     console.log('Initiating Flutterwave payment:', { amount, email, phone, name, reference });
     
-    // Simulate payment processing
     toast.info('Opening Flutterwave payment gateway...');
     
-    // Simulate payment success after 2 seconds (for demo)
+    // Simulate payment processing
     setTimeout(() => {
-      const success = Math.random() > 0.3; // 70% success rate for demo
+      const success = Math.random() > 0.2; // 80% success rate for demo
       
       if (success) {
         toast.success('Payment completed successfully!');
