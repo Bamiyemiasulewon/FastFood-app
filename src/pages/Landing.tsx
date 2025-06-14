@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -199,10 +200,10 @@ const Landing = () => {
       <section className="bg-primary/70 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to taste authentic Nigerian cuisine?
+            Order Now. Eat Well. Repeat.
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who trust us for their daily meals.
+            Delicious Nigerian meals, delivered hot to your doorstep. Start your first order today!
           </p>
           {!user && (
             <Button size="lg" variant="secondary" asChild>
