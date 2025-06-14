@@ -24,9 +24,9 @@ const FoodCard: React.FC<FoodCardProps> = ({
   formatPrice
 }) => {
   return (
-    <Card className="overflow-hidden bg-cream-white rounded-xl group hover:shadow-lg transition-all duration-300 border border-soft-beige">
+    <Card className="overflow-hidden card-premium rounded-xl group hover:shadow-lg transition-shadow">
       {food.image && (
-        <div className="aspect-square bg-gradient-to-br from-soft-beige to-muted relative overflow-hidden">
+        <div className="aspect-square bg-gradient-to-br from-cream to-muted relative overflow-hidden">
           <img 
             src={food.image} 
             alt={food.name}
@@ -35,41 +35,36 @@ const FoodCard: React.FC<FoodCardProps> = ({
           />
           <div className="absolute top-3 left-3 flex flex-col gap-2">
             {food.isVegetarian && (
-              <Badge className="bg-success text-white text-xs shadow-md">
+              <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
                 Vegetarian
               </Badge>
             )}
             {food.isSpicy && (
-              <Badge className="bg-warm-orange text-white text-xs shadow-md">
+              <Badge variant="secondary" className="bg-red-100 text-red-800 text-xs">
                 Spicy
-              </Badge>
-            )}
-            {!food.isAvailable && (
-              <Badge className="bg-error text-white text-xs shadow-md">
-                Sold Out
               </Badge>
             )}
           </div>
           <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm rounded-full px-2 py-1 flex items-center shadow-lg">
-            <Star className="w-3 h-3 text-golden-yellow mr-1" fill="currentColor" />
-            <span className="text-xs font-semibold text-dark-gray">{food.rating}</span>
+            <Star className="w-3 h-3 text-gold mr-1" fill="currentColor" />
+            <span className="text-xs font-semibold text-charcoal">{food.rating}</span>
           </div>
         </div>
       )}
       
-      <CardContent className="p-4 bg-cream-white">
-        <h4 className="font-semibold text-lg mb-2 text-dark-gray line-clamp-1">
+      <CardContent className="p-4">
+        <h4 className="font-semibold text-lg mb-2 text-charcoal line-clamp-1">
           {food.name}
         </h4>
-        <p className="text-sm text-medium-gray mb-3 line-clamp-2">
+        <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
           {food.description}
         </p>
         
         <div className="flex items-center justify-between mb-3">
-          <span className="font-bold text-lg text-warm-orange">
+          <span className="font-bold text-lg text-burgundy">
             {formatPrice(food.price)}
           </span>
-          <div className="flex items-center text-xs text-medium-gray">
+          <div className="flex items-center text-xs text-muted-foreground">
             <Clock className="w-3 h-3 mr-1" />
             {food.preparationTime}min
           </div>
@@ -77,24 +72,24 @@ const FoodCard: React.FC<FoodCardProps> = ({
 
         {/* Quantity Selector */}
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center border border-soft-beige rounded-md bg-white">
+          <div className="flex items-center border rounded-md">
             <Button
               size="sm"
               variant="ghost"
               onClick={() => onUpdateQuantity(-1)}
               disabled={!quantity}
-              className="h-7 w-7 p-0 text-warm-orange hover:bg-soft-beige"
+              className="h-7 w-7 p-0"
             >
               <Minus className="w-3 h-3" />
             </Button>
-            <span className="px-3 py-1 text-sm font-semibold min-w-[2rem] text-center text-dark-gray">
+            <span className="px-3 py-1 text-sm font-semibold min-w-[2rem] text-center">
               {quantity}
             </span>
             <Button
               size="sm"
               variant="ghost"
               onClick={() => onUpdateQuantity(1)}
-              className="h-7 w-7 p-0 text-warm-orange hover:bg-soft-beige"
+              className="h-7 w-7 p-0"
             >
               <Plus className="w-3 h-3" />
             </Button>
@@ -102,12 +97,12 @@ const FoodCard: React.FC<FoodCardProps> = ({
         </div>
         
         <Button 
-          className="w-full bg-warm-orange hover:bg-[#E55A2B] text-white rounded-lg py-2 text-sm font-semibold shadow-md transition-all duration-300"
+          className="w-full btn-premium rounded-lg py-2 text-sm font-semibold"
           onClick={onAddToCart}
-          disabled={!isUserLoggedIn || !quantity || !food.isAvailable}
+          disabled={!isUserLoggedIn || !quantity}
         >
           <ShoppingCart className="w-4 h-4 mr-2" />
-          {!food.isAvailable ? 'Sold Out' : 'Add to Cart'}
+          Add to Cart
         </Button>
       </CardContent>
     </Card>
