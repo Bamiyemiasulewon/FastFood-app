@@ -64,15 +64,13 @@ export const Navbar = () => {
                   Orders
                 </Link>
                 
-                <Button 
-                  size="sm" 
-                  variant="outline" 
-                  className="bg-green-600/10 border-green-500/30 text-green-700 hover:bg-green-600/20 hover:text-green-700"
+                <button
                   onClick={handleWhatsAppContact}
+                  className="text-gray-700 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2"
                 >
-                  <MessageCircle className="h-4 w-4 mr-2" />
+                  <MessageCircle className="h-4 w-4" />
                   Contact Us
-                </Button>
+                </button>
                 
                 <Link
                   to="/wallet"

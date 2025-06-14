@@ -142,9 +142,6 @@ const OrderHistory = () => {
                   : 'You haven\'t placed any orders yet'
                 }
               </p>
-              <Button className="btn-premium">
-                Start Ordering
-              </Button>
             </CardContent>
           </Card>
         ) : (
