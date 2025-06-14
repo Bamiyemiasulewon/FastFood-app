@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo, useCallback } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { 
@@ -29,23 +28,27 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
   const { user } = useAuthStore();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
 
-  // Define category structure with updated categories
+  // Define category structure with rice categories grouped first
   const categoryStructure = {
     'Jollof rice': {
       icon: '🍚',
       description: 'Traditional Nigerian jollof rice preparations'
     },
-    'Spaghetti': {
-      icon: '🍝',
-      description: 'Nigerian-style spaghetti dishes'
-    },
     'Fried Rice': {
       icon: '🍛',
       description: 'Delicious fried rice varieties'
     },
-    'White Rice & Native rice': {
+    'White Rice': {
       icon: '🍚',
-      description: 'White rice and native rice preparations'
+      description: 'Steamed white rice preparations'
+    },
+    'Native Rice': {
+      icon: '🍚',
+      description: 'Traditional native rice dishes'
+    },
+    'Spaghetti': {
+      icon: '🍝',
+      description: 'Nigerian-style spaghetti dishes'
     },
     'Peppersoup': {
       icon: '🍲',
@@ -89,7 +92,7 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
       }
     });
 
-    // Group by category
+    // Group by category and maintain order
     const grouped = sorted.reduce((acc, food) => {
       const category = food.category;
       if (!acc[category]) {
@@ -99,7 +102,15 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
       return acc;
     }, {} as Record<string, typeof foods>);
 
-    return grouped;
+    // Return grouped foods in the order defined by categoryStructure
+    const orderedGrouped: Record<string, typeof foods> = {};
+    Object.keys(categoryStructure).forEach(category => {
+      if (grouped[category]) {
+        orderedGrouped[category] = grouped[category];
+      }
+    });
+
+    return orderedGrouped;
   }, [foods, searchTerm, dietaryFilter, sortBy]);
 
   const updateQuantity = useCallback((foodId: string, delta: number) => {
