@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/`,
+          emailRedirectTo: `${window.location.origin}/dashboard`,
           data: {
             first_name: userData.firstName,
             last_name: userData.lastName,
@@ -103,6 +103,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       }
 
       toast.success('Signed in successfully!');
+      // Redirect to dashboard after successful login
+      window.location.href = '/dashboard';
       return { error: null };
     } catch (error: any) {
       toast.error('Failed to sign in');
@@ -117,6 +119,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         toast.error(error.message);
       } else {
         toast.success('Signed out successfully');
+        // Redirect to home page after logout
+        window.location.href = '/';
       }
     } catch (error) {
       toast.error('Failed to sign out');

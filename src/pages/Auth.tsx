@@ -36,8 +36,10 @@ const Auth = () => {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
-    await signIn(email, password);
+    const { error } = await signIn(email, password);
     setIsLoading(false);
+    
+    // Don't redirect here, let the signIn function handle it
   };
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
