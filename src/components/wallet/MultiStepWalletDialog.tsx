@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -7,7 +8,6 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
 import { 
   CreditCard, 
-  Smartphone, 
   Building2, 
   ArrowLeft, 
   ArrowRight,
@@ -19,8 +19,7 @@ import {
 } from 'lucide-react';
 import { PinVerificationDialog } from './PinVerificationDialog';
 import { PaystackPayment } from './PaystackPayment';
-import { FlutterwavePayment } from './FlutterwavePayment';
-import { verifyPaystackPayment, verifyFlutterwavePayment, initiateBankTransferVerification } from '@/services/paymentVerification';
+import { verifyPaystackPayment, initiateBankTransferVerification } from '@/services/paymentVerification';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 
@@ -31,7 +30,7 @@ interface MultiStepWalletDialogProps {
   loading: boolean;
 }
 
-type PaymentMethod = 'bank_transfer' | 'paystack' | 'flutterwave';
+type PaymentMethod = 'bank_transfer' | 'paystack';
 
 interface TransactionStep {
   id: number;
@@ -62,7 +61,7 @@ export const MultiStepWalletDialog = ({
   const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [amount, setAmount] = useState('');
-  const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('bank_transfer');
+  const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('paystack');
   const [showPinDialog, setShowPinDialog] = useState(false);
   const [processingStage, setProcessingStage] = useState<string>('');
   const [paymentReference, setPaymentReference] = useState<string>('');
@@ -133,8 +132,6 @@ export const MultiStepWalletDialog = ({
       
       if (selectedMethod === 'paystack') {
         verificationResult = await verifyPaystackPayment(paymentReference);
-      } else if (selectedMethod === 'flutterwave') {
-        verificationResult = await verifyFlutterwavePayment(paymentReference);
       } else {
         // Bank transfer
         verificationResult = await initiateBankTransferVerification(
@@ -185,7 +182,7 @@ export const MultiStepWalletDialog = ({
   const resetDialog = () => {
     setCurrentStep(1);
     setAmount('');
-    setSelectedMethod('bank_transfer');
+    setSelectedMethod('paystack');
     setProcessingStage('');
     setPaymentReference('');
   };
@@ -206,7 +203,6 @@ export const MultiStepWalletDialog = ({
     switch (method) {
       case 'bank_transfer': return <Building2 className="w-5 h-5" />;
       case 'paystack': return <CreditCard className="w-5 h-5" />;
-      case 'flutterwave': return <Smartphone className="w-5 h-5" />;
     }
   };
 
@@ -282,9 +278,8 @@ export const MultiStepWalletDialog = ({
           <div className="space-y-3">
             <Label>Select Payment Method</Label>
             {[
-              { id: 'bank_transfer', name: 'Bank Transfer', desc: 'Direct bank transfer (Manual verification)' },
-              { id: 'paystack', name: 'Paystack', desc: 'Pay with card or bank transfer' },
-              { id: 'flutterwave', name: 'Flutterwave', desc: 'Mobile money and card payments' }
+              { id: 'paystack', name: 'Pay with Card', desc: 'Pay securely with your debit/credit card' },
+              { id: 'bank_transfer', name: 'Bank Transfer', desc: 'Direct bank transfer (Manual verification)' }
             ].map((method) => (
               <div 
                 key={method.id}
@@ -321,7 +316,9 @@ export const MultiStepWalletDialog = ({
               </div>
               <div className="flex justify-between">
                 <span>Payment Method:</span>
-                <span className="capitalize">{selectedMethod.replace('_', ' ')}</span>
+                <span className="capitalize">
+                  {selectedMethod === 'paystack' ? 'Card Payment' : 'Bank Transfer'}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span>Processing Fee:</span>
@@ -422,19 +419,6 @@ export const MultiStepWalletDialog = ({
               <PaystackPayment
                 amount={amountNum}
                 email={user.email || ''}
-                reference={paymentReference}
-                onSuccess={handlePaymentSuccess}
-                onClose={handlePaymentClose}
-                onError={handlePaymentError}
-              />
-            )}
-
-            {selectedMethod === 'flutterwave' && user && (
-              <FlutterwavePayment
-                amount={amountNum}
-                email={user.email || ''}
-                phone="080000000000" // In production, get from user profile
-                name={`${user.user_metadata?.first_name || ''} ${user.user_metadata?.last_name || ''}`.trim() || 'User'}
                 reference={paymentReference}
                 onSuccess={handlePaymentSuccess}
                 onClose={handlePaymentClose}

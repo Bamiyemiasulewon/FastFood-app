@@ -53,50 +53,6 @@ export const verifyPaystackPayment = async (reference: string): Promise<PaymentV
   }
 };
 
-export const verifyFlutterwavePayment = async (transactionId: string): Promise<PaymentVerificationResult> => {
-  try {
-    // Frontend simulation - In production, this would call your backend API
-    console.log('Verifying Flutterwave payment:', transactionId);
-    
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // For demo purposes, simulate successful verification
-    const success = Math.random() > 0.1; // 90% success rate
-    
-    if (success) {
-      // Extract amount from transaction ID (demo logic)
-      const amount = Math.floor(Math.random() * 10000) + 500;
-      
-      return {
-        success: true,
-        amount: amount,
-        reference: transactionId,
-        gatewayResponse: {
-          status: 'successful',
-          tx_ref: transactionId,
-          amount: amount
-        }
-      };
-    } else {
-      return {
-        success: false,
-        amount: 0,
-        reference: transactionId,
-        error: 'Payment verification failed'
-      };
-    }
-  } catch (error) {
-    console.error('Error verifying Flutterwave payment:', error);
-    return {
-      success: false,
-      amount: 0,
-      reference: transactionId,
-      error: error instanceof Error ? error.message : 'Network error during verification'
-    };
-  }
-};
-
 // Bank transfer verification (manual approval workflow)
 export const initiateBankTransferVerification = async (
   amount: number, 
