@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -62,19 +63,19 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Restaurant color palette with lighter oranges
-				'cream-white': '#FEFCF3',
-				'soft-beige': '#F5F1E8',
-				'warm-orange': '#FF9B6B', // Lighter orange - was #FF6B35
-				'forest-green': '#2A5A3F',
-				'golden-yellow': '#F4A261',
-				'dark-gray': '#2C2C2C',
-				'medium-gray': '#666666',
+				// Modern food delivery color palette
+				'pearl-white': '#FEFEFE',
+				'soft-gray': '#F8FAFC',
+				'emerald-fresh': '#059669', // Primary green
+				'emerald-dark': '#047857',
+				'slate-warm': '#475569',
+				'amber-accent': '#F59E0B',
+				'coral-accent': '#FF6B6B',
 				// State colors
-				success: '#28A745',
-				warning: '#FFC107',
-				error: '#DC3545',
-				info: '#17A2B8',
+				success: '#10B981',
+				warning: '#F59E0B',
+				error: '#EF4444',
+				info: '#3B82F6',
 				// Legacy colors for compatibility
 				burgundy: 'hsl(var(--burgundy))',
 				gold: 'hsl(var(--gold))',
@@ -115,8 +116,8 @@ export default {
 					'100%': { backgroundPosition: 'calc(200px + 100%) 0' }
 				},
 				'pulse-glow': {
-					'0%, 100%': { boxShadow: '0 0 20px rgba(255, 155, 107, 0.3)' }, // Updated for lighter orange
-					'50%': { boxShadow: '0 0 30px rgba(255, 155, 107, 0.6)' }
+					'0%, 100%': { boxShadow: '0 0 20px rgba(5, 150, 105, 0.3)' },
+					'50%': { boxShadow: '0 0 30px rgba(5, 150, 105, 0.6)' }
 				}
 			},
 			animation: {

@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
@@ -5,59 +6,59 @@
 
 @layer base {
   :root {
-    --background: 45 25% 99%; /* #FEFCF3 - Cream White */
-    --foreground: 0 0% 17%; /* #2C2C2C - Dark Gray */
+    --background: 210 40% 98%; /* #F8FAFC - Soft Gray */
+    --foreground: 215 25% 27%; /* #475569 - Slate Warm */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 17%;
+    --card-foreground: 215 25% 27%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 17%;
+    --popover-foreground: 215 25% 27%;
 
-    --primary: 14 100% 71%; /* #FF9B6B - Lighter Warm Orange */
+    --primary: 158 64% 52%; /* #059669 - Emerald Fresh */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 158 39% 21%; /* #2A5A3F - Forest Green */
+    --secondary: 215 28% 17%; /* #1E293B - Slate Dark */
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 45 25% 92%; /* #F5F1E8 - Soft Beige */
-    --muted-foreground: 0 0% 40%; /* #666666 */
+    --muted: 210 40% 96%; /* #F1F5F9 - Light Gray */
+    --muted-foreground: 215 16% 47%; /* #64748B */
 
-    --accent: 35 82% 64%; /* #F4A261 - Golden Yellow */
-    --accent-foreground: 0 0% 17%;
+    --accent: 43 96% 56%; /* #F59E0B - Amber Accent */
+    --accent-foreground: 215 25% 27%;
 
-    --destructive: 348 84% 47%; /* #DC3545 - Error Red */
+    --destructive: 0 84% 60%; /* #EF4444 - Error Red */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 45 25% 88%;
-    --input: 45 25% 88%;
-    --ring: 14 100% 71%; /* Lighter orange focus ring */
+    --border: 215 20% 91%;
+    --input: 215 20% 91%;
+    --ring: 158 64% 52%; /* Emerald focus ring */
 
     --radius: 0.75rem;
 
-    --sidebar-background: 45 25% 97%;
-    --sidebar-foreground: 0 0% 17%;
-    --sidebar-primary: 14 100% 71%;
+    --sidebar-background: 210 40% 97%;
+    --sidebar-foreground: 215 25% 27%;
+    --sidebar-primary: 158 64% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 45 25% 92%;
-    --sidebar-accent-foreground: 0 0% 17%;
-    --sidebar-border: 45 25% 88%;
-    --sidebar-ring: 14 100% 71%;
+    --sidebar-accent: 210 40% 94%;
+    --sidebar-accent-foreground: 215 25% 27%;
+    --sidebar-border: 215 20% 89%;
+    --sidebar-ring: 158 64% 52%;
 
-    /* Restaurant color palette */
-    --cream-white: 45 25% 99%; /* #FEFCF3 */
-    --soft-beige: 39 27% 93%; /* #F5F1E8 */
-    --warm-orange: 14 100% 71%; /* #FF9B6B - Lighter orange */
-    --forest-green: 158 39% 21%; /* #2A5A3F */
-    --golden-yellow: 35 82% 64%; /* #F4A261 */
-    --dark-gray: 0 0% 17%; /* #2C2C2C */
-    --medium-gray: 0 0% 40%; /* #666666 */
+    /* Modern food delivery color palette */
+    --pearl-white: 0 0% 99%; /* #FEFEFE */
+    --soft-gray: 210 40% 98%; /* #F8FAFC */
+    --emerald-fresh: 158 64% 52%; /* #059669 */
+    --emerald-dark: 158 64% 42%; /* #047857 */
+    --slate-warm: 215 25% 27%; /* #475569 */
+    --amber-accent: 43 96% 56%; /* #F59E0B */
+    --coral-accent: 10 100% 70%; /* #FF6B6B */
     
     /* State colors */
-    --success: 142 71% 45%; /* #28A745 - Available */
-    --warning: 45 100% 51%; /* #FFC107 - Limited */
-    --error: 348 84% 47%; /* #DC3545 - Sold Out */
-    --info: 188 78% 41%; /* #17A2B8 - New */
+    --success: 158 64% 52%; /* #10B981 - Available */
+    --warning: 43 96% 56%; /* #F59E0B - Limited */
+    --error: 0 84% 60%; /* #EF4444 - Sold Out */
+    --info: 217 91% 60%; /* #3B82F6 - New */
 
     /* Legacy colors for compatibility */
     --burgundy: 348 78% 32%;
@@ -68,42 +69,42 @@
   }
 
   .dark {
-    --background: 0 0% 10%;
-    --foreground: 45 25% 95%;
+    --background: 222 84% 5%;
+    --foreground: 210 40% 95%;
 
-    --card: 0 0% 13%;
-    --card-foreground: 45 25% 95%;
+    --card: 222 84% 8%;
+    --card-foreground: 210 40% 95%;
 
-    --popover: 0 0% 13%;
-    --popover-foreground: 45 25% 95%;
+    --popover: 222 84% 8%;
+    --popover-foreground: 210 40% 95%;
 
-    --primary: 14 100% 71%;
+    --primary: 158 64% 52%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 158 39% 30%;
+    --secondary: 217 33% 17%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 20%;
-    --muted-foreground: 45 25% 65%;
+    --muted: 217 33% 15%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 35 82% 54%;
-    --accent-foreground: 0 0% 17%;
+    --accent: 43 96% 56%;
+    --accent-foreground: 215 25% 27%;
 
-    --destructive: 348 84% 47%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 60 9.1% 97.8%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 14 100% 71%;
+    --border: 217 33% 15%;
+    --input: 217 33% 15%;
+    --ring: 158 64% 52%;
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 14 100% 71%;
+    --sidebar-background: 222 84% 5%;
+    --sidebar-foreground: 210 40% 95%;
+    --sidebar-primary: 158 64% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 14 100% 71%;
+    --sidebar-accent: 217 33% 12%;
+    --sidebar-accent-foreground: 210 40% 95%;
+    --sidebar-border: 217 33% 15%;
+    --sidebar-ring: 158 64% 52%;
   }
 }
 
@@ -122,14 +123,14 @@
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #FEFCF3; /* Cream white background */
+    background-color: #F8FAFC; /* Soft gray background */
   }
 
   /* Typography hierarchy */
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
     @apply font-semibold tracking-tight;
-    color: #2C2C2C; /* Dark gray text */
+    color: #475569; /* Slate warm text */
   }
 
   .font-display {
@@ -185,109 +186,117 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 155, 107, 0.3); /* Updated for lighter orange */
+    box-shadow: 0 0 20px rgba(5, 150, 105, 0.3);
   }
   50% {
-    box-shadow: 0 0 30px rgba(255, 155, 107, 0.6);
+    box-shadow: 0 0 30px rgba(5, 150, 105, 0.6);
   }
 }
 
 @layer utilities {
-  /* Restaurant color utilities */
-  .bg-cream-white {
-    background-color: #FEFCF3;
+  /* Modern food delivery color utilities */
+  .bg-pearl-white {
+    background-color: #FEFEFE;
   }
   
-  .bg-soft-beige {
-    background-color: #F5F1E8;
+  .bg-soft-gray {
+    background-color: #F8FAFC;
   }
   
-  .bg-warm-orange {
-    background-color: #FF9B6B; /* Lighter orange */
+  .bg-emerald-fresh {
+    background-color: #059669;
   }
   
-  .bg-forest-green {
-    background-color: #2A5A3F;
+  .bg-emerald-dark {
+    background-color: #047857;
   }
   
-  .bg-golden-yellow {
-    background-color: #F4A261;
+  .bg-slate-warm {
+    background-color: #475569;
   }
   
-  .text-warm-orange {
-    color: #FF9B6B; /* Lighter orange */
+  .bg-amber-accent {
+    background-color: #F59E0B;
   }
   
-  .text-forest-green {
-    color: #2A5A3F;
+  .bg-coral-accent {
+    background-color: #FF6B6B;
   }
   
-  .text-golden-yellow {
-    color: #F4A261;
+  .text-emerald-fresh {
+    color: #059669;
   }
   
-  .text-dark-gray {
-    color: #2C2C2C;
+  .text-emerald-dark {
+    color: #047857;
   }
   
-  .text-medium-gray {
-    color: #666666;
+  .text-slate-warm {
+    color: #475569;
+  }
+  
+  .text-amber-accent {
+    color: #F59E0B;
+  }
+  
+  .text-coral-accent {
+    color: #FF6B6B;
   }
 
   /* State color utilities */
   .bg-success {
-    background-color: #28A745;
+    background-color: #10B981;
   }
   
   .bg-warning {
-    background-color: #FFC107;
+    background-color: #F59E0B;
   }
   
   .bg-error {
-    background-color: #DC3545;
+    background-color: #EF4444;
   }
   
   .bg-info {
-    background-color: #17A2B8;
+    background-color: #3B82F6;
   }
   
   .text-success {
-    color: #28A745;
+    color: #10B981;
   }
   
   .text-warning {
-    color: #FFC107;
+    color: #F59E0B;
   }
   
   .text-error {
-    color: #DC3545;
+    color: #EF4444;
   }
   
   .text-info {
-    color: #17A2B8;
+    color: #3B82F6;
   }
 
-  /* Premium gradients with lighter orange */
-  .bg-gradient-warm {
-    background: linear-gradient(135deg, #FF9B6B 0%, #F4A261 100%);
+  /* Premium gradients with emerald and amber */
+  .bg-gradient-fresh {
+    background: linear-gradient(135deg, #059669 0%, #10B981 100%);
   }
   
-  .bg-gradient-natural {
-    background: linear-gradient(135deg, #2A5A3F 0%, #F4A261 100%);
+  .bg-gradient-warm {
+    background: linear-gradient(135deg, #F59E0B 0%, #FF6B6B 100%);
   }
 
   .bg-gradient-appetite {
-    background: linear-gradient(135deg, #FF9B6B 0%, #2A5A3F 100%);
+    background: linear-gradient(135deg, #059669 0%, #475569 100%);
   }
 
   .bg-texture {
     background-image: 
-      radial-gradient(circle at 25% 25%, rgba(255, 155, 107, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(42, 90, 63, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 25% 25%, rgba(5, 150, 105, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(71, 85, 105, 0.1) 0%, transparent 50%);
   }
   
-  .text-gradient-warm {
-    background: linear-gradient(135deg, #FF9B6B, #F4A261);
+  .text-gradient-fresh {
+    background: linear-gradient(135deg, #059669, #10B981);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -308,29 +317,29 @@
 
   /* Premium card styles with new colors */
   .card-premium {
-    @apply bg-cream-white backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply bg-white backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   .card-premium:hover {
     transform: translateY(-4px);
   }
 
-  /* Premium button styles with lighter orange */
+  /* Premium button styles with emerald */
   .btn-premium {
-    @apply bg-warm-orange text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply bg-emerald-fresh text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   .btn-premium:hover {
     transform: translateY(-1px);
-    background-color: #FF8A52; /* Darker version of lighter orange on hover */
+    background-color: #047857;
   }
 
   .btn-secondary {
-    @apply bg-forest-green text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply bg-slate-warm text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   .btn-accent {
-    @apply bg-golden-yellow text-dark-gray font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply bg-amber-accent text-slate-warm font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   /* Loading shimmer effect */
@@ -340,8 +349,8 @@
     animation: shimmer 1.5s infinite;
   }
 
-  /* Glow effects with lighter orange */
-  .glow-warm {
+  /* Glow effects with emerald */
+  .glow-fresh {
     animation: pulse-glow 2s infinite;
   }
 
