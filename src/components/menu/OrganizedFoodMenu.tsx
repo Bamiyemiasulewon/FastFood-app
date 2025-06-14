@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/accordion';
 import { useFoodStore } from '@/store/foodStore';
 import { useCartStore } from '@/store/cartStore';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuthStore } from '@/store/authStore';
 import { toast } from 'sonner';
 import FoodCard from './FoodCard';
 
@@ -25,11 +25,8 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
 }) => {
   const { foods } = useFoodStore();
   const { addItem } = useCartStore();
-  const { user } = useAuth();
+  const { user } = useAuthStore();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
-
-  console.log('OrganizedFoodMenu - User:', user);
-  console.log('OrganizedFoodMenu - Foods:', foods);
 
   // Define category structure with rice categories grouped first
   const categoryStructure = {
@@ -124,25 +121,16 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
   }, []);
 
   const handleAddToCart = useCallback((food: any) => {
-    console.log('Adding to cart - User:', user);
-    console.log('Adding to cart - Food:', food);
-    
     if (!user) {
       toast.error('Please login to add items to cart');
       return;
     }
 
     const quantity = quantities[food.id] || 1;
-    console.log('Adding quantity:', quantity);
+    addItem(food, quantity);
     
-    try {
-      addItem(food, quantity);
-      setQuantities(prev => ({ ...prev, [food.id]: 0 }));
-      toast.success(`${food.name} added to cart!`);
-    } catch (error) {
-      console.error('Error adding to cart:', error);
-      toast.error('Failed to add item to cart');
-    }
+    setQuantities(prev => ({ ...prev, [food.id]: 0 }));
+    toast.success(`${food.name} added to cart!`);
   }, [user, quantities, addItem]);
 
   const formatPrice = useCallback((price: number) => `₦${price.toLocaleString()}`, []);
