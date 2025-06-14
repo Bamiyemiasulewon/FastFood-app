@@ -38,8 +38,8 @@ const Landing = () => {
         {/* Background Food Images */}
         <div className="absolute inset-0 opacity-20">
           <div className="flex h-full">
-            <div className="flex-1 bg-cover bg-center" style={{backgroundImage: 'url(/lovable-uploads/e4bf75af-1bc3-4b03-927b-c35f95968a5e.png)'}}></div>
-            <div className="flex-1 bg-cover bg-center" style={{backgroundImage: 'url(/lovable-uploads/e2fda2b1-8589-451c-917b-720b806a4600.png)'}}></div>
+            <div className="flex-1 bg-cover bg-center" style={{backgroundImage: 'url(/lovable-uploads/65d14216-f2ea-4ef3-b985-911443e4b1df.png)'}}></div>
+            <div className="flex-1 bg-cover bg-center" style={{backgroundImage: 'url(/lovable-uploads/bf6e29a5-e1c7-4579-b5a6-65094d831a22.png)'}}></div>
           </div>
         </div>
         
@@ -126,25 +126,25 @@ const Landing = () => {
             {[
               {
                 name: "Jollof Rice & Chicken",
-                image: "/lovable-uploads/e4bf75af-1bc3-4b03-927b-c35f95968a5e.png",
+                image: "/lovable-uploads/65d14216-f2ea-4ef3-b985-911443e4b1df.png",
                 price: "₦2,500",
                 rating: 4.8
               },
               {
-                name: "Jollof Rice & Turkey",
+                name: "Native rice",
                 image: "/lovable-uploads/bda71da5-6763-48c0-8724-34990552d3a6.png",
                 price: "₦3,200",
                 rating: 4.9
               },
               {
                 name: "Jollof Spaghetti & Chicken",
-                image: "/lovable-uploads/e2fda2b1-8589-451c-917b-720b806a4600.png",
+                image: "/lovable-uploads/bf6e29a5-e1c7-4579-b5a6-65094d831a22.png",
                 price: "₦2,200",
                 rating: 4.7
               },
               {
-                name: "Chicken Peppersoup",
-                image: "/lovable-uploads/193ddcee-7c74-4d44-915f-1ca31e4cfe04.png",
+                name: "Catfish Peppersoup",
+                image: "/lovable-uploads/33bf7c67-2963-49fe-aee1-1035f9f37e7e.png",
                 price: "₦1,800",
                 rating: 4.6
               }
