@@ -33,9 +33,18 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Hero Section with Food Background */}
+      <section className="relative bg-gradient-to-r from-primary to-primary/80 text-white py-20 overflow-hidden">
+        {/* Background Food Images */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="flex h-full">
+            <div className="flex-1 bg-cover bg-center" style={{backgroundImage: 'url(/lovable-uploads/e4bf75af-1bc3-4b03-927b-c35f95968a5e.png)'}}></div>
+            <div className="flex-1 bg-cover bg-center" style={{backgroundImage: 'url(/lovable-uploads/e2fda2b1-8589-451c-917b-720b806a4600.png)'}}></div>
+          </div>
+        </div>
+        
+        {/* Content overlay */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Authentic Nigerian Cuisine
@@ -117,7 +126,7 @@ const Landing = () => {
             {[
               {
                 name: "Jollof Rice & Chicken",
-                image: "/lovable-uploads/65d14216-f2ea-4ef3-b985-911443e4b1df.png",
+                image: "/lovable-uploads/e4bf75af-1bc3-4b03-927b-c35f95968a5e.png",
                 price: "₦2,500",
                 rating: 4.8
               },
@@ -129,7 +138,7 @@ const Landing = () => {
               },
               {
                 name: "Jollof Spaghetti & Chicken",
-                image: "/lovable-uploads/eeb22afc-b937-41da-a72c-e61c256806b5.png",
+                image: "/lovable-uploads/e2fda2b1-8589-451c-917b-720b806a4600.png",
                 price: "₦2,200",
                 rating: 4.7
               },
