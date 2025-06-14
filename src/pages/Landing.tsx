@@ -38,7 +38,7 @@ const Landing = () => {
         {/* Background Food Images */}
         <div className="absolute inset-0 opacity-20">
           <div className="flex h-full">
-            <div className="flex-1 bg-cover bg-center" style={{backgroundImage: 'url(/lovable-uploads/65d14216-f2ea-4ef3-b985-911443e4b1df.png)'}}></div>
+            <div className="flex-1 bg-cover bg-center" style={{backgroundImage: 'url(/lovable-uploads/1b359bf1-1387-4e57-bfda-027bd90b3fb4.png)'}}></div>
             <div className="flex-1 bg-cover bg-center" style={{backgroundImage: 'url(/lovable-uploads/bf6e29a5-e1c7-4579-b5a6-65094d831a22.png)'}}></div>
           </div>
         </div>
