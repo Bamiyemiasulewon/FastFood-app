@@ -1,27 +1,64 @@
-
 import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Star, Clock, Search, Filter, ShoppingCart, Plus, Minus } from 'lucide-react';
+import { Toggle } from '@/components/ui/toggle';
+import { Search, LayoutGrid, List } from 'lucide-react';
 import { useFoodStore } from '@/store/foodStore';
-import { useCartStore } from '@/store/cartStore';
 import { useAuthStore } from '@/store/authStore';
+import OrganizedFoodMenu from '@/components/menu/OrganizedFoodMenu';
+import { Card, CardContent } from '@/components/ui/card';
+import { Star, Clock, ShoppingCart, Plus, Minus, Filter } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 
 export default function FoodCatalog() {
   const { foods } = useFoodStore();
-  const { addItem } = useCartStore();
   const { user } = useAuthStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [dietaryFilter, setDietaryFilter] = useState('all');
   const [sortBy, setSortBy] = useState('popular');
+  const [viewMode, setViewMode] = useState<'organized' | 'grid'>('organized');
   const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const { addItem } = useCartStore();
 
   const categories = ['all', ...new Set(foods.map(food => food.category))];
+
+  const filteredFoodsCount = useMemo(() => {
+    return foods.filter(food => {
+      const matchesSearch = food.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          food.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = selectedCategory === 'all' || food.category === selectedCategory;
+      const matchesDietary = dietaryFilter === 'all' ||
+                            (dietaryFilter === 'vegetarian' && food.isVegetarian) ||
+                            (dietaryFilter === 'spicy' && food.isSpicy);
+      
+      return matchesSearch && matchesCategory && matchesDietary && food.isAvailable;
+    }).length;
+  }, [foods, searchTerm, selectedCategory, dietaryFilter]);
+
+  const updateQuantity = (foodId: string, delta: number) => {
+    setQuantities(prev => ({
+      ...prev,
+      [foodId]: Math.max(0, (prev[foodId] || 0) + delta)
+    }));
+  };
+
+  const handleAddToCart = (food: any) => {
+    if (!user) {
+      toast.error('Please login to add items to cart');
+      return;
+    }
+
+    const quantity = quantities[food.id] || 1;
+    addItem(food, quantity);
+    
+    setQuantities(prev => ({ ...prev, [food.id]: 0 }));
+    toast.success(`${food.name} added to cart!`);
+  };
+
+  const formatPrice = (price: number) => `₦${price.toLocaleString()}`;
 
   const filteredFoods = useMemo(() => {
     return foods
@@ -51,28 +88,6 @@ export default function FoodCatalog() {
       });
   }, [foods, searchTerm, selectedCategory, dietaryFilter, sortBy]);
 
-  const updateQuantity = (foodId: string, delta: number) => {
-    setQuantities(prev => ({
-      ...prev,
-      [foodId]: Math.max(0, (prev[foodId] || 0) + delta)
-    }));
-  };
-
-  const handleAddToCart = (food: any) => {
-    if (!user) {
-      toast.error('Please login to add items to cart');
-      return;
-    }
-
-    const quantity = quantities[food.id] || 1;
-    addItem(food, quantity);
-    
-    setQuantities(prev => ({ ...prev, [food.id]: 0 }));
-    toast.success(`${food.name} added to cart!`);
-  };
-
-  const formatPrice = (price: number) => `₦${price.toLocaleString()}`;
-
   return (
     <div className="min-h-screen bg-texture py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,65 +101,106 @@ export default function FoodCatalog() {
           </p>
         </div>
 
-        {/* Search and Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              placeholder="Search dishes..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
+        {/* Controls */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 space-y-4">
+          {/* Search and View Toggle */}
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder="Search dishes..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">View:</span>
+              <Toggle
+                pressed={viewMode === 'organized'}
+                onPressedChange={(pressed) => setViewMode(pressed ? 'organized' : 'grid')}
+                aria-label="Toggle organized view"
+                className="data-[state=on]:bg-primary data-[state=on]:text-white"
+              >
+                <List className="w-4 h-4 mr-2" />
+                Categories
+              </Toggle>
+              <Toggle
+                pressed={viewMode === 'grid'}
+                onPressedChange={(pressed) => setViewMode(pressed ? 'grid' : 'organized')}
+                aria-label="Toggle grid view"
+                className="data-[state=on]:bg-primary data-[state=on]:text-white"
+              >
+                <LayoutGrid className="w-4 h-4 mr-2" />
+                Grid
+              </Toggle>
+            </div>
           </div>
+
+          {/* Filters */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger>
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent>
+                {categories.map(category => (
+                  <SelectItem key={category} value={category}>
+                    {category === 'all' ? 'All Categories' : category}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={dietaryFilter} onValueChange={setDietaryFilter}>
+              <SelectTrigger>
+                <SelectValue placeholder="Dietary" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Dietary</SelectItem>
+                <SelectItem value="vegetarian">Vegetarian</SelectItem>
+                <SelectItem value="spicy">Spicy</SelectItem>
+              </SelectContent>
+            </Select>
+
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger>
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="popular">Most Popular</SelectItem>
+                <SelectItem value="price-low">Price: Low to High</SelectItem>
+                <SelectItem value="price-high">Price: High to Low</SelectItem>
+                <SelectItem value="rating">Highest Rated</SelectItem>
+                <SelectItem value="time">Fastest Prep</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Results Summary */}
+          <div className="flex items-center justify-between pt-2 border-t">
+            <p className="text-sm text-muted-foreground">
+              {filteredFoodsCount} dish{filteredFoodsCount !== 1 ? 'es' : ''} found
+            </p>
+            {!user && (
+              <p className="text-sm text-amber-600 bg-amber-50 px-3 py-1 rounded-full">
+                Login to add items to cart
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Menu Display */}
+        {viewMode === 'organized' ? (
+          <OrganizedFoodMenu 
+            searchTerm={searchTerm}
+            dietaryFilter={dietaryFilter}
+            sortBy={sortBy}
+          />
+        ) : (
           
-          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-            <SelectTrigger>
-              <SelectValue placeholder="Category" />
-            </SelectTrigger>
-            <SelectContent>
-              {categories.map(category => (
-                <SelectItem key={category} value={category}>
-                  {category === 'all' ? 'All Categories' : category}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <Select value={dietaryFilter} onValueChange={setDietaryFilter}>
-            <SelectTrigger>
-              <SelectValue placeholder="Dietary" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Dietary</SelectItem>
-              <SelectItem value="vegetarian">Vegetarian</SelectItem>
-              <SelectItem value="spicy">Spicy</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger>
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="popular">Most Popular</SelectItem>
-              <SelectItem value="price-low">Price: Low to High</SelectItem>
-              <SelectItem value="price-high">Price: High to Low</SelectItem>
-              <SelectItem value="rating">Highest Rated</SelectItem>
-              <SelectItem value="time">Fastest Prep</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Results Count */}
-        <div className="mb-6">
-          <p className="text-muted-foreground">
-            Showing {filteredFoods.length} dish{filteredFoods.length !== 1 ? 'es' : ''}
-          </p>
-        </div>
-
-        {/* Food Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredFoods.map((food) => (
             <Card key={food.id} className="overflow-hidden card-premium rounded-2xl group">
               <div className="aspect-square bg-gradient-to-br from-cream to-muted relative overflow-hidden">
@@ -229,14 +285,6 @@ export default function FoodCatalog() {
           ))}
         </div>
 
-        {filteredFoods.length === 0 && (
-          <div className="text-center py-12">
-            <Filter className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-charcoal mb-2">No dishes found</h3>
-            <p className="text-muted-foreground">
-              Try adjusting your filters or search terms
-            </p>
-          </div>
         )}
       </div>
     </div>
