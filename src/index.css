@@ -6,62 +6,47 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%; /* #F8FAFC - Soft Gray */
-    --foreground: 215 25% 27%; /* #475569 - Slate Warm */
+    --background: 45 25% 97%;
+    --foreground: 0 0% 17%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 0 0% 17%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 0 0% 17%;
 
-    --primary: 158 64% 52%; /* #059669 - Emerald Fresh */
-    --primary-foreground: 0 0% 100%;
+    --primary: 340 78% 32%;
+    --primary-foreground: 45 25% 95%;
 
-    --secondary: 215 28% 17%; /* #1E293B - Slate Dark */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 45 85% 55%;
+    --secondary-foreground: 0 0% 17%;
 
-    --muted: 210 40% 96%; /* #F1F5F9 - Light Gray */
-    --muted-foreground: 215 16% 47%; /* #64748B */
+    --muted: 45 25% 92%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 43 96% 56%; /* #F59E0B - Amber Accent */
-    --accent-foreground: 215 25% 27%;
+    --accent: 85 25% 65%;
+    --accent-foreground: 0 0% 17%;
 
-    --destructive: 0 84% 60%; /* #EF4444 - Error Red */
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 215 20% 91%;
-    --input: 215 20% 91%;
-    --ring: 158 64% 52%; /* Emerald focus ring */
+    --border: 45 25% 88%;
+    --input: 45 25% 88%;
+    --ring: 340 78% 32%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 210 40% 97%;
-    --sidebar-foreground: 215 25% 27%;
-    --sidebar-primary: 158 64% 52%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 40% 94%;
-    --sidebar-accent-foreground: 215 25% 27%;
-    --sidebar-border: 215 20% 89%;
-    --sidebar-ring: 158 64% 52%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Modern food delivery color palette */
-    --pearl-white: 0 0% 99%; /* #FEFEFE */
-    --soft-gray: 210 40% 98%; /* #F8FAFC */
-    --emerald-fresh: 158 64% 52%; /* #059669 */
-    --emerald-dark: 158 64% 42%; /* #047857 */
-    --slate-warm: 215 25% 27%; /* #475569 */
-    --amber-accent: 43 96% 56%; /* #F59E0B */
-    --coral-accent: 10 100% 70%; /* #FF6B6B */
-    
-    /* State colors */
-    --success: 158 64% 52%; /* #10B981 - Available */
-    --warning: 43 96% 56%; /* #F59E0B - Limited */
-    --error: 0 84% 60%; /* #EF4444 - Sold Out */
-    --info: 217 91% 60%; /* #3B82F6 - New */
-
-    /* Legacy colors for compatibility */
-    --burgundy: 348 78% 32%;
+    /* Premium color palette */
+    --burgundy: 340 78% 32%;
     --gold: 45 85% 55%;
     --sage: 85 25% 65%;
     --cream: 45 25% 95%;
@@ -69,42 +54,42 @@
   }
 
   .dark {
-    --background: 222 84% 5%;
-    --foreground: 210 40% 95%;
+    --background: 0 0% 10%;
+    --foreground: 45 25% 95%;
 
-    --card: 222 84% 8%;
-    --card-foreground: 210 40% 95%;
+    --card: 0 0% 13%;
+    --card-foreground: 45 25% 95%;
 
-    --popover: 222 84% 8%;
-    --popover-foreground: 210 40% 95%;
+    --popover: 0 0% 13%;
+    --popover-foreground: 45 25% 95%;
 
-    --primary: 158 64% 52%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 340 78% 45%;
+    --primary-foreground: 45 25% 95%;
 
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 45 85% 45%;
+    --secondary-foreground: 45 25% 95%;
 
-    --muted: 217 33% 15%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 45 25% 65%;
 
-    --accent: 43 96% 56%;
-    --accent-foreground: 215 25% 27%;
+    --accent: 85 25% 35%;
+    --accent-foreground: 45 25% 95%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72.2% 50.6%;
     --destructive-foreground: 60 9.1% 97.8%;
 
-    --border: 217 33% 15%;
-    --input: 217 33% 15%;
-    --ring: 158 64% 52%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 340 78% 45%;
 
-    --sidebar-background: 222 84% 5%;
-    --sidebar-foreground: 210 40% 95%;
-    --sidebar-primary: 158 64% 52%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 33% 12%;
-    --sidebar-accent-foreground: 210 40% 95%;
-    --sidebar-border: 217 33% 15%;
-    --sidebar-ring: 158 64% 52%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -123,14 +108,12 @@
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #F8FAFC; /* Soft gray background */
   }
 
   /* Typography hierarchy */
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
     @apply font-semibold tracking-tight;
-    color: #475569; /* Slate warm text */
   }
 
   .font-display {
@@ -186,117 +169,35 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(5, 150, 105, 0.3);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
   }
   50% {
-    box-shadow: 0 0 30px rgba(5, 150, 105, 0.6);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
   }
 }
 
 @layer utilities {
-  /* Modern food delivery color utilities */
-  .bg-pearl-white {
-    background-color: #FEFEFE;
+  /* Premium gradients */
+  .bg-gradient-burgundy {
+    background: linear-gradient(135deg, hsl(var(--burgundy)) 0%, hsl(var(--burgundy) / 0.8) 100%);
   }
   
-  .bg-soft-gray {
-    background-color: #F8FAFC;
-  }
-  
-  .bg-emerald-fresh {
-    background-color: #059669;
-  }
-  
-  .bg-emerald-dark {
-    background-color: #047857;
-  }
-  
-  .bg-slate-warm {
-    background-color: #475569;
-  }
-  
-  .bg-amber-accent {
-    background-color: #F59E0B;
-  }
-  
-  .bg-coral-accent {
-    background-color: #FF6B6B;
-  }
-  
-  .text-emerald-fresh {
-    color: #059669;
-  }
-  
-  .text-emerald-dark {
-    color: #047857;
-  }
-  
-  .text-slate-warm {
-    color: #475569;
-  }
-  
-  .text-amber-accent {
-    color: #F59E0B;
-  }
-  
-  .text-coral-accent {
-    color: #FF6B6B;
+  .bg-gradient-gold {
+    background: linear-gradient(135deg, hsl(var(--gold)) 0%, hsl(var(--gold) / 0.8) 100%);
   }
 
-  /* State color utilities */
-  .bg-success {
-    background-color: #10B981;
-  }
-  
-  .bg-warning {
-    background-color: #F59E0B;
-  }
-  
-  .bg-error {
-    background-color: #EF4444;
-  }
-  
-  .bg-info {
-    background-color: #3B82F6;
-  }
-  
-  .text-success {
-    color: #10B981;
-  }
-  
-  .text-warning {
-    color: #F59E0B;
-  }
-  
-  .text-error {
-    color: #EF4444;
-  }
-  
-  .text-info {
-    color: #3B82F6;
-  }
-
-  /* Premium gradients with emerald and amber */
-  .bg-gradient-fresh {
-    background: linear-gradient(135deg, #059669 0%, #10B981 100%);
-  }
-  
-  .bg-gradient-warm {
-    background: linear-gradient(135deg, #F59E0B 0%, #FF6B6B 100%);
-  }
-
-  .bg-gradient-appetite {
-    background: linear-gradient(135deg, #059669 0%, #475569 100%);
+  .bg-gradient-premium {
+    background: linear-gradient(135deg, hsl(var(--burgundy)) 0%, hsl(var(--gold)) 100%);
   }
 
   .bg-texture {
     background-image: 
-      radial-gradient(circle at 25% 25%, rgba(5, 150, 105, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(71, 85, 105, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(139, 21, 56, 0.1) 0%, transparent 50%);
   }
   
-  .text-gradient-fresh {
-    background: linear-gradient(135deg, #059669, #10B981);
+  .text-gradient-premium {
+    background: linear-gradient(135deg, hsl(var(--burgundy)), hsl(var(--gold)));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -315,31 +216,26 @@
     @apply text-base sm:text-lg;
   }
 
-  /* Premium card styles with new colors */
+  /* Premium card styles */
   .card-premium {
-    @apply bg-white backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply bg-white/90 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   .card-premium:hover {
     transform: translateY(-4px);
   }
 
-  /* Premium button styles with emerald */
+  /* Premium button styles */
   .btn-premium {
-    @apply bg-emerald-fresh text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
+    @apply bg-gradient-burgundy text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   .btn-premium:hover {
     transform: translateY(-1px);
-    background-color: #047857;
   }
 
-  .btn-secondary {
-    @apply bg-slate-warm text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
-  }
-
-  .btn-accent {
-    @apply bg-amber-accent text-slate-warm font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
+  .btn-gold {
+    @apply bg-gradient-gold text-charcoal font-semibold shadow-lg hover:shadow-xl transition-all duration-300;
   }
 
   /* Loading shimmer effect */
@@ -349,8 +245,8 @@
     animation: shimmer 1.5s infinite;
   }
 
-  /* Glow effects with emerald */
-  .glow-fresh {
+  /* Glow effects */
+  .glow-gold {
     animation: pulse-glow 2s infinite;
   }
 

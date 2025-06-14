@@ -1,8 +1,7 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Star, Clock, MapPin, Smartphone, LayoutDashboard, MessageCircle } from "lucide-react";
+import { Star, Clock, MapPin, Smartphone, LayoutDashboard } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 const Landing = () => {
@@ -31,13 +30,6 @@ const Landing = () => {
     }
   ];
 
-  const handleWhatsAppContact = () => {
-    const phoneNumber = "08104555490";
-    const message = "Hello! I'm interested in ordering from Pallette n' Drapes.";
-    const whatsappUrl = `https://wa.me/234${phoneNumber.slice(1)}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-  };
-
   return (
     <div className="min-h-screen">
       {/* Hero Section with Food Background */}
@@ -54,10 +46,10 @@ const Landing = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Order your favourite food here
+              Authentic Nigerian Cuisine
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Choose from a diverse menu featuring our array of dishes crafted with the finest ingredients and culinary expertise
+              Experience the rich flavors of our restaurant delivered fresh to your doorstep.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {user ? (
@@ -76,15 +68,6 @@ const Landing = () => {
                       My Dashboard
                     </Link>
                   </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white font-semibold shadow-lg"
-                    onClick={handleWhatsAppContact}
-                  >
-                    <MessageCircle className="h-5 w-5 mr-2" />
-                    Contact Us
-                  </Button>
                 </>
               ) : (
                 <>
@@ -93,15 +76,6 @@ const Landing = () => {
                   </Button>
                   <Button size="lg" variant="outline" asChild>
                     <Link to="/catalog">View Menu</Link>
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white font-semibold shadow-lg"
-                    onClick={handleWhatsAppContact}
-                  >
-                    <MessageCircle className="h-5 w-5 mr-2" />
-                    Contact Us
                   </Button>
                 </>
               )}
