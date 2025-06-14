@@ -31,7 +31,7 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
-  // Define category structure with only Rice Dishes and Pasta
+  // Define category structure with Rice Dishes, Pasta, and Fried Rice
   const categoryStructure = {
     'Rice Dishes': {
       icon: '🍚',
@@ -40,6 +40,10 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
     'Pasta': {
       icon: '🍝',
       description: 'Nigerian-style pasta dishes'
+    },
+    'Fried Rice': {
+      icon: '🍛',
+      description: 'Delicious fried rice varieties'
     }
   };
 
@@ -151,30 +155,32 @@ const OrganizedFoodMenu: React.FC<OrganizedFoodMenuProps> = ({
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                   {categoryFoods.map((food) => (
                     <Card key={food.id} className="overflow-hidden card-premium rounded-xl group hover:shadow-lg transition-shadow">
-                      <div className="aspect-square bg-gradient-to-br from-cream to-muted relative overflow-hidden">
-                        <img 
-                          src={food.image} 
-                          alt={food.name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          loading="lazy"
-                        />
-                        <div className="absolute top-3 left-3 flex flex-col gap-2">
-                          {food.isVegetarian && (
-                            <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
-                              Vegetarian
-                            </Badge>
-                          )}
-                          {food.isSpicy && (
-                            <Badge variant="secondary" className="bg-red-100 text-red-800 text-xs">
-                              Spicy
-                            </Badge>
-                          )}
+                      {food.image && (
+                        <div className="aspect-square bg-gradient-to-br from-cream to-muted relative overflow-hidden">
+                          <img 
+                            src={food.image} 
+                            alt={food.name}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            loading="lazy"
+                          />
+                          <div className="absolute top-3 left-3 flex flex-col gap-2">
+                            {food.isVegetarian && (
+                              <Badge variant="secondary" className="bg-green-100 text-green-800 text-xs">
+                                Vegetarian
+                              </Badge>
+                            )}
+                            {food.isSpicy && (
+                              <Badge variant="secondary" className="bg-red-100 text-red-800 text-xs">
+                                Spicy
+                              </Badge>
+                            )}
+                          </div>
+                          <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm rounded-full px-2 py-1 flex items-center shadow-lg">
+                            <Star className="w-3 h-3 text-gold mr-1" fill="currentColor" />
+                            <span className="text-xs font-semibold text-charcoal">{food.rating}</span>
+                          </div>
                         </div>
-                        <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm rounded-full px-2 py-1 flex items-center shadow-lg">
-                          <Star className="w-3 h-3 text-gold mr-1" fill="currentColor" />
-                          <span className="text-xs font-semibold text-charcoal">{food.rating}</span>
-                        </div>
-                      </div>
+                      )}
                       
                       <CardContent className="p-4">
                         <h4 className="font-semibold text-lg mb-2 text-charcoal line-clamp-1">

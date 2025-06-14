@@ -1,3 +1,4 @@
+
 import { create } from 'zustand';
 import { Food } from '@/types';
 import { toast } from 'sonner';
@@ -109,6 +110,34 @@ const initialFoods: Food[] = [
     isVegetarian: true,
     isSpicy: false,
     tags: ['pasta', 'vegetarian'],
+    isAvailable: true
+  },
+  {
+    id: '18',
+    name: 'Fried rice and chicken',
+    description: 'Perfectly seasoned fried rice with tender chicken pieces',
+    price: 2400,
+    image: '',
+    category: 'Fried Rice',
+    rating: 4.6,
+    preparationTime: 20,
+    isVegetarian: false,
+    isSpicy: false,
+    tags: ['fried rice', 'chicken'],
+    isAvailable: true
+  },
+  {
+    id: '19',
+    name: 'Fried rice and turkey',
+    description: 'Delicious fried rice with succulent turkey pieces',
+    price: 2700,
+    image: '',
+    category: 'Fried Rice',
+    rating: 4.5,
+    preparationTime: 22,
+    isVegetarian: false,
+    isSpicy: false,
+    tags: ['fried rice', 'turkey'],
     isAvailable: true
   }
 ];
