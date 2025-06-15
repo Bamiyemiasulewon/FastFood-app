@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,45 +31,41 @@ const Landing = () => {
     }
   ];
 
-  const handleWhatsAppContact = () => {
-    const phoneNumber = "2348104555490"; // Nigeria country code + number
-    const message = "Hello! I'm interested in ordering from Pallette n' Drapes.";
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-  };
-
   return (
     <div className="min-h-screen">
-      {/* Hero Section with Food Background */}
-      <section className="relative bg-gradient-to-r from-primary to-primary/80 text-white py-20 overflow-hidden">
-        {/* Background Food Images */}
-        <div className="absolute inset-0 opacity-20">
+      {/* Mobile-optimized Hero Section */}
+      <section className="relative bg-gradient-to-r from-primary to-primary/80 text-white py-12 sm:py-16 md:py-20 overflow-hidden">
+        {/* Background Food Images - hidden on mobile for better performance */}
+        <div className="absolute inset-0 opacity-20 hidden sm:block">
           <div className="flex h-full">
             <div className="flex-1 bg-cover bg-center" style={{backgroundImage: 'url(/lovable-uploads/1b359bf1-1387-4e57-bfda-027bd90b3fb4.png)'}}></div>
             <div className="flex-1 bg-cover bg-center" style={{backgroundImage: 'url(/lovable-uploads/bf6e29a5-e1c7-4579-b5a6-65094d831a22.png)'}}></div>
           </div>
         </div>
         
+        {/* Mobile gradient overlay for better readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/20 to-primary/60 sm:hidden"></div>
+        
         {/* Content overlay */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
               Order your favourite food here
             </h1>
-            <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
               Choose from a diverse menu featuring our array of dishes crafted with the finest ingredients and culinary expertise
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0 sm:flex-row">
               {user ? (
-                <Button size="lg" variant="secondary" asChild>
+                <Button size="lg" variant="secondary" asChild className="w-full sm:w-auto mobile-touch-large">
                   <Link to="/catalog">Order Now</Link>
                 </Button>
               ) : (
                 <>
-                  <Button size="lg" variant="secondary" asChild>
+                  <Button size="lg" variant="secondary" asChild className="w-full sm:w-auto mobile-touch-large">
                     <Link to="/auth">Get Started</Link>
                   </Button>
-                  <Button size="lg" variant="outline" asChild>
+                  <Button size="lg" variant="outline" asChild className="w-full sm:w-auto mobile-touch-large">
                     <Link to="/catalog">View Menu</Link>
                   </Button>
                 </>
@@ -78,29 +75,29 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Mobile-optimized Features Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Why Choose Pallette n' Drapes?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
               We're more than just a food delivery service. We're your gateway to authentic Nigerian flavors.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit">
+              <Card key={index} className="text-center hover:shadow-lg transition-shadow mobile-card-padding">
+                <CardHeader className="pb-3">
+                  <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit mb-3">
                     {feature.icon}
                   </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  <CardTitle className="text-lg sm:text-xl">{feature.title}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base">
+                <CardContent className="pt-0">
+                  <CardDescription className="text-sm sm:text-base">
                     {feature.description}
                   </CardDescription>
                 </CardContent>
@@ -110,19 +107,19 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Popular Dishes Section */}
-      <section className="py-20">
+      {/* Mobile-optimized Popular Dishes Section */}
+      <section className="py-12 sm:py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Popular Dishes
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-lg sm:text-xl text-gray-600 px-4">
               Taste the favorites that keep our customers coming back
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 name: "Jollof Rice & Chicken",
@@ -149,12 +146,13 @@ const Landing = () => {
                     src={dish.image}
                     alt={dish.name}
                     className="w-full h-full object-cover hover:scale-105 transition-transform"
+                    loading="lazy"
                   />
                 </div>
                 <CardContent className="p-4">
-                  <h3 className="font-semibold text-lg mb-2">{dish.name}</h3>
+                  <h3 className="font-semibold text-base sm:text-lg mb-2">{dish.name}</h3>
                   <div className="flex justify-between items-center">
-                    <span className="text-xl font-bold text-primary">{dish.price}</span>
+                    <span className="text-lg sm:text-xl font-bold text-primary">{dish.price}</span>
                     <div className="flex items-center gap-1">
                       <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                       <span className="text-sm text-gray-600">{dish.rating}</span>
@@ -165,27 +163,29 @@ const Landing = () => {
             ))}
           </div>
           
-          <div className="text-center mt-12">
-            <Button size="lg" asChild>
+          <div className="text-center mt-8 sm:mt-12 px-4">
+            <Button size="lg" asChild className="w-full sm:w-auto mobile-touch-large">
               <Link to="/catalog">View Full Menu</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* CTA Section - Made lighter */}
-      <section className="bg-primary/70 text-white py-20">
+      {/* Mobile-optimized CTA Section */}
+      <section className="bg-primary/70 text-white py-12 sm:py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
             Order Now. Eat Well. Repeat.
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
             Delicious Nigerian meals, delivered hot to your doorstep. Start your first order today!
           </p>
           {!user && (
-            <Button size="lg" variant="secondary" asChild>
-              <Link to="/auth">Sign Up Now</Link>
-            </Button>
+            <div className="px-4">
+              <Button size="lg" variant="secondary" asChild className="w-full sm:w-auto mobile-touch-large">
+                <Link to="/auth">Sign Up Now</Link>
+              </Button>
+            </div>
           )}
         </div>
       </section>

@@ -56,52 +56,54 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Welcome to Pallette n' Drapes</h1>
-          <p className="text-gray-600 mt-2">Your favorite restaurant experience</p>
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Welcome to Pallette n' Drapes</h1>
+          <p className="text-gray-600 mt-2 text-sm sm:text-base">Your favorite restaurant experience</p>
         </div>
 
         <Tabs defaultValue="signin" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="signin">Sign In</TabsTrigger>
-            <TabsTrigger value="signup">Sign Up</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsTrigger value="signin" className="mobile-touch-large">Sign In</TabsTrigger>
+            <TabsTrigger value="signup" className="mobile-touch-large">Sign Up</TabsTrigger>
           </TabsList>
 
           <TabsContent value="signin">
             <Card>
-              <CardHeader>
-                <CardTitle>Sign In</CardTitle>
-                <CardDescription>
+              <CardHeader className="space-y-1 pb-4">
+                <CardTitle className="text-xl sm:text-2xl">Sign In</CardTitle>
+                <CardDescription className="text-sm sm:text-base">
                   Enter your credentials to access your account
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSignIn} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="signin-email">Email</Label>
+                    <Label htmlFor="signin-email" className="text-sm font-medium">Email</Label>
                     <Input
                       id="signin-email"
                       name="email"
                       type="email"
                       placeholder="your@email.com"
                       required
+                      className="mobile-touch-large"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signin-password">Password</Label>
+                    <Label htmlFor="signin-password" className="text-sm font-medium">Password</Label>
                     <Input
                       id="signin-password"
                       name="password"
                       type="password"
                       placeholder="Enter your password"
                       required
+                      className="mobile-touch-large"
                     />
                   </div>
                   <Button
                     type="submit"
-                    className="w-full"
+                    className="w-full mobile-touch-large"
                     disabled={isLoading}
                   >
                     {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -114,67 +116,72 @@ const Auth = () => {
 
           <TabsContent value="signup">
             <Card>
-              <CardHeader>
-                <CardTitle>Create Account</CardTitle>
-                <CardDescription>
+              <CardHeader className="space-y-1 pb-4">
+                <CardTitle className="text-xl sm:text-2xl">Create Account</CardTitle>
+                <CardDescription className="text-sm sm:text-base">
                   Sign up for a new account to get started
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSignUp} className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name</Label>
+                      <Label htmlFor="firstName" className="text-sm font-medium">First Name</Label>
                       <Input
                         id="firstName"
                         name="firstName"
                         placeholder="John"
                         required
+                        className="mobile-touch-large"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name</Label>
+                      <Label htmlFor="lastName" className="text-sm font-medium">Last Name</Label>
                       <Input
                         id="lastName"
                         name="lastName"
                         placeholder="Doe"
                         required
+                        className="mobile-touch-large"
                       />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
+                    <Label htmlFor="phone" className="text-sm font-medium">Phone Number</Label>
                     <Input
                       id="phone"
                       name="phone"
                       type="tel"
                       placeholder="+234 801 234 5678"
                       required
+                      className="mobile-touch-large"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
+                    <Label htmlFor="signup-email" className="text-sm font-medium">Email</Label>
                     <Input
                       id="signup-email"
                       name="email"
                       type="email"
                       placeholder="your@email.com"
                       required
+                      className="mobile-touch-large"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
+                    <Label htmlFor="signup-password" className="text-sm font-medium">Password</Label>
                     <Input
                       id="signup-password"
                       name="password"
                       type="password"
                       placeholder="Create a strong password"
                       required
+                      className="mobile-touch-large"
                     />
                   </div>
                   <Button
                     type="submit"
-                    className="w-full"
+                    className="w-full mobile-touch-large"
                     disabled={isLoading}
                   >
                     {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
