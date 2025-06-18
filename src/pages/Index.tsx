@@ -1,4 +1,5 @@
 // Update this page (the content is just a fallback if you fail to update the page)
+import { fetchTasks, createTask, updateTask, deleteTask } from '@/services/paymentVerification';
 
 const Index = () => {
   return (
@@ -10,5 +11,8 @@ const Index = () => {
     </div>
   );
 };
+
+// Example usage in a React component
+// useEffect(() => { fetchTasks().then(setTasks); }, []);
 
 export default Index;

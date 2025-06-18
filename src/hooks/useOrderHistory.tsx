@@ -1,17 +1,14 @@
-
 import { useState, useEffect } from 'react';
 import { useAuth } from './useAuth';
-import { supabase } from '@/integrations/supabase/client';
-import { Order, OrderItem } from '@/types';
 import { toast } from 'sonner';
 
 export const useOrderHistory = () => {
   const { user } = useAuth();
-  const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [dateFilter, setDateFilter] = useState<string>('all');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [dateFilter, setDateFilter] = useState('all');
 
   useEffect(() => {
     if (user) {
@@ -24,61 +21,10 @@ export const useOrderHistory = () => {
 
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('orders')
-        .select(`
-          *,
-          order_items (
-            *,
-            food_items (
-              name,
-              image_url
-            )
-          )
-        `)
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-
-      const formattedOrders: Order[] = data.map(order => ({
-        id: order.id,
-        userId: order.user_id,
-        orderNumber: order.order_number,
-        items: order.order_items.map((item: any) => ({
-          id: item.id,
-          foodId: item.food_item_id,
-          name: item.food_items?.name || 'Unknown Item',
-          price: item.unit_price,
-          quantity: item.quantity,
-          specialInstructions: item.special_instructions,
-          image: item.food_items?.image_url,
-        })),
-        status: order.status,
-        totalAmount: order.total_amount,
-        orderDate: order.created_at,
-        estimatedDeliveryTime: order.estimated_delivery_time,
-        deliveryAddress: {
-          id: '1',
-          label: 'Home',
-          street: order.delivery_address || 'Not specified',
-          city: 'Lagos',
-          state: 'Lagos',
-          zipCode: '100001',
-          isDefault: true,
-        },
-        paymentMethod: order.payment_provider === 'wallet' ? 'wallet' : 'card',
-        customerName: `${user.email}`,
-        customerPhone: order.customer_phone,
-        specialInstructions: order.special_instructions,
-        deliveryFee: order.delivery_fee,
-        taxAmount: order.tax_amount,
-      }));
-
-      setOrders(formattedOrders);
-    } catch (error: any) {
-      console.error('Error fetching orders:', error);
-      toast.error('Failed to load order history');
+      // TODO: Replace with API call to Rust backend
+      setOrders([]); // Placeholder
+    } catch (error) {
+      toast.error('Failed to load orders');
     } finally {
       setLoading(false);
     }
@@ -112,30 +58,20 @@ export const useOrderHistory = () => {
     return matchesSearch && matchesStatus && matchesDate;
   });
 
-  const reorderItems = async (order: Order) => {
+  const reorderItems = async (order) => {
     try {
       // Add items back to cart
       for (const item of order.items) {
-        const { error } = await supabase
-          .from('cart_items')
-          .upsert({
-            user_id: user?.id,
-            food_item_id: item.foodId,
-            quantity: item.quantity,
-            special_instructions: item.specialInstructions,
-          });
-
-        if (error) throw error;
+        // TODO: Replace with API call to add item to cart
       }
 
       toast.success('Items added to cart! You can modify quantities before ordering.');
-    } catch (error: any) {
-      console.error('Error reordering items:', error);
+    } catch (error) {
       toast.error('Failed to add items to cart');
     }
   };
 
-  const getOrderStatusColor = (status: string) => {
+  const getOrderStatusColor = (status) => {
     switch (status) {
       case 'pending':
         return 'text-yellow-600 bg-yellow-100';

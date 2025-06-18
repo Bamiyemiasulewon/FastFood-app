@@ -1,4 +1,3 @@
-
 import { useAuthStore } from '@/store/authStore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -15,7 +14,6 @@ import {
 import { Link } from 'react-router-dom';
 import { LoyaltyProgram } from '@/components/loyalty/LoyaltyProgram';
 import { ReservationSystem } from '@/components/reservations/ReservationSystem';
-import { AIRecommendations } from '@/components/recommendations/AIRecommendations';
 
 export default function Dashboard() {
   const { user } = useAuthStore();
@@ -105,10 +103,8 @@ export default function Dashboard() {
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column - AI Recommendations */}
+          {/* Left Column - Recent Activity */}
           <div className="lg:col-span-2 space-y-8">
-            <AIRecommendations />
-            
             {/* Recent Activity */}
             <Card className="card-premium">
               <CardHeader>

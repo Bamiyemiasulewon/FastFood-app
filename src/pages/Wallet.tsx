@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useUserProfile } from '@/hooks/useUserProfile';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,11 +18,11 @@ import {
   Shield
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { MultiStepWalletDialog } from '@/components/wallet/MultiStepWalletDialog';
+import { WalletTopUp } from '@/components/wallet/WalletTopUp';
 
 const Wallet = () => {
   const { profile, walletTransactions, loading, addMoney, refreshTransactions } = useUserProfile();
-  const [addMoneyOpen, setAddMoneyOpen] = useState(false);
+  const [showTopUp, setShowTopUp] = useState(false);
   const [addingMoney, setAddingMoney] = useState(false);
 
   const formatDate = (date: Date) => {
@@ -86,6 +85,11 @@ const Wallet = () => {
     }
   };
 
+  const updateWalletBalance = async (amount: number) => {
+    await addMoney(amount, `manual-topup-${Date.now()}`);
+    await refreshTransactions();
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-texture flex items-center justify-center">
@@ -127,7 +131,7 @@ const Wallet = () => {
                 <Button 
                   size="lg" 
                   className="bg-white text-primary hover:bg-white/90 gap-2"
-                  onClick={() => setAddMoneyOpen(true)}
+                  onClick={() => setShowTopUp(true)}
                   disabled={addingMoney}
                 >
                   <Plus className="w-5 h-5" />
@@ -219,7 +223,7 @@ const Wallet = () => {
                 <p className="text-muted-foreground mb-6">
                   Your wallet transaction history will appear here
                 </p>
-                <Button className="btn-premium" onClick={() => setAddMoneyOpen(true)}>
+                <Button className="btn-premium" onClick={() => setShowTopUp(true)}>
                   Add Your First Transaction
                 </Button>
               </div>
@@ -259,13 +263,24 @@ const Wallet = () => {
           </CardContent>
         </Card>
 
-        {/* Multi-Step Wallet Dialog */}
-        <MultiStepWalletDialog
-          open={addMoneyOpen}
-          onOpenChange={setAddMoneyOpen}
-          onAddMoney={handleAddMoney}
-          loading={addingMoney}
-        />
+        {/* Wallet Top Up Modal */}
+        {showTopUp && (
+          <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 overflow-y-auto">
+            <div className="bg-white rounded-lg shadow-lg p-4 max-w-lg w-full relative max-h-[90vh] overflow-y-auto">
+              <button
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                onClick={() => setShowTopUp(false)}
+              >
+                ×
+              </button>
+              <WalletTopUp
+                userEmail={profile?.email || ''}
+                currentBalance={profile?.walletBalance || 0}
+                updateWalletBalance={updateWalletBalance}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

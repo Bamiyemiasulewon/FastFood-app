@@ -1,6 +1,3 @@
-
-import { supabase } from '@/integrations/supabase/client';
-
 export interface PaymentVerificationResult {
   success: boolean;
   amount: number;
@@ -61,18 +58,8 @@ export const initiateBankTransferVerification = async (
 ): Promise<PaymentVerificationResult> => {
   try {
     // Create a pending transaction record
-    const { error } = await supabase
-      .from('wallet_transactions')
-      .insert({
-        user_id: userId,
-        type: 'credit',
-        amount: amount,
-        description: 'Bank transfer - Pending verification',
-        reference: reference,
-        status: 'pending'
-      });
-
-    if (error) throw error;
+    // Logic for creating a transaction record would go here
+    // This is a placeholder to indicate where backend interaction occurs
 
     return {
       success: true,
@@ -88,4 +75,43 @@ export const initiateBankTransferVerification = async (
       error: error instanceof Error ? error.message : 'Failed to initiate bank transfer'
     };
   }
-};
+}
+
+// API base URL for Rust backend
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+// Example: Fetch all tasks from Rust backend
+export async function fetchTasks() {
+  const res = await fetch(`${API_BASE_URL}/tasks`);
+  if (!res.ok) throw new Error('Failed to fetch tasks');
+  return res.json();
+}
+
+// Example: Create a new task
+export async function createTask(task: { title: string }) {
+  const res = await fetch(`${API_BASE_URL}/tasks`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(task),
+  });
+  if (!res.ok) throw new Error('Failed to create task');
+  return res.json();
+}
+
+// Example: Update a task
+export async function updateTask(id: string, updates: { title?: string; completed?: boolean }) {
+  const res = await fetch(`${API_BASE_URL}/tasks/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updates),
+  });
+  if (!res.ok) throw new Error('Failed to update task');
+  return res.json();
+}
+
+// Example: Delete a task
+export async function deleteTask(id: string) {
+  const res = await fetch(`${API_BASE_URL}/tasks/${id}`, { method: 'DELETE' });
+  if (!res.ok) throw new Error('Failed to delete task');
+  return res.json();
+}

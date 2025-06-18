@@ -1,6 +1,4 @@
-
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { toast } from 'sonner';
 
@@ -15,20 +13,9 @@ export const useFoodItems = () => {
 
   const fetchFoodItems = async () => {
     try {
-      const { data, error } = await supabase
-        .from('food_items')
-        .select(`
-          *,
-          food_categories (
-            id,
-            name
-          )
-        `)
-        .eq('is_available', true)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setFoodItems(data || []);
+      // TODO: Replace with API call to Rust backend
+      // Example: const response = await fetch(`${API_URL}/food-items`)
+      setFoodItems([]); // Placeholder
     } catch (error: any) {
       console.error('Error fetching food items:', error);
       toast.error('Failed to load food items');
@@ -48,40 +35,10 @@ export const useCart = () => {
 
   useEffect(() => {
     if (user) {
-      fetchCart();
-    } else {
-      setCartItems([]);
+      // TODO: Fetch cart items from backend
+      setCartItems([]); // Placeholder
     }
   }, [user]);
-
-  const fetchCart = async () => {
-    if (!user) return;
-    
-    setLoading(true);
-    try {
-      const { data, error } = await supabase
-        .from('cart_items')
-        .select(`
-          *,
-          food_items (
-            id,
-            name,
-            price,
-            image_url,
-            description
-          )
-        `)
-        .eq('user_id', user.id);
-
-      if (error) throw error;
-      setCartItems(data || []);
-    } catch (error: any) {
-      console.error('Error fetching cart:', error);
-      toast.error('Failed to load cart');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const addToCart = async (foodItemId: string, quantity: number = 1) => {
     if (!user) {
@@ -90,35 +47,8 @@ export const useCart = () => {
     }
 
     try {
-      const { data: existingItem } = await supabase
-        .from('cart_items')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('food_item_id', foodItemId)
-        .single();
-
-      if (existingItem) {
-        // Update existing item
-        const { error } = await supabase
-          .from('cart_items')
-          .update({ quantity: existingItem.quantity + quantity })
-          .eq('id', existingItem.id);
-
-        if (error) throw error;
-      } else {
-        // Add new item
-        const { error } = await supabase
-          .from('cart_items')
-          .insert({
-            user_id: user.id,
-            food_item_id: foodItemId,
-            quantity
-          });
-
-        if (error) throw error;
-      }
-
-      await fetchCart();
+      // TODO: Replace with API call to add item to cart
+      setCartItems([]); // Placeholder
       toast.success('Item added to cart');
     } catch (error: any) {
       console.error('Error adding to cart:', error);
@@ -133,13 +63,8 @@ export const useCart = () => {
         return;
       }
 
-      const { error } = await supabase
-        .from('cart_items')
-        .update({ quantity })
-        .eq('id', cartItemId);
-
-      if (error) throw error;
-      await fetchCart();
+      // TODO: Replace with API call to update cart item
+      setCartItems([]); // Placeholder
     } catch (error: any) {
       console.error('Error updating cart item:', error);
       toast.error('Failed to update cart');
@@ -148,13 +73,8 @@ export const useCart = () => {
 
   const removeFromCart = async (cartItemId: string) => {
     try {
-      const { error } = await supabase
-        .from('cart_items')
-        .delete()
-        .eq('id', cartItemId);
-
-      if (error) throw error;
-      await fetchCart();
+      // TODO: Replace with API call to remove item from cart
+      setCartItems([]); // Placeholder
       toast.success('Item removed from cart');
     } catch (error: any) {
       console.error('Error removing from cart:', error);
@@ -166,12 +86,7 @@ export const useCart = () => {
     if (!user) return;
 
     try {
-      const { error } = await supabase
-        .from('cart_items')
-        .delete()
-        .eq('user_id', user.id);
-
-      if (error) throw error;
+      // TODO: Replace with API call to clear cart
       setCartItems([]);
       toast.success('Cart cleared');
     } catch (error: any) {
@@ -199,7 +114,7 @@ export const useCart = () => {
     clearCart,
     getTotalPrice,
     getTotalItems,
-    refetch: fetchCart
+    refetch: () => {}
   };
 };
 
@@ -211,82 +126,20 @@ export const useOrders = () => {
 
   useEffect(() => {
     if (user) {
-      fetchOrders();
-      
-      // Set up real-time subscription for order updates
-      const channel = supabase
-        .channel('order-changes')
-        .on(
-          'postgres_changes',
-          {
-            event: '*',
-            schema: 'public',
-            table: 'orders',
-            filter: `user_id=eq.${user.id}`
-          },
-          () => fetchOrders()
-        )
-        .subscribe();
-
-      return () => {
-        supabase.removeChannel(channel);
-      };
+      // TODO: Fetch orders from backend
+      setOrders([]); // Placeholder
     }
   }, [user]);
-
-  const fetchOrders = async () => {
-    if (!user) return;
-
-    setLoading(true);
-    try {
-      const { data, error } = await supabase
-        .from('orders')
-        .select(`
-          *,
-          order_items (
-            *,
-            food_items (
-              id,
-              name,
-              image_url
-            )
-          )
-        `)
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setOrders(data || []);
-    } catch (error: any) {
-      console.error('Error fetching orders:', error);
-      toast.error('Failed to load orders');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const createOrder = async (orderData: any) => {
     if (!user) throw new Error('User not authenticated');
 
     try {
-      // Generate order number
-      const { data: orderNumber } = await supabase.rpc('generate_order_number');
-      
-      const { data: order, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          user_id: user.id,
-          order_number: orderNumber,
-          ...orderData
-        })
-        .select()
-        .single();
-
-      if (orderError) throw orderError;
+      // TODO: Replace with API call to create order
+      setOrders([]); // Placeholder
 
       toast.success('Order created successfully!');
-      await fetchOrders();
-      return { data: order, error: null };
+      return { data: null, error: null };
     } catch (error: any) {
       console.error('Error creating order:', error);
       toast.error('Failed to create order');
@@ -298,6 +151,6 @@ export const useOrders = () => {
     orders,
     loading,
     createOrder,
-    refetch: fetchOrders
+    refetch: () => {}
   };
 };
