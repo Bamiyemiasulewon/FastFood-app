@@ -69,7 +69,7 @@ const Wallet = () => {
   const handleAddMoney = async (amount: number, method: string, reference: string) => {
     setAddingMoney(true);
     try {
-      await addMoney(amount, reference);
+      await addMoney(amount, reference, method);
       toast.success(
         `₦${amount.toLocaleString()} will be credited to your wallet within 5-10 minutes.`,
         {
@@ -86,7 +86,7 @@ const Wallet = () => {
   };
 
   const updateWalletBalance = async (amount: number) => {
-    await addMoney(amount, `manual-topup-${Date.now()}`);
+    await addMoney(amount, `manual-topup-${Date.now()}`, 'manual');
     await refreshTransactions();
   };
 
@@ -121,7 +121,7 @@ const Wallet = () => {
                   <h2 className="text-2xl font-bold">Wallet Balance</h2>
                 </div>
                 <p className="text-4xl font-bold mb-2">
-                  ₦{profile?.walletBalance.toLocaleString()}
+                  ₦{profile?.walletBalance?.toLocaleString() || '0'}
                 </p>
                 <p className="opacity-80">
                   Available for spending

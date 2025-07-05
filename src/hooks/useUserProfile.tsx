@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useAuth } from './useAuth';
 import { toast } from 'sonner';
@@ -66,7 +67,7 @@ export const useUserProfile = () => {
     }
   };
 
-  const addMoney = async (amount, reference, method) => {
+  const addMoney = async (amount, reference, method = 'manual') => {
     if (!user) return;
 
     try {
