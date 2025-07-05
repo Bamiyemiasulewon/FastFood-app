@@ -24,8 +24,5 @@ export const ProtectedRoute = ({ children, requireAdmin = false }: ProtectedRout
     return <Navigate to="/auth" state={{ from: location }} replace />;
   }
 
-  // Note: Admin check would require fetching user profile from database
-  // For now, we'll implement this when we add the profile fetch logic
-
   return <>{children}</>;
 };
