@@ -1,31 +1,27 @@
 
 import { useAuth } from '@/hooks/useAuth';
 import { Navigate, useLocation } from 'react-router-dom';
-import { Loader2 } from 'lucide-react';
+import { ReactNode } from 'react';
 
 interface ProtectedRouteProps {
-  children: React.ReactNode;
-  requireAdmin?: boolean;
+  children: ReactNode;
 }
 
-export const ProtectedRoute = ({ children, requireAdmin = false }: ProtectedRouteProps) => {
-  const { user, session, loading } = useAuth();
+export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+  const { user, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin" />
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-600"></div>
       </div>
     );
   }
 
-  if (!user || !session) {
+  if (!user) {
     return <Navigate to="/auth" state={{ from: location }} replace />;
   }
-
-  // Note: Admin check would require fetching user profile from database
-  // For now, we'll implement this when we add the profile fetch logic
 
   return <>{children}</>;
 };
